@@ -1,0 +1,42 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["react", "react-hooks"],
+  "rules": {
+    // "react/react-in-jsx-scope": "off",
+    // "react/jsx-uses-react": "off",
+    // "react/prop-types": "warn",
+    // "react/jsx-key": "error",
+    // "react/jsx-no-undef": "error",
+    // "react/jsx-no-bind": "warn",
+    // "react/jsx-pascal-case": "error",
+    // "jsx-a11y/alt-text": "error",
+    // "jsx-a11y/anchor-is-valid": "error",
+    // "jsx-a11y/label-has-associated-control": "error",
+    // "jsx-a11y/no-static-element-interactions": "error",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    // "no-debugger": "warn",
+    "prettier/prettier": ["error"]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
