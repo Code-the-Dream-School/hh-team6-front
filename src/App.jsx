@@ -17,11 +17,7 @@ function App() {
     };
   }, []);
 
-  return (
-    <>
-      <h1>{message}</h1>
-    </>
-  );
+  return <></>;
 }
 
 export default App;
