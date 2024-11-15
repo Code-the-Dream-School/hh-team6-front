@@ -7,7 +7,7 @@ const getData = async (url, params) => {
     let data = await res.data;
     return data;
   } catch (error) {
-    console.log(error, `error - getData in ${url} route`);
+    // console.log(error, `error - getData in ${url} route`);
   }
 };
 
@@ -17,7 +17,7 @@ const getAllData = async (url) => {
     let data = await res.data;
     return data;
   } catch (error) {
-    console.log(error, `error - getAllData in ${url} route`);
+    // console.log(error, `error - getAllData in ${url} route`);
   }
 };
 
