@@ -2,19 +2,49 @@ import React from 'react';
 import TeamMemberCard from '../components/TeamMemberCard';
 
 const About = () => {
+  // const frontend = {
+  //   image: "",
+  //   name: "",
+  //   role: ""
+  // }
+
+  // const backend = {
+  //   image: "",
+  //   name: "",
+  //   role: ""
+  // }
+
+  // const mentors = {
+  //   image: "",
+  //   name: "",
+  //   role: ""
+  // }
+
   return (
-    <div className="w-full h-screen flex flex-col items-center">
-      <div className="bg-lightPink p-10 flex flex-col items-center rounded-[5px] w-full max-w-[420px] min-w-[320px]">
+    <div className="w-full flex flex-col items-center bg-lime-300">
+      {/* <div className="bg-lightPink p-10 flex flex-col items-center rounded-[5px] w-full max-w-[420px] min-w-[320px]">
         <h2 className="font-headings font-bold text-2xl mb-5">Meet our team</h2>
-      </div>
-      <div className="bg-lightPink flex flex-col items-center rounded-[5px] w-full max-w-[420px] min-w-[320px]">
-        <TeamMemberCard />
-        <TeamMemberCard />
-        <TeamMemberCard />
-        <TeamMemberCard />
-        <TeamMemberCard />
-        <TeamMemberCard />
-        <TeamMemberCard />
+      </div> */}
+      <h2 className="font-headings p-10  font-bold text-2xl mb-5">
+        Meet our team
+      </h2>
+      <div
+      // className="bg-lightPink flex flex-col items-center rounded-[5px] w-full max-w-[420px] min-w-[320px]"
+      >
+        <div className="flex flex-col md:flex-row justify-between gap-5">
+          <TeamMemberCard />
+          <TeamMemberCard />
+          <TeamMemberCard />
+        </div>
+        <div className="flex flex-col md:flex-row justify-around gap-5">
+          <TeamMemberCard />
+          <TeamMemberCard />
+        </div>
+        <div className="flex flex-col md:flex-row justify-between gap-5">
+          <TeamMemberCard />
+          <TeamMemberCard />
+          <TeamMemberCard />
+        </div>
       </div>
       <div className="bg-lightPink flex flex-col items-center rounded-[5px] w-full max-w-[420px] min-w-[320px]">
         <h2 className="font-headings font-bold text-2xl mb-5">
