@@ -1,31 +1,28 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ProtectedRoute from '../routes/ProtectedRoute';
 
 // Pages
-import NotFound from './pages/NotFound';
-import Home from './pages/Home';
-import About from './pages/About';
+import NotFound from '../pages/NotFound';
+import Home from '../pages/Home';
+import About from '../pages/About';
 
 // Account pages
-import Account from './pages/account/Account';
+import Account from '../pages/account/Account';
 
 // Books pages
-import Books from './pages/books/Books';
-import Book from './pages/books/Book';
+import Books from '../pages/books/Books';
+import Book from '../pages/books/Book';
 
 // Cart pages
-import Cart from './pages/cart/Cart';
-import CheckOut from './pages/cart/CheckOut';
+import Cart from '../pages/cart/Cart';
+import CheckOut from '../pages/cart/CheckOut';
 
 // Auth pages
-import PasswordReset from './pages/auth/PasswordReset';
-import PasswordEdit from './pages/auth/PasswordEdit';
-import SignIn from './pages/auth/SignIn';
-import SignUp from './pages/auth/SignUp';
-
-// Layouts
-import Header from './layouts/Header';
-import Footer from './layouts/Footer';
+import PasswordReset from '../pages/auth/PasswordReset';
+import PasswordEdit from '../pages/auth/PasswordEdit';
+import SignIn from '../pages/auth/SignIn';
+import SignUp from '../pages/auth/SignUp';
 
 const Router = () => {
   return (
@@ -35,14 +32,16 @@ const Router = () => {
         v7_relativeSplatPath: true,
       }}
     >
-      <Header />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
 
         {/* Account Route */}
-        <Route path="/account" element={<Account />} />
+        <Route
+          path="/account"
+          element={<ProtectedRoute element={<Account />} />}
+        />
 
         {/* Books Routes */}
         <Route path="/books" element={<Books />} />
@@ -61,7 +60,6 @@ const Router = () => {
         {/* 404 Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 };

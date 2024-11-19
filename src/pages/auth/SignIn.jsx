@@ -1,46 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@headlessui/react';
-
-import { login } from '../../api/DBRequests';
+import useAuthForm from '../../hooks/UseAuthForm';
 
 const SignIn = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [error, setError] = useState({});
-  const navigate = useNavigate();
-
-  const handleChange = ({ target: { name, value } }) => {
-    setForm((prevForm) => ({ ...prevForm, [name]: value }));
-  };
-
-  const validateForm = () => {
-    const errors = {};
-    if (!form.email) errors.email = 'Email is required';
-    if (!form.password) errors.password = 'Password is required';
-    return errors;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const validationErrors = validateForm();
-    setError(validationErrors);
-    if (Object.keys(validationErrors).length > 0) {
-      return;
-    }
-
-    try {
-      const result = await login(form);
-      if (result.status === 200) {
-        navigate('/');
-      }
-    } catch (error) {
-      setError((prevError) => ({
-        ...prevError,
-        form: error.message,
-      }));
-    }
-  };
+  const { form, error, handleChange, handleSubmit } = useAuthForm();
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center">
