@@ -10,7 +10,8 @@ export const login = async ({ email, password }) => {
     });
     return { data, status };
   } catch (error) {
-    const errorMessage = error?.response?.data?.message || 'An unexpected error occurred';
+    const errorMessage =
+      error?.response?.data?.message || 'An unexpected error occurred';
     throw new Error(errorMessage);
   }
 };
