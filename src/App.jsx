@@ -1,8 +1,16 @@
 import React from 'react';
-import Router from './Router';
+import Router from './routes/Router';
+import { AuthProvider } from './context/AuthProvider';
+import MainLayout from './layouts/MainLayout';
 
 function App() {
-  return <Router />;
+  return (
+    <AuthProvider>
+      <MainLayout>
+        <Router />
+      </MainLayout>
+    </AuthProvider>
+  );
 }
 
 export default App;
