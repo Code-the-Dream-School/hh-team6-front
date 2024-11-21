@@ -1,53 +1,18 @@
-import { Link, useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@headlessui/react';
-
-import { login } from '../../api/DBRequests';
+import useAuthForm from '../../hooks/useAuthForm';
+import Input from '../../components/Form/Input';
 
 const SignIn = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [error, setError] = useState({});
-  const navigate = useNavigate();
-
-  const handleChange = ({ target: { name, value } }) => {
-    setForm((prevForm) => ({ ...prevForm, [name]: value }));
-  };
-
-  const validateForm = () => {
-    const errors = {};
-    if (!form.email) errors.email = 'Email is required';
-    if (!form.password) errors.password = 'Password is required';
-    return errors;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const validationErrors = validateForm();
-    setError(validationErrors);
-    if (Object.keys(validationErrors).length > 0) {
-      return;
-    }
-
-    try {
-      const result = await login(form);
-      if (result.status === 200) {
-        navigate('/');
-      }
-    } catch (error) {
-      setError((prevError) => ({
-        ...prevError,
-        form: error.message,
-      }));
-    }
-  };
+  const { form, error, handleChange, handleSubmit } = useAuthForm();
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center">
-      <div className="bg-lightBlue p-10 flex flex-col items-center rounded-[5px] w-full max-w-[420px] min-w-[320px]">
-        <h2 className="font-headings font-bold text-2xl mb-5">Log In</h2>
+    <div className="flex h-screen w-full flex-col items-center justify-center">
+      <div className="flex w-full min-w-[320px] max-w-[420px] flex-col items-center rounded-[5px] bg-lightBlue p-10">
+        <h2 className="mb-5 font-headings text-2xl font-bold">Log In</h2>
 
-        <form onSubmit={handleSubmit} className="flex flex-col w-full">
+        <form onSubmit={handleSubmit} className="flex w-full flex-col">
           <p className="mb-3">
             {`Don't have an account? `}
             <Link to="/sign_up" className="underline">
@@ -55,37 +20,30 @@ const SignIn = () => {
             </Link>
           </p>
 
-          <div className="w-full flex flex-col gap-1 mb-3">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={form.email}
-              onChange={handleChange}
-              className="border-2 border-gray rounded p-2 w-full"
-            />
-            {error.email && <p className="text-red">{error.email}</p>}
-          </div>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            value={form.email}
+            error={error.email}
+            onChange={handleChange}
+          >
+            Email
+          </Input>
 
-          <div className="w-full flex flex-col gap-1 mb-3">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value={form.password}
-              onChange={handleChange}
-              className="border-2 border-gray rounded p-2 w-full"
-            />
-            {error.password && <p className="text-red">{error.password}</p>}
-          </div>
+          <Input
+            id="password"
+            name="password"
+            type="password"
+            value={form.password}
+            error={error.password}
+            onChange={handleChange}
+          >
+            Password
+          </Input>
 
-          <p className="mb-7">
-            <Link
-              to="/password/reset"
-              className="underline w-full flex flex-col"
-            >
+          <p>
+            <Link to="/password/reset" className="underline">
               Forgot password?
             </Link>
           </p>
@@ -93,12 +51,12 @@ const SignIn = () => {
           <Button
             as="button"
             type="submit"
-            className="w-full bg-red text-white font-semibold tracking-wide rounded-md p-2"
+            className="mt-7 w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white"
           >
             Log In
           </Button>
 
-          {error.form && <p className="text-red mt-2">{error.form}</p>}
+          {error.form && <p className="mt-2 text-red">{error.form}</p>}
         </form>
       </div>
     </div>
