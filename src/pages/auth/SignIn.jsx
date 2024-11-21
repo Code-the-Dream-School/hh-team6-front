@@ -25,7 +25,7 @@ const SignIn = () => {
 
     const validationErrors = validateForm();
     setError(validationErrors);
-    if (Object.keys(validationErrors).length > 0) {   
+    if (Object.keys(validationErrors).length > 0) {
       return;
     }
 
@@ -82,7 +82,10 @@ const SignIn = () => {
           </div>
 
           <p className="mb-7">
-            <Link to="/password/reset" className="underline w-full flex flex-col">
+            <Link
+              to="/password/reset"
+              className="underline w-full flex flex-col"
+            >
               Forgot password?
             </Link>
           </p>

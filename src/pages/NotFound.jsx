@@ -7,12 +7,9 @@ const NotFound = () => {
       <img
         src={notFoundImage}
         alt="Page not found"
-        className="w-full max-w-4xl" 
+        className="w-full max-w-4xl"
       />
-      <a
-        href="/"
-        className="text-black underline"
-      >
+      <a href="/" className="text-black underline">
         Back to Home Page
       </a>
     </div>
