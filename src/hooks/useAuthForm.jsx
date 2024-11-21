@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../api/DBRequests';
 import { useAuth } from '../context/AuthProvider';
 
-const UseAuthForm = () => {
+const useAuthForm = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState({});
   const { setUserSession } = useAuth();
@@ -49,4 +49,4 @@ const UseAuthForm = () => {
   return { form, error, handleChange, handleSubmit };
 };
 
-export default UseAuthForm;
+export default useAuthForm;

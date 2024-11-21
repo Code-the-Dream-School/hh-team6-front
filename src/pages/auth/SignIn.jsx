@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@headlessui/react';
-import useAuthForm from '../../hooks/UseAuthForm';
+import useAuthForm from '../../hooks/useAuthForm';
+import Input from '../../components/Form/Input';
 
 const SignIn = () => {
   const { form, error, handleChange, handleSubmit } = useAuthForm();
@@ -19,37 +20,30 @@ const SignIn = () => {
             </Link>
           </p>
 
-          <div className="mb-3 flex w-full flex-col gap-1">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={form.email}
-              onChange={handleChange}
-              className="w-full rounded border-2 border-gray p-2"
-            />
-            {error.email && <p className="text-red">{error.email}</p>}
-          </div>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            value={form.email}
+            error={error.email}
+            onChange={handleChange}
+          >
+            Email
+          </Input>
 
-          <div className="mb-3 flex w-full flex-col gap-1">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value={form.password}
-              onChange={handleChange}
-              className="w-full rounded border-2 border-gray p-2"
-            />
-            {error.password && <p className="text-red">{error.password}</p>}
-          </div>
+          <Input
+            id="password"
+            name="password"
+            type="password"
+            value={form.password}
+            error={error.password}
+            onChange={handleChange}
+          >
+            Password
+          </Input>
 
-          <p className="mb-7">
-            <Link
-              to="/password/reset"
-              className="flex w-full flex-col underline"
-            >
+          <p>
+            <Link to="/password/reset" className="underline">
               Forgot password?
             </Link>
           </p>
@@ -57,7 +51,7 @@ const SignIn = () => {
           <Button
             as="button"
             type="submit"
-            className="w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white"
+            className="mt-7 w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white"
           >
             Log In
           </Button>
