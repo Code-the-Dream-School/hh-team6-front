@@ -53,4 +53,4 @@ const useSignUpForm = () => {
   return { form, error, handleChange, handleSubmit };
 };
 
-export default useSignUpForm;g
+export default useSignUpForm;
