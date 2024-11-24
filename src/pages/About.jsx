@@ -1,104 +1,47 @@
 import React from 'react';
-import TeamMemberCard from '../components/TeamMemberCard';
 import avatar from '../assets/images/square.png';
+import avatar1 from '../assets/images/Evgenii.png';
+import avatar3 from '../assets/images/Liuba.png';
+import avatar4 from '../assets/images/Valentina.png';
+import MembersList from '../components/About/MembersList';
 
 const About = () => {
   const frontend = [
-    {
-      image: avatar,
-      name: 'Evgenii',
-      role: 'Frontend',
-    },
-    {
-      image: avatar,
-      name: 'Brandon',
-      role: 'Frontend',
-    },
-    {
-      image: avatar,
-      name: 'Liuba',
-      role: 'Frontend',
-    },
+    {image: avatar1, name: 'Evgenii Rychkov'},
+    {image: avatar, name: 'Brandon Warren'},
+    {image: avatar, name: 'Liuba Barusch'},
   ];
-
-  const frontendCards = frontend.map((item, index) => (
-    <TeamMemberCard
-      key={index}
-      img={item.image}
-      name={item.name}
-      role={item.role}
-    />
-  ));
 
   const backend = [
-    {
-      image: avatar,
-      name: 'Valentina',
-      role: 'Backend',
-    },
-    {
-      image: avatar,
-      name: 'Tetiana',
-      role: 'Backend',
-    },
+    {image: avatar, name: 'Valentina Rudnitskaya'},
+    {image: avatar, name: 'Tetiana Andriyanova'},
   ];
-
-  const backendCards = backend.map((item, index) => (
-    <TeamMemberCard
-      key={index}
-      img={item.image}
-      name={item.name}
-      role={item.role}
-    />
-  ));
 
   const mentors = [
-    {
-      image: avatar,
-      name: 'Sergey',
-      role: 'Mentor',
-    },
-    {
-      image: avatar,
-      name: 'Dan',
-      role: 'Mentor',
-    },
-    {
-      image: avatar,
-      name: 'Vadim',
-      role: 'Mentor',
-    },
+    {image: avatar, name: 'Sergey Sherstobitov'},
+    {image: avatar, name: 'Dan P'},
+    {image: avatar, name: 'Vadim Dmitrochenko'},
   ];
 
-  const mentorCards = mentors.map((item, index) => (
-    <TeamMemberCard
-      key={index}
-      img={item.image}
-      name={item.name}
-      role={item.role}
-    />
-  ));
-
   return (
-    <div className="w-full flex flex-col items-center bg-white">
-      <h2 className="font-headings font-bold text-3xl md:text-4xl my-7 md:my-10">
+    <div className="flex flex-col items-center">
+      <h2 className="font-headings font-bold text-2xl my-7">
         Meet our team
       </h2>
-      <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-16">
-        {frontendCards}
-      </div>
-      <div className="flex flex-col md:flex-row justify-around gap-2 md:gap-32">
-        {backendCards}
-      </div>
-      <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-16">
-        {mentorCards}
-      </div>
-      <h2 className="font-headings font-bold text-3xl md:text-4xl my-7 md:my-10">
-        About Re:Books
-      </h2>
-      <p className="px-10 pb-10 flex flex-col items-center w-full font-body text-justify">
+      
+      <MembersList list={frontend} role={'Frontend'}/>
+      <MembersList list={backend} role={'Backend'}/>
+      <MembersList list={mentors} role={'Mentor'}/>
+    
+      <h2 className="font-headings font-bold text-2xl my-7">
+          About Re:Books
+        </h2>
+      <p className='px-20 text-center'>
         Welcome to your go-to marketplace for buying and selling pre-owned
-        books! Our platform connects book lovers, offering a space to resell
+          books! 
+      </p>
+      <p className="px-20 pb-10 text-center">
+      Our platform connects book lovers, offering a space to resell
         books from personal libraries or discover affordable, quality reads.
         Whether you’re looking to clear space on your shelves or find that next
         great title, we’ve made the process simple, secure, and
