@@ -1,18 +1,25 @@
 import React from 'react';
 import TeamMemberCard from './TeamMemberCard';
+import PropTypes from 'prop-types';
 
-const MembersList = ({list, role}) => { 
-    return (
-        <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-16">
-            {list.map((item, index) => (
+const MembersList = ({ list, role }) => {
+  return (
+    <div className="flex flex-col justify-between gap-2 md:flex-row md:gap-16">
+      {list.map((item, index) => (
         <TeamMemberCard
-            key={index}
-            img={item.image}
-            name={item.name}
-            role={role}
+          key={index}
+          img={item.image}
+          firstName={item.firstName}
+          lastName={item.lastName}
+          role={role}
         />
-    ))}
-        </div>
-    );
-}
+      ))}
+    </div>
+  );
+};
+
+MembersList.propTypes = {
+  list: PropTypes.array.isRequired,
+  role: PropTypes.string.isRequired,
+};
 export default MembersList;
