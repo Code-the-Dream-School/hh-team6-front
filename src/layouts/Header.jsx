@@ -19,7 +19,7 @@ const Header = () => {
             className="h-[26px] w-[33px] sm:h-[45px] sm:w-[60px]"
             src={logoImage}
           />
-          <h1 className="font-headings sm:text-2xl sm:font-bold">Re-Books</h1>
+          <h1 className="font-headings sm:text-2xl sm:font-bold">Re:Books</h1>
         </div>
         <div className="hidden max-w-[550px] px-5 sm:block sm:flex-auto">
           <Search id="search" />

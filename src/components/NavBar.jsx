@@ -32,7 +32,7 @@ const NavBar = () => {
             <Button
               as="button"
               onClick={() => handleNavigation('/account')}
-              className="h-[35px] rounded border border-gray px-1 text-gray"
+              className="h-[35px] rounded border border-gray px-1 text-blueGray"
             >
               My Account
             </Button>
@@ -50,7 +50,7 @@ const NavBar = () => {
             <Button
               as="button"
               onClick={() => handleNavigation('/sign_in')}
-              className="mx-1 text-gray"
+              className="mx-1 text-blueGray"
             >
               Log In
             </Button>
@@ -59,9 +59,9 @@ const NavBar = () => {
             <Button
               as="button"
               onClick={() => handleNavigation('/sign_up')}
-              className="mx-1 rounded border border-gray px-1 text-gray"
+              className="mx-1 rounded border border-gray px-1 text-blueGray"
             >
-              Sign up
+              Sign Up
             </Button>
           )}
         </>
