@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="min-w-[320px]">
+    <div className="flex min-h-screen min-w-[320px] flex-col">
       <AuthProvider>
         <BrowserRouter
           future={{

@@ -1,8 +1,8 @@
 import { Button } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
-import cartImage from '../assets/images/cart.png';
-import logout from '../assets/images/logout.png';
+import cartImage from '../assets/images/cart.svg';
+import logout from '../assets/images/logout.svg';
 import { useLocation } from 'react-router-dom';
 
 const NavBar = () => {
