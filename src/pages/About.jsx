@@ -1,10 +1,10 @@
 import React from 'react';
 import MembersList from '../components/About/MembersList';
-import avatar from '../assets/images/avatar.jpg';
 import avatar1 from '../assets/images/Evgenii.png';
 import avatar2 from '../assets/images/Liuba.png';
 import avatar3 from '../assets/images/Brandon.png';
 import avatar4 from '../assets/images/Valentina.png';
+import avatar5 from '../assets/images/Tetiana.png';
 import avatar6 from '../assets/images/Sergey.png';
 import avatar7 from '../assets/images/Dan.png';
 import avatar8 from '../assets/images/Vadim.png';
@@ -18,7 +18,7 @@ const About = () => {
 
   const backend = [
     { image: avatar4, firstName: 'Valentina', lastName: 'Rudnitskaya' },
-    { image: avatar, firstName: 'Tetiana', lastName: 'Andriyanova' },
+    { image: avatar5, firstName: 'Tetiana', lastName: 'Andriyanova' },
   ];
 
   const mentors = [
