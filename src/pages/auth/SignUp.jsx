@@ -8,7 +8,7 @@ const SignUp = () => {
   const { form, error, handleChange, handleSubmit } = useSignUpForm();
 
   return (
-    <div className="flex flex-grow items-center justify-center">
+    <div className="flex h-screen w-full flex-col items-center justify-center">
       <div className="flex w-full min-w-[320px] max-w-[420px] flex-col items-center rounded-[5px] bg-lightBlue p-10">
         <h2 className="mb-5 font-headings text-2xl font-bold">Sign Up</h2>
 
