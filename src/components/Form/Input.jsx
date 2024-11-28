@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Input as HeadlessInput } from '@headlessui/react';
 
 const Input = ({ id, name, type, value, onChange, children, error }) => (
   <div className="mb-3 flex w-full flex-col gap-1">
     <label htmlFor={id}>{children}</label>
-    <input
+    <HeadlessInput
       id={id}
       name={name}
       type={type}
