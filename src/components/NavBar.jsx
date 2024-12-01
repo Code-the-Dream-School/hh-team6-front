@@ -20,7 +20,11 @@ const NavBar = () => {
         <div className="flex items-center gap-2">
           {location.pathname !== '/cart' && (
             <Link to="/cart" className="flex items-center">
-              <img className="rounded border border-gray p-1" src={cartImage} />
+              <img
+                className="rounded border border-gray p-1"
+                alt="cart"
+                src={cartImage}
+              />
             </Link>
           )}
           {location.pathname !== '/account' && (
@@ -31,9 +35,11 @@ const NavBar = () => {
               My Account
             </Link>
           )}
+          {/* eslint-disable-next-line react/jsx-no-bind */}
           <Button as="button" onClick={handleLogout}>
             <img
               className="h-[35px] rounded border border-gray p-1"
+              alt="logout"
               src={logout}
             />
           </Button>

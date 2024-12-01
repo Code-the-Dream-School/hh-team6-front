@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 const TeamMemberCard = ({ img, firstName, lastName, role }) => {
@@ -7,7 +6,7 @@ const TeamMemberCard = ({ img, firstName, lastName, role }) => {
       <img
         className="h-48 w-48 rounded-t-lg object-cover"
         src={img}
-        alt="Image description"
+        alt="Team member"
       />
       <div className="px-6 py-4 text-center">
         <h2 className="mb-2 text-xl font-bold">{firstName}</h2>
