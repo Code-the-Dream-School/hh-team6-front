@@ -1,18 +1,13 @@
-import { Button } from '@headlessui/react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider';
-import cartImage from '../assets/images/cart.svg';
-import logout from '../assets/images/logout.svg';
+import { useLocation, Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthProvider';
+import cartImage from '../../assets/images/cart.svg';
+import logout from '../../assets/images/logout.svg';
+import React from 'react';
+import AccountButton from './AccountButton';
 
 const NavBar = () => {
   const { isLoggedIn, clearUserSession } = useAuth();
-  const navigate = useNavigate();
   const location = useLocation();
-
-  const handleLogout = () => {
-    clearUserSession();
-    navigate('/');
-  };
 
   return (
     <>
@@ -23,20 +18,15 @@ const NavBar = () => {
               <img className="rounded border border-gray p-1" src={cartImage} />
             </Link>
           )}
-          {location.pathname !== '/account' && (
-            <Link
-              to="/account"
-              className="flex h-[35px] items-center rounded border border-gray px-1 text-blueGray"
-            >
-              My Account
-            </Link>
-          )}
-          <Button as="button" onClick={handleLogout}>
+
+          <AccountButton />
+
+          <button onClick={clearUserSession} className="hidden sm:flex">
             <img
               className="h-[35px] rounded border border-gray p-1"
               src={logout}
             />
-          </Button>
+          </button>
         </div>
       ) : (
         <>

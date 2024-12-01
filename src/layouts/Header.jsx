@@ -1,7 +1,7 @@
 import React from 'react';
 import logoImage from '../assets/images/logo.png';
 import Search from '../components/Search';
-import NavBar from '../components/NavBar';
+import NavBar from '../components/header/NavBar';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
