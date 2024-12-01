@@ -37,16 +37,16 @@ const Home = () => {
 
       <div>
         <div>
-          <div className="flex flex-col md:flex-row">
-            <img src={booksIcon} />
+          <div className="flex flex-col items-center justify-center md:flex-row">
+            <img className="h-24 max-w-24" src={booksIcon} />
             <p>Enrich your bookshelves with new and used books</p>
           </div>
-          <div className="flex flex-col md:flex-row">
-            <img src={handIcon} />
+          <div className="flex flex-col items-center justify-center md:flex-row">
+            <img className="h-24 max-w-24" src={handIcon} />
             <p>Sell your books and give them a second life</p>
           </div>
-          <div className="flex flex-col md:flex-row">
-            <img src={personIcon} />
+          <div className="flex flex-col items-center justify-center md:flex-row">
+            <img className="h-24 max-w-24" src={personIcon} />
             <p>Shop the books from individual sellers</p>
           </div>
         </div>
