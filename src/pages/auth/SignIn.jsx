@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@headlessui/react';
 import useAuthForm from '../../hooks/useAuthForm';
-import Input from '../../components/Form/Input';
+import LabelAndInput from '../../components/Form/LabelAndInput';
 
 const SignIn = () => {
   const { form, error, handleChange, handleSubmit } = useAuthForm();
@@ -19,7 +19,7 @@ const SignIn = () => {
             </Link>
           </p>
 
-          <Input
+          <LabelAndInput
             id="email"
             name="email"
             type="email"
@@ -28,9 +28,9 @@ const SignIn = () => {
             onChange={handleChange}
           >
             Email
-          </Input>
+          </LabelAndInput>
 
-          <Input
+          <LabelAndInput
             id="password"
             name="password"
             type="password"
@@ -39,7 +39,7 @@ const SignIn = () => {
             onChange={handleChange}
           >
             Password
-          </Input>
+          </LabelAndInput>
 
           <p>
             <Link to="/password/reset" className="underline">
@@ -50,7 +50,7 @@ const SignIn = () => {
           <Button
             as="button"
             type="submit"
-            className="mt-7 w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white"
+            className="mt-7 w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white transition-transform duration-200 active:scale-95"
           >
             Log In
           </Button>
