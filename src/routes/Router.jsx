@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from '../routes/ProtectedRoute';
 
 // Pages
@@ -26,41 +26,34 @@ import SignUp from '../pages/auth/SignUp';
 
 const Router = () => {
   return (
-    <BrowserRouter
-      future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}
-    >
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
 
-        {/* Account Route */}
-        <Route
-          path="/account"
-          element={<ProtectedRoute element={<Account />} />}
-        />
+      {/* Account Route */}
+      <Route
+        path="/account"
+        element={<ProtectedRoute element={<Account />} />}
+      />
 
-        {/* Books Routes */}
-        <Route path="/books" element={<Books />} />
-        <Route path="/books/:id" element={<Book />} />
+      {/* Books Routes */}
+      <Route path="/books" element={<Books />} />
+      <Route path="/books/:id" element={<Book />} />
 
-        {/* Cart Routes */}
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/check_out" element={<CheckOut />} />
+      {/* Cart Routes */}
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/check_out" element={<CheckOut />} />
 
-        {/* Auth Routes */}
-        <Route path="/password/reset" element={<PasswordReset />} />
-        <Route path="/password/edit" element={<PasswordEdit />} />
-        <Route path="/sign_in" element={<SignIn />} />
-        <Route path="/sign_up" element={<SignUp />} />
+      {/* Auth Routes */}
+      <Route path="/password/reset" element={<PasswordReset />} />
+      <Route path="/password/edit" element={<PasswordEdit />} />
+      <Route path="/sign_in" element={<SignIn />} />
+      <Route path="/sign_up" element={<SignUp />} />
 
-        {/* 404 Not Found */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+      {/* 404 Not Found */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 
