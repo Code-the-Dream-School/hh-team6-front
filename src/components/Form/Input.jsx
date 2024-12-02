@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Input as HeadlessInput } from '@headlessui/react';
 

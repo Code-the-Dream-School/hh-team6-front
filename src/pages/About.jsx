@@ -1,4 +1,3 @@
-import React from 'react';
 import MembersList from '../components/About/MembersList';
 import avatar1 from '../assets/images/Evgenii.png';
 import avatar2 from '../assets/images/Liuba.png';
@@ -33,9 +32,9 @@ const About = () => {
         Meet our team
       </h2>
 
-      <MembersList list={frontend} role={'Frontend'} />
-      <MembersList list={backend} role={'Backend'} />
-      <MembersList list={mentors} role={'Mentor'} />
+      <MembersList list={frontend} teamRole={'Frontend'} />
+      <MembersList list={backend} teamRole={'Backend'} />
+      <MembersList list={mentors} teamRole={'Mentor'} />
 
       <h2 className="my-7 font-headings text-2xl font-bold md:text-4xl">
         About Re:Books
