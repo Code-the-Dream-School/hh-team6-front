@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Button } from '@headlessui/react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
@@ -9,10 +10,10 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     clearUserSession();
     navigate('/');
-  };
+  }, [clearUserSession, navigate]);
 
   return (
     <>
@@ -20,7 +21,11 @@ const NavBar = () => {
         <div className="flex items-center gap-2">
           {location.pathname !== '/cart' && (
             <Link to="/cart" className="flex items-center">
-              <img className="rounded border border-gray p-1" src={cartImage} />
+              <img
+                className="rounded border border-gray p-1"
+                alt="cart"
+                src={cartImage}
+              />
             </Link>
           )}
           {location.pathname !== '/account' && (
@@ -34,6 +39,7 @@ const NavBar = () => {
           <Button as="button" onClick={handleLogout}>
             <img
               className="h-[35px] rounded border border-gray p-1"
+              alt="logout"
               src={logout}
             />
           </Button>

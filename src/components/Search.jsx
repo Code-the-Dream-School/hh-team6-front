@@ -12,7 +12,7 @@ const Search = ({ id }) => {
         className="m-2 flex-1 focus:border-transparent focus:outline-none"
       />
       <Button type="submit">
-        <img src={searchIcon} className="h-[33px] w-[33px]" />
+        <img src={searchIcon} className="h-[33px] w-[33px]" alt="search" />
       </Button>
     </form>
   );
