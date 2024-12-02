@@ -32,11 +32,9 @@ const About = () => {
         Meet our team
       </h2>
 
-      {/* eslint-disable jsx-a11y/aria-role */}
-      <MembersList list={frontend} role={'Frontend'} />
-      <MembersList list={backend} role={'Backend'} />
-      <MembersList list={mentors} role={'Mentor'} />
-      {/* eslint-enable jsx-a11y/aria-role */}
+      <MembersList list={frontend} teamRole={'Frontend'} />
+      <MembersList list={backend} teamRole={'Backend'} />
+      <MembersList list={mentors} teamRole={'Mentor'} />
 
       <h2 className="my-7 font-headings text-2xl font-bold md:text-4xl">
         About Re:Books

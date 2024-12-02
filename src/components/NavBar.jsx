@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Button } from '@headlessui/react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
@@ -9,10 +10,10 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     clearUserSession();
     navigate('/');
-  };
+  }, [clearUserSession, navigate]);
 
   return (
     <>
@@ -35,7 +36,6 @@ const NavBar = () => {
               My Account
             </Link>
           )}
-          {/* eslint-disable-next-line react/jsx-no-bind */}
           <Button as="button" onClick={handleLogout}>
             <img
               className="h-[35px] rounded border border-gray p-1"
