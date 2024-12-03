@@ -37,11 +37,8 @@ const Router = () => {
         element={<ProtectedRoute element={<Account />} />}
       />
 
-       {/* Profile Route */}
-       <Route
-        path="/profile"
-        element={<Profile />} 
-      />
+      {/* Profile Route */}
+      <Route path="/profile" element={<Profile />} />
 
       {/* Books Routes */}
       <Route path="/books" element={<Books />} />
