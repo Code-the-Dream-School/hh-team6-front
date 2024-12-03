@@ -3,3 +3,4 @@
 .gitignore
 *.local
 .env
+.vscode/settings.json

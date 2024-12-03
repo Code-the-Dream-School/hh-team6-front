@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import Input from '../components/Form/Input';
 import { Button } from '@headlessui/react';
 import books from '../assets/images/books-home.png';
@@ -7,6 +7,21 @@ import handIcon from '../assets/images/icons/hand.png';
 import personIcon from '../assets/images/icons/person-reading.png';
 
 const Home = () => {
+  const [author, setAuthor] = useState('');
+  const [title, setTitle] = useState('');
+  const [isbn, setIsbn] = useState('');
+
+  const handleAuthorChange = useCallback((event) => {
+    setAuthor(event.target.value);
+  }, []);
+
+  const handleTitleChange = useCallback((event) => {
+    setTitle(event.target.value);
+  }, []);
+  const handleIsbnChange = useCallback((event) => {
+    setIsbn(event.target.value);
+  }, []);
+
   return (
     <>
       <div className="flex size-full flex-col items-center justify-center gap-8 p-6">
@@ -16,15 +31,35 @@ const Home = () => {
             Search for books
           </h1>
 
-          <label>Author</label>
-          <Input />
+          <Input
+            id="author"
+            name="author"
+            type="text"
+            value={author}
+            onChange={handleAuthorChange}
+          >
+            Author
+          </Input>
 
-          <label>Title</label>
-          <Input />
+          <Input
+            id="title"
+            name="title"
+            type="text"
+            value={title}
+            onChange={handleTitleChange}
+          >
+            Title
+          </Input>
 
-          <label>ISBN</label>
-          <Input />
-
+          <Input
+            id="isbn"
+            name="isbn"
+            type="text"
+            value={isbn}
+            onChange={handleIsbnChange}
+          >
+            ISBN
+          </Input>
           <Button
             as="button"
             type="submit"
@@ -38,15 +73,15 @@ const Home = () => {
       <div>
         <div>
           <div className="flex flex-col items-center justify-center md:flex-row">
-            <img className="h-24 max-w-24" src={booksIcon} />
+            <img alt="books" className="h-24 max-w-24" src={booksIcon} />
             <p>Enrich your bookshelves with new and used books</p>
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row">
-            <img className="h-24 max-w-24" src={handIcon} />
+            <img alt="hand" className="h-24 max-w-24" src={handIcon} />
             <p>Sell your books and give them a second life</p>
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row">
-            <img className="h-24 max-w-24" src={personIcon} />
+            <img alt="person" className="h-24 max-w-24" src={personIcon} />
             <p>Shop the books from individual sellers</p>
           </div>
         </div>
