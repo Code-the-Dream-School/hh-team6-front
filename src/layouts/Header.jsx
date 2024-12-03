@@ -17,14 +17,14 @@ const Header = () => {
           <h1 className="font-headings sm:text-2xl sm:font-bold">Re:Books</h1>
         </Link>
         <div className="hidden max-w-[550px] px-5 sm:block sm:flex-auto">
-          <Search id="search" />
+          <Search />
         </div>
         <div>
           <NavBar />
         </div>
       </div>
       <div className="mt-3 sm:hidden">
-        <Search id="search-mobile" />
+        <Search />
       </div>
     </header>
   );

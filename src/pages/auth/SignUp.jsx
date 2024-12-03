@@ -67,7 +67,7 @@ const SignUp = () => {
           <Button
             as="button"
             type="submit"
-            className="mt-7 w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white transition-transform duration-200 active:scale-95"
+            className="mt-7 w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white transition-transform duration-200 hover:bg-redHover active:scale-95"
           >
             Create account
           </Button>
