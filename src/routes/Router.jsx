@@ -22,6 +22,7 @@ import PasswordReset from '../pages/auth/PasswordReset';
 import PasswordEdit from '../pages/auth/PasswordEdit';
 import SignIn from '../pages/auth/SignIn';
 import SignUp from '../pages/auth/SignUp';
+import Profile from '../pages/account/Profile';
 
 const Router = () => {
   return (
@@ -34,6 +35,12 @@ const Router = () => {
       <Route
         path="/account"
         element={<ProtectedRoute element={<Account />} />}
+      />
+
+       {/* Profile Route */}
+       <Route
+        path="/profile"
+        element={<Profile />} 
       />
 
       {/* Books Routes */}
