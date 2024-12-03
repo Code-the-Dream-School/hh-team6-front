@@ -1,0 +1,22 @@
+import BookCard from './BookCard';
+import PropTypes from 'prop-types';
+
+const BooksList = ({ list }) => {
+  return (
+    <div className="flex flex-col justify-between gap-2 md:flex-row md:gap-16">
+      {list.map((item, index) => (
+        <BookCard
+          key={index}
+          img={item.image}
+          title={item.title}
+          author={item.author}
+        />
+      ))}
+    </div>
+  );
+};
+
+BooksList.propTypes = {
+  list: PropTypes.array.isRequired,
+};
+export default BooksList;

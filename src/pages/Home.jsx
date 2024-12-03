@@ -1,15 +1,24 @@
 import React, { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import Input from '../components/Form/Input';
 import { Button } from '@headlessui/react';
+import cover from '../assets/images/cover.png';
 import books from '../assets/images/books-home.png';
 import booksIcon from '../assets/images/icons/books.png';
 import handIcon from '../assets/images/icons/hand.png';
 import personIcon from '../assets/images/icons/person-reading.png';
+import arrowRight from '../assets/images/icons/arrow-right.svg';
+import BooksList from '../components/Books/BooksList';
 
 const Home = () => {
   const [author, setAuthor] = useState('');
   const [title, setTitle] = useState('');
   const [isbn, setIsbn] = useState('');
+  const booksList = [
+    { image: cover, title: 'Karlsson on the Roof', author: 'Astrid Lindren' },
+    { image: cover, title: 'Book 2', author: 'Author 2' },
+    { image: cover, title: 'Book 3', author: 'Author 3' },
+  ];
 
   const handleAuthorChange = useCallback((event) => {
     setAuthor(event.target.value);
@@ -40,7 +49,6 @@ const Home = () => {
           >
             Author
           </Input>
-
           <Input
             id="title"
             name="title"
@@ -50,7 +58,6 @@ const Home = () => {
           >
             Title
           </Input>
-
           <Input
             id="isbn"
             name="isbn"
@@ -70,22 +77,39 @@ const Home = () => {
         </form>
       </div>
 
-      <div>
-        <div>
-          <div className="flex flex-col items-center justify-center md:flex-row">
-            <img alt="books" className="h-24 max-w-24" src={booksIcon} />
-            <p>Enrich your bookshelves with new and used books</p>
-          </div>
-          <div className="flex flex-col items-center justify-center md:flex-row">
-            <img alt="hand" className="h-24 max-w-24" src={handIcon} />
-            <p>Sell your books and give them a second life</p>
-          </div>
-          <div className="flex flex-col items-center justify-center md:flex-row">
-            <img alt="person" className="h-24 max-w-24" src={personIcon} />
-            <p>Shop the books from individual sellers</p>
-          </div>
+      <div className="px-16 py-8">
+        <div className="mb-4 flex flex-col items-center justify-center md:flex-row">
+          <img alt="books" className="h-24 max-w-24" src={booksIcon} />
+          <p className="text-center text-xl">
+            Enrich your bookshelves with new and used books
+          </p>
+        </div>
+        <div className="mb-4 flex flex-col items-center justify-center md:flex-row">
+          <img alt="hand" className="h-24 max-w-24" src={handIcon} />
+          <p className="text-center text-xl">
+            Sell your books and give them a second life
+          </p>
+        </div>
+        <div className="flex flex-col items-center justify-center md:flex-row">
+          <img alt="person" className="h-24 max-w-24" src={personIcon} />
+          <p className="text-center text-xl">
+            Shop the books from individual sellers
+          </p>
         </div>
       </div>
+
+      <div className="flex flex-col items-center pb-16">
+        <h1 className="mb-8 text-center font-headings text-xl font-semibold">
+          Recently added books
+        </h1>
+        <div className="flex flex-col gap-4 sm:flex-row">
+          <BooksList list={booksList} />
+        </div>
+      </div>
+      <Link to="/books" className="flex gap-4 self-center">
+        <p className="inline text-xl underline">Shop more books</p>
+        <img src={arrowRight} alt="arrow right" />
+      </Link>
     </>
   );
 };
