@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
 import { Button } from '@headlessui/react';
-import useSignUpForm from '../../hooks/useSignUpForm';
+import { Link } from 'react-router-dom';
+
 import LabelAndInput from '../../components/Form/LabelAndInput';
+import useSignUpForm from '../../hooks/useSignUpForm';
 
 const SignUp = () => {
   const { form, error, handleChange, handleSubmit } = useSignUpForm();

@@ -1,8 +1,9 @@
-import Router from './routes/Router';
+import { BrowserRouter } from 'react-router-dom';
+
+import { AccountProvider } from './context/AccountProvider';
 import { AuthProvider } from './context/AuthProvider';
 import MainLayout from './layouts/MainLayout';
-import { BrowserRouter } from 'react-router-dom';
-import { AccountProvider } from './context/AccountProvider';
+import Router from './routes/Router';
 
 function App() {
   return (

@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
 import { Button } from '@headlessui/react';
-import useAuthForm from '../../hooks/useAuthForm';
+import { Link } from 'react-router-dom';
+
 import LabelAndInput from '../../components/Form/LabelAndInput';
+import useAuthForm from '../../hooks/useAuthForm';
 
 const SignIn = () => {
   const { form, error, handleChange, handleSubmit } = useAuthForm();
@@ -41,11 +42,9 @@ const SignIn = () => {
             Password
           </LabelAndInput>
 
-          <p>
-            <Link to="/password/reset" className="underline">
-              Forgot password?
-            </Link>
-          </p>
+          <Link to="/password/reset" className="block underline">
+            Forgot password?
+          </Link>
 
           <Button
             as="button"

@@ -1,15 +1,23 @@
+import { useCallback } from 'react';
+
 import { Button } from '@headlessui/react';
-import { useAccount } from '../../context/AccountProvider';
 import PropTypes from 'prop-types';
+
+import { useAccount } from '../../context/AccountProvider';
 
 const ChangePageButton = ({ page, label }) => {
   const { accountPage, setAccountPage } = useAccount();
+  const handleClick = useCallback(() => {
+    setAccountPage(page);
+  }, [page, setAccountPage]);
 
   return (
     <Button
       as="button"
-      onClick={() => setAccountPage(page)}
-      className={`my-1 block ${accountPage === page ? 'underline' : ''}`}
+      onClick={handleClick}
+      className={`my-1 block ${
+        accountPage === page ? 'underline' : 'hover:underline'
+      }`}
     >
       {label}
     </Button>

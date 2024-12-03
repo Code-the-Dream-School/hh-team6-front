@@ -1,5 +1,5 @@
-import { useAccount } from '../../context/AccountProvider';
 import LeftMenu from '../../components/account/LeftMenu';
+import { useAccount } from '../../context/AccountProvider';
 
 const Account = () => {
   const { accountPage } = useAccount();

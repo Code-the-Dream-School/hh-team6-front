@@ -1,9 +1,10 @@
-import { useCallback } from 'react';
 import { Button } from '@headlessui/react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider';
-import cartImage from '../assets/images/cart.svg';
-import logout from '../assets/images/logout.svg';
+import { useLocation, Link } from 'react-router-dom';
+
+import AccountButton from './AccountButton';
+import cartImage from '../../assets/images/cart.svg';
+import logout from '../../assets/images/logout.svg';
+import { useAuth } from '../../context/AuthProvider';
 
 const NavBar = () => {
   const { isLoggedIn, clearUserSession } = useAuth();
@@ -25,13 +26,13 @@ const NavBar = () => {
 
           <AccountButton />
 
-          <button onClick={clearUserSession} className="hidden sm:flex">
+          <Button onClick={clearUserSession} className="hidden sm:flex">
             <img
               className="h-[35px] rounded border border-gray p-1"
               alt="logout"
               src={logout}
             />
-          </button>
+          </Button>
         </div>
       ) : (
         <>

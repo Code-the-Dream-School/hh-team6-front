@@ -1,6 +1,7 @@
-import searchIcon from '../assets/images/search.svg';
-import PropTypes from 'prop-types';
 import { Button, Input } from '@headlessui/react';
+import PropTypes from 'prop-types';
+
+import searchIcon from '../assets/images/search.svg';
 
 const Search = ({ id }) => {
   return (

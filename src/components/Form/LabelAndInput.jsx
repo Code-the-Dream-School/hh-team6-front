@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import { Input } from '@headlessui/react';
+import PropTypes from 'prop-types';
 
 const LabelAndInput = ({
   id,

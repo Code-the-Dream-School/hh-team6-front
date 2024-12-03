@@ -1,34 +1,49 @@
-import { useAuth } from '../../context/AuthProvider';
 import { Button } from '@headlessui/react';
 
-import { useAccount } from '../../context/AccountProvider';
+import AddBookButton from './AddBookButton';
 import ChangePageButton from './ChangePageButton';
+import { useAuth } from '../../context/AuthProvider';
 
 const LeftMenu = () => {
   const { clearUserSession } = useAuth();
-  const { setAccountPage } = useAccount();
 
   return (
-    <div className="ml-5 hidden rounded-md border border-gray p-3 sm:block">
-      <Button
-        as="button"
-        onClick={() => setAccountPage('addBook')}
-        className="mb-6 block rounded-md bg-darkGreen px-3 py-1 text-white"
-      >
-        + Add New Listing
-      </Button>
+    <aside className="ml-5 hidden rounded-md border border-gray p-3 sm:block">
+      <nav>
+        <AddBookButton />
+        <ul className="space-y-4">
+          <li key="myBooks">
+            <ChangePageButton page="myBooks" label="My Book Listings" />
+          </li>
+          <li key="orderHistory">
+            <ChangePageButton page="orderHistory" label="Order History" />
+          </li>
+          <li key="savedBooks">
+            <ChangePageButton page="savedBooks" label="Saved Books" />
+          </li>
+          <li key="messages">
+            <ChangePageButton page="messages" label="Messages" />
+          </li>
+        </ul>
 
-      <ChangePageButton page="myBooks" label="My Book Listings" />
-      <ChangePageButton page="orderHistory" label="Order History" />
-      <ChangePageButton page="savedBooks" label="Saved Books" />
-      <ChangePageButton page="messages" label="Messages" />
-      <hr className="my-7 border-blueGray" />
-      <ChangePageButton page="profile" label="Profile" />
+        <hr className="my-10 border-blueGray" />
 
-      <Button as="button" className="my-1 block" onClick={clearUserSession}>
-        Log Out
-      </Button>
-    </div>
+        <ul className="space-y-4">
+          <li key="profile">
+            <ChangePageButton page="profile" label="Profile" />
+          </li>
+          <li key="logout">
+            <Button
+              as="button"
+              className="my-1 block hover:underline"
+              onClick={clearUserSession}
+            >
+              Log Out
+            </Button>
+          </li>
+        </ul>
+      </nav>
+    </aside>
   );
 };
 

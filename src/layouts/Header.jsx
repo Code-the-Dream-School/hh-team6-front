@@ -1,11 +1,12 @@
-import logoImage from '../assets/images/logo.png';
-import Search from '../components/Search';
-import NavBar from '../components/header/NavBar';
 import { Link } from 'react-router-dom';
+
+import logoImage from '../assets/images/logo.png';
+import NavBar from '../components/header/NavBar';
+import Search from '../components/Search';
 
 const Header = () => {
   return (
-    <div className="p-5">
+    <header className="p-5">
       <div className="flex items-center justify-between">
         <Link to="/" className="flex items-center">
           <img
@@ -25,7 +26,7 @@ const Header = () => {
       <div className="mt-3 sm:hidden">
         <Search id="search-mobile" />
       </div>
-    </div>
+    </header>
   );
 };
 
