@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const UpdateProfile = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    location: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    location: '',
   });
 
   const handleChange = (e) => {
@@ -16,24 +16,24 @@ const UpdateProfile = () => {
   const handleCancel = () => {
     // Clear the form or perform any cancel-related logic
     setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      location: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      location: '',
     });
   };
 
   const handleSave = () => {
     // Save the data logic
-    console.log("Saved:", formData);
+    console.log('Saved:', formData);
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-4">
-      <h1 className="text-2xl font-bold mb-6">Update Profile</h1>
+    <div className="mx-auto mt-10 max-w-md p-4">
+      <h1 className="mb-6 text-2xl font-bold">Update Profile</h1>
       <form className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="firstName">
+          <label className="mb-1 block text-sm font-medium" htmlFor="firstName">
             First Name
           </label>
           <input
@@ -42,11 +42,11 @@ const UpdateProfile = () => {
             type="text"
             value={formData.firstName}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border-gray-300 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="lastName">
+          <label className="mb-1 block text-sm font-medium" htmlFor="lastName">
             Last Name
           </label>
           <input
@@ -55,11 +55,11 @@ const UpdateProfile = () => {
             type="text"
             value={formData.lastName}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border-gray-300 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="email">
+          <label className="mb-1 block text-sm font-medium" htmlFor="email">
             Email
           </label>
           <input
@@ -68,12 +68,12 @@ const UpdateProfile = () => {
             type="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed"
+            className="border-gray-300 bg-gray-100 text-gray-500 w-full cursor-not-allowed rounded border px-3 py-2"
             disabled
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="location">
+          <label className="mb-1 block text-sm font-medium" htmlFor="location">
             Location
           </label>
           <input
@@ -82,21 +82,21 @@ const UpdateProfile = () => {
             type="text"
             value={formData.location}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border-gray-300 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <div className="flex justify-between mt-6">
+        <div className="mt-6 flex justify-between">
           <button
             type="button"
             onClick={handleCancel}
-            className="py-2 px-4 bg-yellow-400 text-white font-semibold rounded hover:bg-yellow-500"
+            className="bg-yellow-400 hover:bg-yellow-500 rounded px-4 py-2 font-semibold text-white"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={handleSave}
-            className="py-2 px-4 bg-teal-600 text-white font-semibold rounded hover:bg-teal-700"
+            className="rounded bg-teal-600 px-4 py-2 font-semibold text-white hover:bg-teal-700"
           >
             Save
           </button>
