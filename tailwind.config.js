@@ -14,8 +14,10 @@ export default {
         black: '#160C0B',
         white: '#FFFFFF',
         red: '#D33A10', // used for buttons, text, and border in outline buttons
+        redHover: '#A42D0C', // hover color
         yellow: '#FFB347', // used for buttons, text, and border in outline buttons
         darkGreen: '#007185', // used for buttons, text, and border in outline buttons
+        darkGreenHover: '#004d5c', // hover color
         lightBlue: '#F5F9FA', // used for backgrounds of book cards, footer, etc.
         gray: '#8799A9', // used for borders, input borders, and buttons in the header
         blueGray: '#47667E', // used for text in buttons in the header
