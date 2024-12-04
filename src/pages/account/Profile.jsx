@@ -11,27 +11,15 @@ const Profile = () => {
         Personal Profile
       </h1>
       <div className="mb-6 flex items-center">
-        <img
-          src={userIcon}
-          alt="User Icon"
-          className="h-6 w-6"
-        />
+        <img src={userIcon} alt="User Icon" className="h-6 w-6" />
         <p className="ml-[35px] text-2xl">John Doe</p>
       </div>
       <div className="mb-6 flex items-center">
-        <img
-          src={envelopeIcon}
-          alt="Envelope Icon"
-          className="h-6 w-6"
-        />
+        <img src={envelopeIcon} alt="Envelope Icon" className="h-6 w-6" />
         <p className="ml-[35px] text-2xl">john-doe@mail.com</p>
       </div>
       <div className="mb-6 flex items-center">
-        <img
-          src={locationIcon}
-          alt="Location Icon"
-          className="h-6 w-6"
-        />
+        <img src={locationIcon} alt="Location Icon" className="h-6 w-6" />
         <p className="ml-[35px] text-2xl">San Diego, CA</p>
       </div>
       <button className="w-full rounded bg-yellow px-4 py-2 text-center font-semibold text-white hover:bg-yellow sm:w-80">
