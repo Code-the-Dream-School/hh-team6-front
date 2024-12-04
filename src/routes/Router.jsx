@@ -22,6 +22,7 @@ import PasswordReset from '../pages/auth/PasswordReset';
 import PasswordEdit from '../pages/auth/PasswordEdit';
 import SignIn from '../pages/auth/SignIn';
 import SignUp from '../pages/auth/SignUp';
+import UpdateProfile from '../pages/account/UpdateProfile';
 
 const Router = () => {
   return (
