@@ -1,5 +1,6 @@
-import TeamMemberCard from './TeamMemberCard';
 import PropTypes from 'prop-types';
+
+import TeamMemberCard from './TeamMemberCard';
 
 const MembersList = ({ list, teamRole }) => {
   return (
