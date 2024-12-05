@@ -36,7 +36,10 @@ const useSignUpForm = () => {
     if (Object.keys(validationErrors).length) return;
 
     try {
-      const { data, status } = await register(form);
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      const { data, status } = await register(headers, form);
       if (status === 201) {
         setUserSession({
           user: data.userData,

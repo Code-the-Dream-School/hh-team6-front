@@ -1,3 +1,4 @@
+import AddBook from './AddBook';
 import LeftMenu from '../../components/account/LeftMenu';
 import { useAccount } from '../../context/AccountProvider';
 
@@ -7,7 +8,7 @@ const Account = () => {
   const accountContent = () => {
     switch (accountPage) {
       case 'addBook':
-        return <div>addBook</div>;
+        return <AddBook />;
       case 'myBooks':
         return <div>myBooks</div>;
       case 'orderHistory':
@@ -24,7 +25,7 @@ const Account = () => {
   return (
     <div className="flex flex-grow">
       <LeftMenu />
-      <div className="flex-1 p-6">{accountContent()}</div>
+      <div className="flex-1 px-5">{accountContent()}</div>
     </div>
   );
 };

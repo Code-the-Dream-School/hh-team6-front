@@ -8,7 +8,7 @@ const LeftMenu = () => {
   const { clearUserSession } = useAuth();
 
   return (
-    <aside className="ml-5 hidden rounded-md border border-gray p-3 sm:block">
+    <aside className="mx-5 hidden rounded-md border border-gray p-3 sm:block">
       <nav>
         <AddBookButton />
         <ul className="space-y-4">
