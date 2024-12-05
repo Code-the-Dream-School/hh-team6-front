@@ -1,25 +1,26 @@
 import { Route, Routes } from 'react-router-dom';
-import ProtectedRoute from '../routes/ProtectedRoute';
+
+import ProtectedRoute from './ProtectedRoute';
 
 // Pages
-import NotFound from '../pages/NotFound';
-import Home from '../pages/Home';
 import About from '../pages/About';
+import Home from '../pages/Home';
+import NotFound from '../pages/NotFound';
 
 // Account pages
 import Account from '../pages/account/Account';
 
 // Books pages
-import Books from '../pages/books/Books';
 import Book from '../pages/books/Book';
+import Books from '../pages/books/Books';
 
 // Cart pages
 import Cart from '../pages/cart/Cart';
 import CheckOut from '../pages/cart/CheckOut';
 
 // Auth pages
-import PasswordReset from '../pages/auth/PasswordReset';
 import PasswordEdit from '../pages/auth/PasswordEdit';
+import PasswordReset from '../pages/auth/PasswordReset';
 import SignIn from '../pages/auth/SignIn';
 import SignUp from '../pages/auth/SignUp';
 import UpdateProfile from '../pages/account/UpdateProfile';
