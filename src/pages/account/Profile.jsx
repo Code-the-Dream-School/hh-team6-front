@@ -23,11 +23,11 @@ const Profile = () => {
         <img
           src={locationIcon}
           alt="Location Icon"
-          className="h-6 w-6 hover:bg-yellowHover"
+          className="h-6 w-6"
         />
         <p className="ml-[35px] text-2xl">San Diego, CA</p>
       </div>
-      <button className="w-full rounded bg-yellow px-4 py-2 text-center font-semibold text-white hover:bg-yellow sm:w-80">
+      <button className="w-full rounded bg-yellow px-4 py-2 text-center font-semibold text-white hover:bg-yellowHover sm:w-80">
         Edit Profile
       </button>
     </div>
