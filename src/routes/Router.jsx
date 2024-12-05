@@ -23,7 +23,6 @@ import PasswordEdit from '../pages/auth/PasswordEdit';
 import PasswordReset from '../pages/auth/PasswordReset';
 import SignIn from '../pages/auth/SignIn';
 import SignUp from '../pages/auth/SignUp';
-import UpdateProfile from '../pages/account/UpdateProfile';
 
 const Router = () => {
   return (
@@ -37,9 +36,6 @@ const Router = () => {
         path="/account"
         element={<ProtectedRoute element={<Account />} />}
       />
-
-      {/* UpdateProfile Route */}
-      <Route path="/update_profile" element={<UpdateProfile />} />
 
       {/* Books Routes */}
       <Route path="/books" element={<Books />} />
