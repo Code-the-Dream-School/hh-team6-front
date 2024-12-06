@@ -16,7 +16,7 @@ export default {
         red: '#D33A10', // used for buttons, text, and border in outline buttons
         redHover: '#A42D0C', // hover color
         yellow: '#FFB347', // used for buttons, text, and border in outline buttons
-        yellowHover: '#FFC75F', // hover color for yellow
+        yellowHover: '#F59E0B', // hover color for yellow
         darkGreen: '#007185', // used for buttons, text, and border in outline buttons
         darkGreenHover: '#004d5c', // hover color
         lightBlue: '#F5F9FA', // used for backgrounds of book cards, footer, etc.

@@ -1,24 +1,37 @@
+import React from 'react';
 import Profile from './Profile';
+import UpdateProfile from './UpdateProfile';
 import LeftMenu from '../../components/account/LeftMenu';
 import { useAccount } from '../../context/AccountProvider';
 
 const Account = () => {
-  const { accountPage } = useAccount();
+  const {
+    accountPage,
+    setFirstName,
+    setLastName,
+    setLocation,
+    saveProfile,
+    cancelUpdate,
+    updateEmail,  // Get updateEmail from context
+  } = useAccount();
 
   const accountContent = () => {
     switch (accountPage) {
-      case 'addBook':
-        return <div>addBook</div>;
-      case 'myBooks':
-        return <div>myBooks</div>;
-      case 'orderHistory':
-        return <div>orderHistory</div>;
-      case 'savedBooks':
-        return <div>savedBooks</div>;
-      case 'messages':
-        return <div>messages</div>;
       case 'profile':
         return <Profile />;
+      case 'profileEdit':
+        return (
+          <UpdateProfile
+            setFirstName={setFirstName}
+            setLastName={setLastName}
+            setLocation={setLocation}
+            saveProfile={saveProfile}
+            cancelUpdate={cancelUpdate}
+            updateEmail={updateEmail}  // Pass updateEmail to UpdateProfile
+          />
+        );
+      default:
+        return <div>Page not found</div>;
     }
   };
 
