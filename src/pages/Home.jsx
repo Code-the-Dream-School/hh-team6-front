@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import Input from '../components/Form/Input';
+import LabelAndInput from '../components/Form/LabelAndInput';
 import { Button } from '@headlessui/react';
 import cover from '../assets/images/cover.png';
 import books from '../assets/images/books-home.png';
@@ -48,7 +48,7 @@ const Home = () => {
             Search for books
           </h1>
 
-          <Input
+          <LabelAndInput
             id="author"
             name="author"
             type="text"
@@ -56,8 +56,8 @@ const Home = () => {
             onChange={handleAuthorChange}
           >
             Author
-          </Input>
-          <Input
+          </LabelAndInput>
+          <LabelAndInput
             id="title"
             name="title"
             type="text"
@@ -65,8 +65,8 @@ const Home = () => {
             onChange={handleTitleChange}
           >
             Title
-          </Input>
-          <Input
+          </LabelAndInput>
+          <LabelAndInput
             id="isbn"
             name="isbn"
             type="text"
@@ -74,11 +74,11 @@ const Home = () => {
             onChange={handleIsbnChange}
           >
             ISBN
-          </Input>
+          </LabelAndInput>
           <Button
             as="button"
             type="submit"
-            className="mt-7 w-full rounded-md bg-darkGreen p-2 font-semibold tracking-wide text-white"
+            className="hover:bg-darkGreenHover mt-7 w-full rounded-md bg-darkGreen p-2 font-semibold tracking-wide text-white transition-transform duration-150 active:scale-95"
           >
             Search
           </Button>
