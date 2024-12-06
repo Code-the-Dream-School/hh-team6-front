@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
 import { Button } from '@headlessui/react';
+import { Link } from 'react-router-dom';
+
+import LabelAndInput from '../../components/Form/LabelAndInput';
 import useSignUpForm from '../../hooks/useSignUpForm';
-import Input from '../../components/Form/Input';
 
 const SignUp = () => {
   const { form, error, handleChange, handleSubmit } = useSignUpForm();
@@ -19,7 +20,7 @@ const SignUp = () => {
             </Link>
           </p>
 
-          <Input
+          <LabelAndInput
             id="firstName"
             name="firstName"
             type="text"
@@ -28,9 +29,9 @@ const SignUp = () => {
             onChange={handleChange}
           >
             First Name
-          </Input>
+          </LabelAndInput>
 
-          <Input
+          <LabelAndInput
             id="lastName"
             name="lastName"
             type="text"
@@ -39,9 +40,9 @@ const SignUp = () => {
             onChange={handleChange}
           >
             Last Name
-          </Input>
+          </LabelAndInput>
 
-          <Input
+          <LabelAndInput
             id="email"
             name="email"
             type="email"
@@ -50,9 +51,9 @@ const SignUp = () => {
             onChange={handleChange}
           >
             Email
-          </Input>
+          </LabelAndInput>
 
-          <Input
+          <LabelAndInput
             id="password"
             name="password"
             type="password"
@@ -61,12 +62,12 @@ const SignUp = () => {
             onChange={handleChange}
           >
             Password
-          </Input>
+          </LabelAndInput>
 
           <Button
             as="button"
             type="submit"
-            className="mt-7 w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white"
+            className="mt-7 w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white transition-transform duration-200 hover:bg-redHover active:scale-95"
           >
             Create account
           </Button>
