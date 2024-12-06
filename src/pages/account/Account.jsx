@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Profile from './Profile';
 import UpdateProfile from './UpdateProfile';
 import LeftMenu from '../../components/account/LeftMenu';
@@ -12,11 +13,21 @@ const Account = () => {
     setLocation,
     saveProfile,
     cancelUpdate,
-    updateEmail,  // Get updateEmail from context
+    updateEmail, // Get updateEmail from context
   } = useAccount();
 
   const accountContent = () => {
     switch (accountPage) {
+      case 'addBook':
+        return <div>addBook</div>;
+      case 'myBooks':
+        return <div>myBooks</div>;
+      case 'orderHistory':
+        return <div>orderHistory</div>;
+      case 'savedBooks':
+        return <div>savedBooks</div>;
+      case 'messages':
+        return <div>messages</div>;
       case 'profile':
         return <Profile />;
       case 'profileEdit':
@@ -27,7 +38,7 @@ const Account = () => {
             setLocation={setLocation}
             saveProfile={saveProfile}
             cancelUpdate={cancelUpdate}
-            updateEmail={updateEmail}  // Pass updateEmail to UpdateProfile
+            updateEmail={updateEmail} // Pass updateEmail to UpdateProfile
           />
         );
       default:

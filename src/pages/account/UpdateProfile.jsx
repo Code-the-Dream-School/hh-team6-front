@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,7 +36,7 @@ function UpdateProfile({
 
   const handleEmailChange = useCallback(
     (e) => {
-      updateEmail(e.target.value); // Call updateEmail function to update the email
+      updateEmail(e.target.value);
     },
     [updateEmail]
   );
@@ -54,21 +55,22 @@ function UpdateProfile({
       return;
     }
 
-    // Call the saveProfile function
     saveProfile();
     setError('');
-  }, [firstName, lastName, location, saveProfile]);
+    navigate('/profile'); // Redirect to a profile page after saving
+  }, [firstName, lastName, location, saveProfile, navigate]);
 
   const handleCancel = useCallback(() => {
-    // Reset form fields to initial empty states
     setFirstName('');
     setLastName('');
     setLocation('');
     setError('');
-  }, [setFirstName, setLastName, setLocation]);
+    cancelUpdate(); // Perform additional cancel logic if necessary
+    navigate('/profile'); // Redirect back to the profile page
+  }, [setFirstName, setLastName, setLocation, cancelUpdate, navigate]);
 
   return (
-    <div className="p-6 w-full max-w-md text-left">
+    <div className="w-full max-w-md p-6 text-left">
       <h1 className="mb-6 font-headings text-2xl font-bold">Update Profile</h1>
 
       {error && <div className="text-red-600 mb-4">{error}</div>}
@@ -118,9 +120,9 @@ function UpdateProfile({
           id="email"
           type="email"
           placeholder="Email"
-          value={updateEmail} // email value handled through the context provider
+          value={updateEmail} // Controlled by context
           onChange={handleEmailChange}
-          className="border-gray-300 bg-lightBlue text-gray-500 mt-1 block w-full rounded-md shadow-sm"
+          className="border-gray-300 text-gray-500 mt-1 block w-full rounded-md bg-lightBlue shadow-sm"
           disabled
         />
       </div>
@@ -145,7 +147,7 @@ function UpdateProfile({
       <div className="flex justify-start space-x-4">
         <button
           onClick={handleCancel}
-          className="bg-yellow hover:bg-yellowHover w-40 rounded-md px-4 py-2 text-center font-semibold text-white"
+          className="w-40 rounded-md bg-yellow px-4 py-2 text-center font-semibold text-white hover:bg-yellowHover"
         >
           Cancel
         </button>

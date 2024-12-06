@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react';
+
 import { Button } from '@headlessui/react';
+
 import envelopeIcon from '../../assets/images/envelope.png';
 import locationIcon from '../../assets/images/location.png';
 import userIcon from '../../assets/images/user.png';

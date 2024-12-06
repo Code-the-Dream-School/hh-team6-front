@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+
 import PropTypes from 'prop-types';
 
 const AccountContext = createContext();
@@ -9,22 +10,25 @@ export const useAccount = () => {
 };
 
 export const AccountProvider = ({ children }) => {
-  const initialAccountPage = sessionStorage.getItem('accountPage') || DEFAULT_PAGE;
+  const initialAccountPage =
+    sessionStorage.getItem('accountPage') || DEFAULT_PAGE;
   const [accountPage, setAccountPage] = useState(initialAccountPage);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [location, setLocation] = useState('');
 
-  // Define the functions you want to pass to the child components
   const saveProfile = () => {
-    // logic to save profile
-    console.log('Profile saved');
+    if (firstName && lastName && email && location) {
+      // Add logic to save these values, e.g., API call
+    }
   };
 
   const cancelUpdate = () => {
-    // logic to cancel the update
-    console.log('Update cancelled');
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setLocation('');
   };
 
   useEffect(() => {
@@ -36,9 +40,13 @@ export const AccountProvider = ({ children }) => {
       value={{
         accountPage,
         setAccountPage,
+        firstName,
         setFirstName,
+        lastName,
         setLastName,
+        email,
         setEmail,
+        location,
         setLocation,
         saveProfile,
         cancelUpdate,
