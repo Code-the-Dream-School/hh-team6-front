@@ -1,12 +1,12 @@
 import MembersList from '../components/About/MembersList';
-import avatar1 from '../assets/images/Evgenii.png';
-import avatar2 from '../assets/images/Liuba.png';
-import avatar3 from '../assets/images/Brandon.png';
-import avatar4 from '../assets/images/Valentina.png';
-import avatar5 from '../assets/images/Tetiana.png';
-import avatar6 from '../assets/images/Sergey.png';
-import avatar7 from '../assets/images/Dan.png';
-import avatar8 from '../assets/images/Vadim.png';
+import avatar1 from '../assets/images/team/Evgenii.png';
+import avatar2 from '../assets/images/team/Liuba.png';
+import avatar3 from '../assets/images/team/Brandon.png';
+import avatar4 from '../assets/images/team/Valentina.png';
+import avatar5 from '../assets/images/team/Tetiana.png';
+import avatar6 from '../assets/images/team/Sergey.png';
+import avatar7 from '../assets/images/team/Dan.png';
+import avatar8 from '../assets/images/team/Vadim.png';
 
 const About = () => {
   const frontend = [

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const BooksList = ({ list }) => {
   return (
-    <div className="flex flex-col justify-between gap-2 md:flex-row md:gap-16">
+    <div className="flex flex-col flex-wrap gap-2 md:flex-row md:gap-16">
       {list.map((item, index) => (
         <BookCard
           key={index}
