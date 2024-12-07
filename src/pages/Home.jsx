@@ -1,19 +1,18 @@
 import React, { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import LabelAndInput from '../components/Form/LabelAndInput';
+
 import { Button } from '@headlessui/react';
-import cover from '../assets/images/cover.png';
+import { Link } from 'react-router-dom';
+
 import books from '../assets/images/books-home.png';
+import cover from '../assets/images/cover.png';
+import arrowRight from '../assets/images/icons/arrow-right.svg';
 import booksIcon from '../assets/images/icons/books.png';
 import handIcon from '../assets/images/icons/hand.png';
 import personIcon from '../assets/images/icons/person-reading.png';
-import arrowRight from '../assets/images/icons/arrow-right.svg';
 import BooksList from '../components/Books/BooksList';
+import LabelAndInput from '../components/Form/LabelAndInput';
 
 const Home = () => {
-  const [author, setAuthor] = useState('');
-  const [title, setTitle] = useState('');
-  const [isbn, setIsbn] = useState('');
   const booksList = [
     { image: cover, title: 'Karlsson on the Roof', author: 'Astrid Lindren' },
     { image: cover, title: 'Book 2', author: 'Author 2' },
@@ -23,16 +22,15 @@ const Home = () => {
     { image: cover, title: 'Book 6', author: 'Author 6' },
   ];
 
-  const handleAuthorChange = useCallback((event) => {
-    setAuthor(event.target.value);
-  }, []);
+  const [formData, setFormData] = useState({
+    author: '',
+    title: '',
+    isbn: '',
+  });
 
-  const handleTitleChange = useCallback((event) => {
-    setTitle(event.target.value);
-  }, []);
-
-  const handleIsbnChange = useCallback((event) => {
-    setIsbn(event.target.value);
+  const handleChange = useCallback((event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   }, []);
 
   return (
@@ -52,8 +50,8 @@ const Home = () => {
             id="author"
             name="author"
             type="text"
-            value={author}
-            onChange={handleAuthorChange}
+            value={formData.author}
+            onChange={handleChange}
           >
             Author
           </LabelAndInput>
@@ -61,8 +59,8 @@ const Home = () => {
             id="title"
             name="title"
             type="text"
-            value={title}
-            onChange={handleTitleChange}
+            value={formData.title}
+            onChange={handleChange}
           >
             Title
           </LabelAndInput>
@@ -70,15 +68,15 @@ const Home = () => {
             id="isbn"
             name="isbn"
             type="text"
-            value={isbn}
-            onChange={handleIsbnChange}
+            value={formData.isbn}
+            onChange={handleChange}
           >
             ISBN
           </LabelAndInput>
           <Button
             as="button"
             type="submit"
-            className="hover:bg-darkGreenHover mt-7 w-full rounded-md bg-darkGreen p-2 font-semibold tracking-wide text-white transition-transform duration-150 active:scale-95"
+            className="mt-7 w-full rounded-md bg-darkGreen p-2 font-semibold tracking-wide text-white transition-transform duration-150 hover:bg-darkGreenHover active:scale-95"
           >
             Search
           </Button>

@@ -1,5 +1,6 @@
-import BookCard from './BookCard';
 import PropTypes from 'prop-types';
+
+import BookCard from './BookCard';
 
 const BooksList = ({ list }) => {
   return (
