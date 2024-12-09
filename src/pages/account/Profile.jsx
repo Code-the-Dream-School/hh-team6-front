@@ -17,7 +17,8 @@ const Profile = () => {
   }, [setAccountPage]);
 
   return (
-    <>
+    <>q
+    
       <h1 className="mb-6 font-headings text-2xl font-bold">
         Personal Profile
       </h1>
