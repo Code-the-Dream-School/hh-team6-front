@@ -9,13 +9,12 @@ import { useAccount } from '../../context/AccountProvider';
 import { useAuth } from '../../context/AuthProvider';
 
 const Profile = () => {
-  const { userData } = useAuth(); // Access user data
-  const { setAccountPage } = useAccount(); // Access account page setter
+  const { userData } = useAuth();
+  const { setAccountPage } = useAccount();
 
-  // Callback to handle the Edit Profile button click
   const handleEditProfile = useCallback(() => {
     setAccountPage('EditProfile');
-  }, [setAccountPage]); // setAccountPage is included as it's defined in context
+  }, [setAccountPage]);
 
   return (
     <>
@@ -32,7 +31,9 @@ const Profile = () => {
       </div>
       <div className="mb-6 flex items-center">
         <img src={locationIcon} alt="Location Icon" className="h-6 w-6" />
-        <p className="ml-[35px] text-2xl">{userData.location}</p>
+        <p className="ml-[35px] text-2xl">
+          {userData.location || 'Not specified'}
+        </p>
       </div>
       <Button
         as="button"
