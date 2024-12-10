@@ -1,3 +1,4 @@
+import Profile from './Profile';
 import LeftMenu from '../../components/account/LeftMenu';
 import { useAccount } from '../../context/AccountProvider';
 
@@ -17,7 +18,9 @@ const Account = () => {
       case 'messages':
         return <div>messages</div>;
       case 'profile':
-        return <div>profile</div>;
+        return <Profile />;
+      case 'profileEdit':
+        return <div>profile edit</div>;
     }
   };
 
