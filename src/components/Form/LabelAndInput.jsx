@@ -6,6 +6,9 @@ const LabelAndInput = ({
   name,
   type,
   value,
+  min,
+  max,
+  step,
   onChange,
   children,
   error,
@@ -17,6 +20,9 @@ const LabelAndInput = ({
       name={name}
       type={type}
       value={value}
+      min={min}
+      max={max}
+      step={step}
       onChange={onChange}
       className={'w-full rounded border border-gray p-2'}
     />
@@ -29,6 +35,9 @@ LabelAndInput.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
   onChange: PropTypes.func.isRequired,
   children: PropTypes.node,
   error: PropTypes.string,

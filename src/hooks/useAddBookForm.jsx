@@ -11,7 +11,7 @@ const useAddBookForm = () => {
     publisher: '',
     publishedYear: '',
     language: '',
-    pages: 0,
+    pages: '',
     ageCategory: '',
     genre: [],
     condition: '',
@@ -19,7 +19,7 @@ const useAddBookForm = () => {
     isbn10: '',
     isbn13: '',
     description: '',
-    price: 0,
+    price: '',
     coverImageUrl: '',
   });
   const [error, setError] = useState({});
@@ -27,7 +27,6 @@ const useAddBookForm = () => {
   const { token } = useAuth();
   const { setAccountPage } = useAccount();
 
-  const regex = /^[0-9]*\.?[0-9]{0,2}$/;
   const isbn10Pattern = /^(?:\d{9}[\dXx]|\d{10})$/;
   const isbn13Pattern = /^(97[89])(\d{1,5})(\d{1,7})(\d{1,7})(\d{1})$/;
 
@@ -48,12 +47,6 @@ const useAddBookForm = () => {
   };
 
   const handleChange = ({ target: { name, value } }) => {
-    if (name === 'price') {
-      if (!regex.test(value)) {
-        return;
-      }
-    }
-
     setError((prevError) => {
       const newError = { ...prevError };
       delete newError[name];

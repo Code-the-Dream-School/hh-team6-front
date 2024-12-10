@@ -16,7 +16,7 @@ const CancelButton = () => {
       as="button"
       type="button"
       onClick={handleCancel}
-      className="mb-2 w-[200px] rounded-md border border-yellow px-3 py-1 text-yellow transition-transform duration-150 hover:bg-yellow hover:text-white active:scale-95"
+      className="mb-2 w-[100px] rounded-md border border-yellow px-3 py-1 text-yellow transition-transform duration-150 hover:bg-yellow hover:text-white active:scale-95 sm:w-[200px]"
     >
       Cancel
     </Button>

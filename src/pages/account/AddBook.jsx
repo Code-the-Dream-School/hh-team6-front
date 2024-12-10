@@ -70,6 +70,8 @@ const AddBook = () => {
               name="publishedYear"
               type="number"
               value={form.publishedYear}
+              min={1440}
+              max={new Date().getFullYear()}
               error={error.publishedYear}
               onChange={handleChange}
             >
@@ -89,6 +91,7 @@ const AddBook = () => {
               name="pages"
               type="number"
               value={form.pages}
+              min={2}
               error={error.pages}
               onChange={handleChange}
             >
@@ -183,6 +186,8 @@ const AddBook = () => {
               id="price"
               name="price"
               type="number"
+              min={0.1}
+              step={0.01}
               value={form.price}
               error={error.price}
               onChange={handleChange}

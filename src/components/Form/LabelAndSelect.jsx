@@ -12,12 +12,27 @@ import downIcon from '../../assets/images/downIcon.svg';
 
 const MAX_VISIBLE_ITEMS = 2;
 
+const buttonLabel = (currentValue, multiple = false) => {
+  if (!multiple) {
+    return currentValue;
+  }
+
+  if (Array.isArray(currentValue) && currentValue.length > 0) {
+    if (currentValue.length > MAX_VISIBLE_ITEMS) {
+      return `${currentValue.slice(0, MAX_VISIBLE_ITEMS).join(', ')} and ${currentValue.length - MAX_VISIBLE_ITEMS} more...`;
+    }
+    return currentValue.join(', ');
+  }
+
+  return currentValue;
+};
+
 const LabelAndSelect = ({
   id,
   name,
   value,
   data,
-  multiple,
+  multiple = false,
   onChange,
   children,
   error,
@@ -31,14 +46,6 @@ const LabelAndSelect = ({
     [name, onChange]
   );
 
-  const buttonLabel = multiple
-    ? Array.isArray(currentValue) && currentValue.length > 0
-      ? currentValue.length > MAX_VISIBLE_ITEMS
-        ? `${currentValue.slice(0, MAX_VISIBLE_ITEMS).join(', ')} and ${currentValue.length - MAX_VISIBLE_ITEMS} more...`
-        : currentValue.join(', ')
-      : currentValue
-    : currentValue;
-
   return (
     <div className="mb-3 flex flex-col gap-1">
       <label htmlFor={id}>{children}</label>
@@ -51,7 +58,7 @@ const LabelAndSelect = ({
           id={id}
           className="flex h-[42px] w-full items-center justify-between rounded border border-gray p-2"
         >
-          <div>{buttonLabel}</div>
+          <div>{buttonLabel(currentValue, multiple)}</div>
           <img src={downIcon} alt="Option icon" className="h-4 w-4" />
         </ListboxButton>
         <ListboxOptions className="mt-1 max-h-60 w-full overflow-y-auto rounded border border-gray bg-white">
