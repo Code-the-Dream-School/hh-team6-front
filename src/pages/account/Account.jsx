@@ -1,7 +1,4 @@
-import React from 'react';
-
 import Profile from './Profile';
-import UpdateProfile from './UpdateProfile';
 import LeftMenu from '../../components/account/LeftMenu';
 import { useAccount } from '../../context/AccountProvider';
 
@@ -31,6 +28,7 @@ const Account = () => {
       case 'profile':
         return <Profile />;
       case 'profileEdit':
+<<<<<<< HEAD
         return (
           <UpdateProfile
             setFirstName={setFirstName}
@@ -43,6 +41,9 @@ const Account = () => {
         );
       default:
         return <div>Page not found</div>;
+=======
+        return <div>profile edit</div>;
+>>>>>>> 5bce2ec ([RB-21] Profile Page (Account Folder) (#24))
     }
   };
 

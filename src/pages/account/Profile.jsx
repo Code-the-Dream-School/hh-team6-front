@@ -9,12 +9,11 @@ import { useAccount } from '../../context/AccountProvider';
 import { useAuth } from '../../context/AuthProvider';
 
 const Profile = () => {
-  const { userData } = useAuth(); // Access user data
-  const { setAccountPage } = useAccount(); // Access account page setter
+  const { userData } = useAuth();
+  const { setAccountPage } = useAccount();
 
-  // Callback to handle the Edit Profile button click
   const handleEditProfile = useCallback(() => {
-    setAccountPage('profileEdit'); // Use 'profileEdit' instead of 'EditProfile'
+    setAccountPage('EditProfile');
   }, [setAccountPage]);
 
   return (
@@ -32,7 +31,13 @@ const Profile = () => {
       </div>
       <div className="mb-6 flex items-center">
         <img src={locationIcon} alt="Location Icon" className="h-6 w-6" />
+<<<<<<< HEAD
         <p className="ml-[35px] text-2xl">{userData.location}</p>
+=======
+        <p className="ml-[35px] text-2xl">
+          {userData.location || 'Not specified'}
+        </p>
+>>>>>>> 5bce2ec ([RB-21] Profile Page (Account Folder) (#24))
       </div>
       <Button
         as="button"
