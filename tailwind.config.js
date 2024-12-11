@@ -21,6 +21,7 @@ export default {
         darkGreenHover: '#004d5c', // hover color
         lightBlue: '#F5F9FA', // used for backgrounds of book cards, footer, etc.
         gray: '#8799A9', // used for borders, input borders, and buttons in the header
+        grayHover: '#f8f9fa', //hover color
         blueGray: '#47667E', // used for text in buttons in the header
       },
       fontFamily: {

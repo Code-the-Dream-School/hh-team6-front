@@ -1,0 +1,81 @@
+export const languages = {
+  default: 'English',
+  options: ['English', 'Spanish', 'German', 'French', 'Russian', 'Other'],
+};
+
+export const ageCategories = {
+  default: '',
+  options: ['Children', 'Teens & Young Adult', 'Adult'],
+};
+
+export const genres = {
+  default: '',
+  options: [
+    'Adventure',
+    'Animal Stories',
+    'Art & Architecture',
+    'Biographies & Memoirs',
+    'Business & Economics',
+    'Chapter Books',
+    'Classics',
+    'Comics And Graphic Novels',
+    'Coming of Age',
+    'Cooking & Food',
+    'Crafts',
+    'Crime & Detective',
+    'Cultural Studies',
+    'Diaries & Journals',
+    'Detective',
+    'Dystopia',
+    'Education',
+    'Entertainment & Performing Arts',
+    'Fairy Tales, Myths & Fables',
+    'Fantasy',
+    'Fiction & Literature',
+    'Games & Activities',
+    'Gardening & Outdoors',
+    'Halloween',
+    'Harry Potter',
+    'Health & Medicine',
+    'History',
+    'Holiday & Festivals',
+    'Horror',
+    'Humor',
+    'Insects',
+    'Language & Linguistics',
+    'Mystery',
+    'Nature',
+    'Nonfiction',
+    'Parenting & Family',
+    'Philosophy',
+    'Photography',
+    'Picture Books',
+    'Poetry',
+    'Politics, Government & Law',
+    'Religion & Beliefs',
+    'Romance',
+    'Science & Technology',
+    'Science Fiction',
+    'Self-help',
+    'Short Stories',
+    'Sports & Adventure',
+    'Thriller',
+    'True Crime',
+    'Transportation',
+    'Travel & Adventure',
+    'War & Military',
+    'Western',
+    'Workbooks',
+    'Young Adult Fiction',
+  ],
+};
+
+export const conditions = {
+  default: '',
+  options: ['New', 'Like New', 'Very Good', 'Good', 'Acceptable'],
+};
+
+export const coverTypes = {
+  default: '',
+  options: ['Hardcover', 'Softcover'],
+};

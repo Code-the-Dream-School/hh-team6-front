@@ -42,7 +42,14 @@
     "react/prop-types": "warn",
     "react/jsx-key": "error",
     "react/jsx-no-undef": "error",
-    "react/jsx-no-bind": "warn",
+    "react/jsx-no-bind": [
+      "warn",
+      {
+        "allowArrowFunctions": true,
+        "allowFunctions": false,
+        "allowBind": false
+      }
+    ],
     "react/jsx-pascal-case": "error",
     "jsx-a11y/alt-text": "error",
     "jsx-a11y/anchor-is-valid": "error",

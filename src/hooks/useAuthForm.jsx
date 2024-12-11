@@ -32,7 +32,11 @@ const useAuthForm = () => {
     }
 
     try {
-      const result = await login(form);
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      const result = await login(headers, form);
       if (result.status === 200) {
         setUserSession({
           user: result.data.user,
