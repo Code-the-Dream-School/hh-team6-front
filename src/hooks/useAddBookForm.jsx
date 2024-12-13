@@ -10,7 +10,7 @@ const useAddBookForm = () => {
     author: '',
     publisher: '',
     publishedYear: '',
-    language: '',
+    language: 'English',
     pages: '',
     ageCategory: '',
     genre: [],
