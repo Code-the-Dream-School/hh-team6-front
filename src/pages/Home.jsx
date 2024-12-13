@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 
 import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 
 import books from '../assets/images/books-home.png';
 import cover from '../assets/images/cover.png';
@@ -32,10 +33,22 @@ const Home = () => {
     isbn: '',
   });
 
+  const navigate = useNavigate();
+
   const handleChange = useCallback((event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    navigate({
+      pathname: 'books',
+      search: createSearchParams({
+        ...formData,
+      }).toString(),
+    });
+  };
 
   return (
     <>
@@ -45,7 +58,10 @@ const Home = () => {
           src={books}
           alt="books"
         />
-        <form className="flex size-full flex-col bg-lightBlue px-8 py-12 lg:w-1/3">
+        <form
+          className="flex size-full flex-col bg-lightBlue px-8 py-12 lg:w-1/3"
+          onSubmit={handleSubmit}
+        >
           <h1 className="mb-6 font-headings text-2xl font-bold">
             Search for books
           </h1>

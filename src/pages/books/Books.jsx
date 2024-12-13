@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
+import { useSearchParams } from 'react-router-dom';
 
 import { getBooks } from '../../api/DBRequests';
 import BooksList from '../../components/Books/BooksList';
@@ -14,6 +15,7 @@ const Books = () => {
   const [booksList, setBooksList] = useState([]);
   const [sortBy, setSortBy] = useState('-createdAt');
   const [filterCount, setFilterCount] = useState(0);
+  const [searchParams] = useSearchParams();
 
   const [filters, setFilters] = useState({
     ageCategory: [],
@@ -23,8 +25,11 @@ const Books = () => {
   });
 
   useEffect(() => {
-    getBooks(setIsLoading, setBooksList, sortBy, filters);
-  }, [filters, sortBy]);
+    getBooks(setIsLoading, setBooksList, sortBy, {
+      ...filters,
+      ...Object.fromEntries([...searchParams]),
+    });
+  }, [filters, searchParams, sortBy]);
 
   useEffect(() => {
     const count = Object.keys(filters).filter(
