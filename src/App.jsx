@@ -4,6 +4,7 @@ import { AccountProvider } from './context/AccountProvider';
 import { AuthProvider } from './context/AuthProvider';
 import MainLayout from './layouts/MainLayout';
 import Router from './routes/Router';
+import './App.css';
 
 function App() {
   return (
