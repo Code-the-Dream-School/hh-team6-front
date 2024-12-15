@@ -9,7 +9,7 @@ const BooksList = ({ list }) => {
         {list.map((item, index) => (
           <BookCard
             key={index}
-            img={item.image}
+            img={item.coverImageUrl}
             title={item.title}
             author={item.author}
           />
@@ -22,11 +22,11 @@ const BooksList = ({ list }) => {
 BooksList.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      image: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
+      image: PropTypes.string,
+      title: PropTypes.string,
+      author: PropTypes.string,
     })
-  ).isRequired,
+  ),
 };
 
 export default BooksList;

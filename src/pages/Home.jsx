@@ -14,12 +14,16 @@ import LabelAndInput from '../components/Form/LabelAndInput';
 
 const Home = () => {
   const booksList = [
-    { image: cover, title: 'Karlsson on the Roof', author: 'Astrid Lindren' },
-    { image: cover, title: 'Book 2', author: 'Author 2' },
-    { image: cover, title: 'Book 3', author: 'Author 3' },
-    { image: cover, title: 'Book 4', author: 'Author 4' },
-    { image: cover, title: 'Book 5', author: 'Author 5' },
-    { image: cover, title: 'Book 6', author: 'Author 6' },
+    {
+      coverImageUrl: cover,
+      title: 'Karlsson on the Roof',
+      author: 'Astrid Lindren',
+    },
+    { coverImageUrl: cover, title: 'Book 2', author: 'Author 2' },
+    { coverImageUrl: cover, title: 'Book 3', author: 'Author 3' },
+    { coverImageUrl: cover, title: 'Book 4', author: 'Author 4' },
+    { coverImageUrl: cover, title: 'Book 5', author: 'Author 5' },
+    { coverImageUrl: cover, title: 'Book 6', author: 'Author 6' },
   ];
 
   const [formData, setFormData] = useState({
