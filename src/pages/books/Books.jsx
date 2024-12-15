@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 
-import { books } from '../../api/DBRequests';
+import { getBooks } from '../../api/DBRequests';
 import BooksList from '../../components/Books/BooksList';
 import LeftMenu from '../../components/Books/LeftMenu';
 import Filters from '../../components/Filters';
@@ -23,7 +23,7 @@ const Books = () => {
   });
 
   useEffect(() => {
-    books(setIsLoading, setBooksList, sortBy, filters);
+    getBooks(setIsLoading, setBooksList, sortBy, filters);
   }, [filters, sortBy]);
 
   useEffect(() => {

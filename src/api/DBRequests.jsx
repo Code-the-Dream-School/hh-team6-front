@@ -39,7 +39,7 @@ export const addBook = (headers, bookData, token) => {
   return handleApiRequest('/api/v1/books', headers, bookData, token);
 };
 
-export const books = async (setIsLoading, setBooksList, sortBy, filters) => {
+export const getBooks = async (setIsLoading, setBooksList, sortBy, filters) => {
   const url = '/api/v1/books';
 
   const stringFilters = Object.fromEntries(
