@@ -79,7 +79,7 @@ const Books = () => {
 
       <div className="px-5 sm:flex-1">
         {isLoading && 'loading'}
-        {!isLoading && <BooksList list={booksList} />}
+        {!isLoading && <BooksList list={booksList} showPrice={true} />}
       </div>
     </div>
   );

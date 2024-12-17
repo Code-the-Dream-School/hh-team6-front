@@ -19,12 +19,13 @@ const Home = () => {
       coverImageUrl: cover,
       title: 'Karlsson on the Roof',
       author: 'Astrid Lindren',
+      _id: '1',
     },
-    { coverImageUrl: cover, title: 'Book 2', author: 'Author 2' },
-    { coverImageUrl: cover, title: 'Book 3', author: 'Author 3' },
-    { coverImageUrl: cover, title: 'Book 4', author: 'Author 4' },
-    { coverImageUrl: cover, title: 'Book 5', author: 'Author 5' },
-    { coverImageUrl: cover, title: 'Book 6', author: 'Author 6' },
+    { coverImageUrl: cover, title: 'Book 2', author: 'Author 2', _id: '2' },
+    { coverImageUrl: cover, title: 'Book 3', author: 'Author 3', _id: '3' },
+    { coverImageUrl: cover, title: 'Book 4', author: 'Author 4', _id: '4' },
+    { coverImageUrl: cover, title: 'Book 5', author: 'Author 5', _id: '5' },
+    { coverImageUrl: cover, title: 'Book 6', author: 'Author 6', _id: '6' },
   ];
 
   const [formData, setFormData] = useState({

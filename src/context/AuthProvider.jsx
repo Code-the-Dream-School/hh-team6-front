@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
+import { jwtDecode } from 'jwt-decode';
 import PropTypes from 'prop-types';
 
 const AuthContext = createContext();
@@ -14,6 +15,8 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(initialToken);
   const [userData, setUserData] = useState(initialUser);
   const [isLoggedIn, setIsLoggedIn] = useState(!!initialToken);
+
+  const userId = token ? jwtDecode(token).userId : '';
 
   const setUserSession = ({ user, token }) => {
     sessionStorage.setItem('user', JSON.stringify(user));
@@ -37,6 +40,7 @@ export const AuthProvider = ({ children }) => {
         isLoggedIn,
         userData,
         token,
+        userId,
         setUserSession,
         clearUserSession,
         setUserData,
