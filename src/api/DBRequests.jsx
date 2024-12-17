@@ -43,7 +43,9 @@ export const getBooks = async (setIsLoading, setBooksList, sortBy, filters) => {
   const url = '/api/v1/books';
 
   const stringFilters = Object.fromEntries(
-    Object.entries(filters).map(([key, values]) => [key, values.join(',')])
+    Object.entries(filters).map(([key, values]) =>
+      Array.isArray(values) ? [key, values.join(',')] : [key, values]
+    )
   );
 
   try {
