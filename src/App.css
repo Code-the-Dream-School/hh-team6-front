@@ -7,6 +7,7 @@
     'table';
   grid-template-rows: 40px 362px 184px auto;
   gap: 1rem;
+  margin-top: 80px;
 }
 
 .grid-area-header {
@@ -19,6 +20,8 @@
 
 .grid-area-box {
   grid-area: box;
+  height: max-content;
+  width: 284px;
 }
 
 .grid-area-table {
