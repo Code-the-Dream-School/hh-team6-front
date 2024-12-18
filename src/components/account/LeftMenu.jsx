@@ -10,7 +10,9 @@ const LeftMenu = () => {
   return (
     <aside className="mx-5 hidden rounded-md border border-gray p-3 sm:block">
       <nav>
-        <AddBookButton />
+        <div className="mb-10 mt-4">
+          <AddBookButton />
+        </div>
         <ul className="space-y-4">
           <li key="myBooks">
             <ChangePageButton page="myBooks" label="My Book Listings" />

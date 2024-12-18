@@ -12,7 +12,9 @@ export const useAccount = () => {
 export const AccountProvider = ({ children }) => {
   const initialAccountPage =
     sessionStorage.getItem('accountPage') || DEFAULT_PAGE;
+
   const [accountPage, setAccountPage] = useState(initialAccountPage);
+  const [currentBookId, setCurrentBookId] = useState('');
 
   useEffect(() => {
     sessionStorage.setItem('accountPage', accountPage);
@@ -23,6 +25,8 @@ export const AccountProvider = ({ children }) => {
       value={{
         accountPage,
         setAccountPage,
+        currentBookId,
+        setCurrentBookId,
       }}
     >
       {children}

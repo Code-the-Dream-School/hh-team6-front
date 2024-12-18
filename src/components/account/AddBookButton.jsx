@@ -15,7 +15,7 @@ const AddBookButton = () => {
     <Button
       as="button"
       onClick={handleAddBook}
-      className="mb-10 mt-4 block rounded-md bg-darkGreen px-3 py-1 text-white transition-transform duration-150 hover:bg-darkGreenHover active:scale-95"
+      className="block h-full rounded-md bg-darkGreen px-3 py-1 text-white transition-transform duration-150 hover:bg-darkGreenHover active:scale-95"
     >
       + Add New Listing
     </Button>

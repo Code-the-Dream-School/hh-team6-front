@@ -53,12 +53,16 @@ const LabelAndSelect = ({
       >
         <ListboxButton
           id={id}
-          className="flex h-[42px] w-full items-center justify-between rounded border border-gray p-2"
+          className="flex min-h-[42px] w-full min-w-[160px] items-center justify-between rounded border border-gray p-2"
         >
           <div>{buttonLabel(value, multiple)}</div>
           <img src={downIcon} alt="Option icon" className="h-4 w-4" />
         </ListboxButton>
-        <ListboxOptions className="mt-1 max-h-60 w-full overflow-y-auto rounded border border-gray bg-white">
+        <ListboxOptions
+          className="max-h-60 w-[var(--button-width)] overflow-y-auto rounded border border-gray bg-white [--anchor-gap:4px]"
+          modal={false}
+          anchor="bottom end"
+        >
           {data.map((option) => (
             <ListboxOption
               key={option.value}

@@ -71,3 +71,21 @@ export const getBooks = async (setIsLoading, setBooksList, sortBy, filters) => {
     throw new Error(errorMessage);
   }
 };
+
+export const deleteBook = async (id, token) => {
+  const url = `/api/v1/books/${id}`;
+  try {
+    const response = await axios.delete(`${API_BASE_URL}${url}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
