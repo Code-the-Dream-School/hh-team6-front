@@ -11,7 +11,6 @@ const BookCard = ({
   price,
   canEdit,
   canDelete,
-
   updateList,
 }) => {
   return (

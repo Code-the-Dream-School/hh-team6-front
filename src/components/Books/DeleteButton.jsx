@@ -36,38 +36,40 @@ const DeleteButton = ({ id, title, updateList }) => {
       <Button
         as="button"
         onClick={handleButton}
-        className="w-1/2 w-full rounded-md bg-red p-1 font-semibold tracking-wide text-white transition-transform duration-200 hover:bg-redHover active:scale-95"
+        className="w-1/2 rounded-md bg-red p-1 font-semibold tracking-wide text-white transition-transform duration-200 hover:bg-redHover active:scale-95"
       >
         Delete
       </Button>
 
-      <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-        <DialogBackdrop className="fixed inset-0 bg-black/30" />
-        <div className="fixed inset-0 flex items-center justify-center p-4">
-          <DialogPanel className="max-w-sm space-y-4 rounded-md border border-gray bg-white p-5">
-            <DialogTitle className="justify-cente font-bold">
-              Delete book
-            </DialogTitle>
-            <Description>
-              {`This will permanently delete ${title}. Are you sure you want to delete this book?`}
-            </Description>
-            <div className="flex justify-center gap-4">
-              <Button
-                onClick={handleCancel}
-                className="w-[100px] rounded-md border border-white px-3 py-1 text-gray hover:border-gray"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={handleDelete}
-                className="w-[100px] rounded-md bg-red p-1 px-3 font-semibold tracking-wide text-white hover:bg-redHover"
-              >
-                Delete
-              </Button>
-            </div>
-          </DialogPanel>
-        </div>
-      </Dialog>
+      {isOpen && (
+        <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+          <DialogBackdrop className="fixed inset-0 bg-black/30" />
+          <div className="fixed inset-0 flex items-center justify-center p-4">
+            <DialogPanel className="max-w-sm space-y-4 rounded-md border border-gray bg-white p-5">
+              <DialogTitle className="text-center font-bold">
+                Delete book
+              </DialogTitle>
+              <Description>
+                {`This will permanently delete ${title}. Are you sure you want to delete this book?`}
+              </Description>
+              <div className="flex justify-center gap-4">
+                <Button
+                  onClick={handleCancel}
+                  className="w-[100px] rounded-md border border-white px-3 py-1 text-gray hover:border-gray"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleDelete}
+                  className="w-[100px] rounded-md bg-red px-3 py-1 font-semibold tracking-wide text-white hover:bg-redHover"
+                >
+                  Delete
+                </Button>
+              </div>
+            </DialogPanel>
+          </div>
+        </Dialog>
+      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import { Menu, MenuButton, MenuItems } from '@headlessui/react';
 import { useSearchParams } from 'react-router-dom';
@@ -16,6 +16,7 @@ const Books = () => {
   const [sortBy, setSortBy] = useState('-createdAt');
   const [filterCount, setFilterCount] = useState(0);
   const [searchParams] = useSearchParams();
+  const [error, setError] = useState('');
 
   const [filters, setFilters] = useState({
     ageCategory: [],
@@ -24,12 +25,20 @@ const Books = () => {
     genre: [],
   });
 
-  useEffect(() => {
-    getBooks(setIsLoading, setBooksList, sortBy, {
-      ...filters,
-      ...Object.fromEntries([...searchParams]),
-    });
+  const fetchBooks = useCallback(async () => {
+    try {
+      await getBooks(setIsLoading, setBooksList, sortBy, {
+        ...filters,
+        ...Object.fromEntries([...searchParams]),
+      });
+    } catch (error) {
+      setError('Failed to load books. Please try again later.');
+    }
   }, [filters, searchParams, sortBy]);
+
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]);
 
   useEffect(() => {
     const count = Object.keys(filters).filter(
@@ -78,8 +87,13 @@ const Books = () => {
       </div>
 
       <div className="px-5 sm:flex-1">
-        {isLoading && 'loading'}
-        {!isLoading && <BooksList list={booksList} showPrice={true} />}
+        {error ? (
+          <p>{error}</p>
+        ) : isLoading ? (
+          <p>Loading</p>
+        ) : (
+          <BooksList list={booksList} showPrice={true} />
+        )}
       </div>
     </div>
   );

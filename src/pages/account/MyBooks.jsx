@@ -12,15 +12,20 @@ const MyBooks = () => {
   const [booksList, setBooksList] = useState([]);
   const [sortBy, setSortBy] = useState('-createdAt');
   const { userId } = useAuth();
+  const [error, setError] = useState('');
 
-  const updateList = useCallback(async () => {
+  const fetchBooks = useCallback(async () => {
     setIsLoading(true);
-    await getBooks(setIsLoading, setBooksList, sortBy, { userId: userId });
+    try {
+      await getBooks(setIsLoading, setBooksList, sortBy, { userId: userId });
+    } catch (error) {
+      setError('Failed to load books. Please try again later.');
+    }
   }, [sortBy, userId]);
 
   useEffect(() => {
-    updateList();
-  }, [updateList]);
+    fetchBooks();
+  }, [fetchBooks]);
 
   const handleSortSelect = (name, value) => {
     setSortBy(value);
@@ -44,13 +49,16 @@ const MyBooks = () => {
         </div>
       </div>
 
-      {isLoading && 'loading'}
-      {!isLoading && (
+      {error ? (
+        <p>{error}</p>
+      ) : isLoading ? (
+        <p>Loading...</p>
+      ) : (
         <BooksList
           list={booksList}
           canEdit={true}
           canDelete={true}
-          updateList={updateList}
+          updateList={fetchBooks}
         />
       )}
     </>
