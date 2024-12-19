@@ -1,4 +1,4 @@
-import { Description, Dialog, DialogPanel, DialogTitle, Button } from '@headlessui/react'
+import { Description, Dialog, DialogTitle, Button } from '@headlessui/react';
 import LabelAndInput from '../../components/Form/LabelAndInput';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ const PasswordReset = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -27,26 +27,30 @@ const PasswordReset = () => {
     if (!email) {
       setError('Email is required.');
       return;
-    };
+    }
     setIsLoading(true);
     try {
       const response = await sendResetLinkRequest({ email });
       if (response.status === 200) {
-        setMessage('A password reset link has been sent to your email. Check your email, please.');
+        setMessage(
+          'A password reset link has been sent to your email. Check your email, please.'
+        );
         setError('');
-        setIsModalOpen(true); 
+        setIsModalOpen(true);
         setIsLoading(false);
       }
     } catch (error) {
       console.log(error.message);
-      setError(error.message || 'An error occurred while sending the reset link.');
+      setError(
+        error.message || 'An error occurred while sending the reset link.'
+      );
       setIsLoading(false);
     }
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    returnToLogin(); 
+    returnToLogin();
   };
 
   return (
@@ -82,14 +86,15 @@ const PasswordReset = () => {
               as="button"
               type="submit"
               className={`mt-7 w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white transition-transform duration-200 ${
-                isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-redHover active:scale-95'
+                isLoading
+                  ? 'cursor-not-allowed opacity-50'
+                  : 'hover:bg-redHover active:scale-95'
               }`}
               disabled={isLoading}
             >
               {isLoading ? 'Sending...' : 'Send Reset Link'}
             </Button>
           </div>
-
         </form>
       </div>
 
@@ -98,19 +103,20 @@ const PasswordReset = () => {
         onClose={closeModal}
         className="fixed inset-0 z-10 flex items-center justify-center"
       >
-        <div className="fixed inset-0 bg-black bg-opacity-30" aria-hidden="true"></div>
-        <div className="relative z-20 max-w-sm rounded-lg bg-white p-6 shadow-lg">
-          <DialogTitle className="text-lg font-semibold text-center">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-30"
+          aria-hidden="true"
+        ></div>
+        <div className="relative z-20 max-w-lg rounded-lg bg-white p-8 shadow-xl">
+          <DialogTitle className="text-center text-xl font-semibold">
             Reset Password
           </DialogTitle>
-          <Description className="mt-2">
-            {message}
-          </Description>
-          <div className="mt-4">
+          <Description className="mt-4 text-center">{message}</Description>
+          <div className="mt-6">
             <Button
               as="button"
               onClick={closeModal}
-              className="w-full rounded-md bg-darkGreen p-2 text-white hover:darkGreenHover"
+              className="w-full rounded-md bg-darkGreen p-3 text-white hover:bg-darkGreenHover"
             >
               OK
             </Button>

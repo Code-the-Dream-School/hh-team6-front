@@ -104,3 +104,20 @@ export const sendResetLinkRequest = async (email) => {
     throw new Error(errorMessage);
   }
 };
+
+export const updatePassword = async ({ newPassword, token }) => {
+  const url = `/api/v1/password-reset`;
+  try {
+    const response = await axios.post(`${API_BASE_URL}${url}`, {
+      newPassword,
+      token,
+    });
+    return response;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      "An unexpected error occurred";
+    throw new Error(errorMessage);
+  }
+};
