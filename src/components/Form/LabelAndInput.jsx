@@ -24,6 +24,8 @@ const LabelAndInput = ({
       max={max}
       step={step}
       onChange={onChange}
+      disabled={disabled}
+      style={style}
       className={'w-full rounded border border-gray p-2'}
     />
     {error && <p className="text-red">{error}</p>}
@@ -41,6 +43,8 @@ LabelAndInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   children: PropTypes.node,
   error: PropTypes.string,
+  style: PropTypes.object,
+  disabled: PropTypes.bool,
 };
 
 export default LabelAndInput;
