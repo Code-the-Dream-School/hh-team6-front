@@ -39,26 +39,27 @@ const UpdateProfile = () => {
   const handleSave = useCallback(
     async (e) => {
       e.preventDefault();
-
+  
       if (!formData.firstName || !formData.lastName || !formData.location) {
         setError('All fields are required!');
         return;
       }
       setError('');
-
+  
       try {
         const headers = { 'Content-Type': 'application/json' };
         const response = await updateProfile(headers, formData, token);
-
+  
         if (response.data?.user) {
           setUserData(response.data.user);
           sessionStorage.setItem('user', JSON.stringify(response.data.user));
         } else {
           setError('API response does not contain updated user data.');
         }
-
+  
         setAccountPage('profile');
       } catch (err) {
+        console.error('Error occurred during profile update:', err); 
         setError(err.message || 'Failed to update profile');
       }
     },
