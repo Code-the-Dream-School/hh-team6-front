@@ -45,8 +45,8 @@ LabelAndInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   children: PropTypes.node,
   error: PropTypes.string,
-  style: PropTypes.object,
   disabled: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 export default LabelAndInput;
