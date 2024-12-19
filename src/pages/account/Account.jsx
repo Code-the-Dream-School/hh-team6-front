@@ -1,4 +1,5 @@
 import AddBook from './AddBook';
+import EditBook from './EditBook';
 import MyBooks from './MyBooks';
 import Profile from './Profile';
 import LeftMenu from '../../components/account/LeftMenu';
@@ -12,7 +13,7 @@ const Account = () => {
       case 'addBook':
         return <AddBook />;
       case 'editBook':
-        return <div>editBook</div>;
+        return <EditBook />;
       case 'myBooks':
         return <MyBooks />;
       case 'orderHistory':
