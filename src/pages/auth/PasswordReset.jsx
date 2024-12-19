@@ -1,8 +1,10 @@
-import { Description, Dialog, DialogTitle, Button } from '@headlessui/react';
-import LabelAndInput from '../../components/Form/LabelAndInput';
 import { useState } from 'react';
+
+import { Description, Dialog, DialogTitle, Button } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
+
 import { sendResetLinkRequest } from '../../api/DBRequests';
+import LabelAndInput from '../../components/Form/LabelAndInput';
 
 const PasswordReset = () => {
   const [email, setEmail] = useState('');
@@ -40,7 +42,6 @@ const PasswordReset = () => {
         setIsLoading(false);
       }
     } catch (error) {
-      console.log(error.message);
       setError(
         error.message || 'An error occurred while sending the reset link.'
       );

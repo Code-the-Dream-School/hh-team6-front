@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import LabelAndInput from '../../components/Form/LabelAndInput';
-import { updatePassword } from '../../api/DBRequests';
-import { useNavigate } from 'react-router-dom';
+
 import { Description, Dialog, DialogTitle, Button } from '@headlessui/react';
+import { useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+import { updatePassword } from '../../api/DBRequests';
+import LabelAndInput from '../../components/Form/LabelAndInput';
 
 const PasswordEdit = () => {
   const [form, setForm] = useState({
