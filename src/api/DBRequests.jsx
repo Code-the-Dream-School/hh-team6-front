@@ -39,9 +39,8 @@ export const addBook = (headers, bookData, token) => {
   return handleApiRequest('/api/v1/books', headers, bookData, token);
 };
 
-export const updateProfile = (headers, userData, token) => {
-  return handleApiRequest('/api/v1/update', 'PATCH', headers, userData, token);
-};
+export const updateProfile = (headers, userData, token) =>
+  handleApiRequest('/api/v1/update', headers, userData, token, 'PATCH');
 
 
 export const getBooks = async (setIsLoading, setBooksList, sortBy, filters) => {
