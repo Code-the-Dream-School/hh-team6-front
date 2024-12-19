@@ -90,10 +90,9 @@ export const deleteBook = async (id, token) => {
   }
 };
 
-export const sendResetLinkRequest = async (email) => {
-  const url = `/api/v1/forgot-password`;
+const handlePasswordRequest = async (url, data) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}${url}`, email);
+    const response = await axios.post(`${API_BASE_URL}${url}`, data);
     return response;
   } catch (error) {
     const errorMessage =
@@ -105,19 +104,8 @@ export const sendResetLinkRequest = async (email) => {
   }
 };
 
-export const updatePassword = async ({ newPassword, token }) => {
-  const url = `/api/v1/password-reset`;
-  try {
-    const response = await axios.post(`${API_BASE_URL}${url}`, {
-      newPassword,
-      token,
-    });
-    return response;
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      "An unexpected error occurred";
-    throw new Error(errorMessage);
-  }
-};
+export const sendResetLinkRequest = (email) =>
+  handlePasswordRequest(`/api/v1/forgot-password`, email);
+
+export const updatePassword = ({ newPassword, token }) =>
+  handlePasswordRequest(`/api/v1/password-reset`, { newPassword, token });
