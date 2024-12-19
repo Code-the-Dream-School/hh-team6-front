@@ -89,3 +89,18 @@ export const deleteBook = async (id, token) => {
     throw new Error(errorMessage);
   }
 };
+
+export const sendResetLinkRequest = async (email) => {
+  const url = `/api/v1/forgot-password`;
+  try {
+    const response = await axios.post(`${API_BASE_URL}${url}`, email);
+    return response;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
