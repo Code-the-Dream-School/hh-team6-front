@@ -12,6 +12,8 @@ const LabelAndInput = ({
   onChange,
   children,
   error,
+  disabled = false,
+  style,
 }) => (
   <div className="mb-3 flex w-full flex-col gap-1">
     <label htmlFor={id}>{children}</label>
