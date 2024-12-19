@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
 import { updateProfile } from '../../api/DBRequests';
-import CancelButton from '../../components/
+import CancelButton from '../../components/account/Profile/CancelProfileButton';
 import SaveProfileButton from '../../components/account/Profile/SaveProfileButton';
 import LabelAndInput from '../../components/Form/LabelAndInput';
 import { useAccount } from '../../context/AccountProvider';
