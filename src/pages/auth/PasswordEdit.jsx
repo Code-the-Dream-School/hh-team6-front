@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 
-import { Description, Dialog, DialogTitle, Button } from '@headlessui/react';
+import { Button } from '@headlessui/react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import { updatePassword } from '../../api/DBRequests';
 import LabelAndInput from '../../components/Form/LabelAndInput';
+import Modal from '../../layouts/ModalWithOneButton';
 
 const PasswordEdit = () => {
   const [form, setForm] = useState({
@@ -147,35 +148,16 @@ const PasswordEdit = () => {
           </Button>
 
           {error.form && <p className="mt-2 text-red">{error.form}</p>}
-          {message && <p className="mt-2 text-darkGreen">{message}</p>}
         </form>
       </div>
 
-      <Dialog
-        open={isModalOpen}
+      <Modal
+        isOpen={isModalOpen}
         onClose={closeModal}
-        className="fixed inset-0 z-10 flex items-center justify-center"
-      >
-        <div
-          className="fixed inset-0 bg-black bg-opacity-30"
-          aria-hidden="true"
-        ></div>
-        <div className="relative z-20 max-w-lg rounded-lg bg-white p-8 shadow-xl">
-          <DialogTitle className="text-center text-xl font-semibold">
-            Reset Password
-          </DialogTitle>
-          <Description className="mt-4 text-center">{message}</Description>
-          <div className="mt-6">
-            <Button
-              as="button"
-              onClick={closeModal}
-              className="w-full rounded-md bg-darkGreen p-3 text-white hover:bg-darkGreenHover"
-            >
-              OK
-            </Button>
-          </div>
-        </div>
-      </Dialog>
+        title="New Password"
+        description={message}
+        buttonText="OK"
+      />
     </div>
   );
 };

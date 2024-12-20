@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
-import { Description, Dialog, DialogTitle, Button } from '@headlessui/react';
+import { Button } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 
 import { sendResetLinkRequest } from '../../api/DBRequests';
 import LabelAndInput from '../../components/Form/LabelAndInput';
+import Modal from '../../layouts/ModalWithOneButton';
 
 const PasswordReset = () => {
   const [email, setEmail] = useState('');
@@ -99,31 +100,13 @@ const PasswordReset = () => {
         </form>
       </div>
 
-      <Dialog
-        open={isModalOpen}
+      <Modal
+        isOpen={isModalOpen}
         onClose={closeModal}
-        className="fixed inset-0 z-10 flex items-center justify-center"
-      >
-        <div
-          className="fixed inset-0 bg-black bg-opacity-30"
-          aria-hidden="true"
-        ></div>
-        <div className="relative z-20 max-w-lg rounded-lg bg-white p-8 shadow-xl">
-          <DialogTitle className="text-center text-xl font-semibold">
-            Reset Password
-          </DialogTitle>
-          <Description className="mt-4 text-center">{message}</Description>
-          <div className="mt-6">
-            <Button
-              as="button"
-              onClick={closeModal}
-              className="w-full rounded-md bg-darkGreen p-3 text-white hover:bg-darkGreenHover"
-            >
-              OK
-            </Button>
-          </div>
-        </div>
-      </Dialog>
+        title="Reset Password"
+        description={message}
+        buttonText="OK"
+      />
     </div>
   );
 };
