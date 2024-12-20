@@ -1,108 +1,21 @@
-import { useState, useEffect } from 'react';
-
 import { Button } from '@headlessui/react';
-import { useSearchParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
-import { updatePassword } from '../../api/DBRequests';
 import LabelAndInput from '../../components/Form/LabelAndInput';
+import usePasswordRecovery from '../../hooks/usePasswordRecovery';
 import Modal from '../../layouts/ModalWithOneButton';
 
 const PasswordEdit = () => {
-  const [form, setForm] = useState({
-    newPassword: '',
-    newPasswordConfirm: '',
-  });
-  const [error, setError] = useState({
-    password: '',
-    form: '',
-  });
-  const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchParams] = useSearchParams();
-  const [token, setToken] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const navigate = useNavigate();
-  const returnToLogin = () => navigate('/sign_in');
-
-  useEffect(() => {
-    const tokenFromUrl = searchParams.get('token');
-    if (tokenFromUrl) {
-      setToken(tokenFromUrl);
-    } else {
-      setError((prev) => ({
-        ...prev,
-        form: 'Invalid or missing token.',
-      }));
-    }
-  }, [searchParams]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-
-    if (error[name]) {
-      setError((prev) => ({ ...prev, [name]: '' }));
-    }
-    if (error.form) {
-      setError((prev) => ({ ...prev, form: '' }));
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!form.newPassword || !form.newPasswordConfirm) {
-      setError((prev) => ({
-        ...prev,
-        password: 'Both fields are required.',
-      }));
-      return;
-    }
-
-    if (form.newPassword !== form.newPasswordConfirm) {
-      setError((prev) => ({
-        ...prev,
-        form: 'Passwords do not match.',
-      }));
-      return;
-    }
-
-    if (!token) {
-      setError((prev) => ({
-        ...prev,
-        form: 'Token is missing. Please use the link provided in your email.',
-      }));
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const response = await updatePassword({
-        newPassword: form.newPassword,
-        token,
-      });
-      if (response.status === 200) {
-        setMessage('Your password has been successfully changed.');
-        setForm({ newPassword: '', newPasswordConfirm: '' });
-        setIsModalOpen(true);
-        setIsLoading(false);
-      }
-    } catch (error) {
-      console.error(error);
-      setError((prev) => ({
-        ...prev,
-        form: error.message || 'An error occurred while updating the password.',
-      }));
-      setIsLoading(false);
-    }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    returnToLogin();
-  };
+  const {
+    newPassword,
+    newPasswordConfirm,
+    error,
+    message,
+    isLoading,
+    handleSubmit,
+    handleChange,
+    isModalOpen,
+    closeModal,
+  } = usePasswordRecovery('edit');
 
   return (
     <div className="flex flex-grow items-center justify-center">
@@ -116,8 +29,8 @@ const PasswordEdit = () => {
             id="newPassword"
             name="newPassword"
             type="password"
-            value={form.newPassword}
-            error={error.password}
+            value={newPassword}
+            error={error}
             onChange={handleChange}
           >
             New Password
@@ -127,8 +40,8 @@ const PasswordEdit = () => {
             id="newPasswordConfirm"
             name="newPasswordConfirm"
             type="password"
-            value={form.newPasswordConfirm}
-            error={error.password}
+            value={newPasswordConfirm}
+            error={error}
             onChange={handleChange}
           >
             Confirm New Password

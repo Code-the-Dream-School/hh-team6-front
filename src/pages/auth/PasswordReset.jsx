@@ -1,59 +1,21 @@
-import { useState } from 'react';
-
 import { Button } from '@headlessui/react';
-import { useNavigate } from 'react-router-dom';
 
-import { sendResetLinkRequest } from '../../api/DBRequests';
 import LabelAndInput from '../../components/Form/LabelAndInput';
+import usePasswordRecovery from '../../hooks/usePasswordRecovery';
 import Modal from '../../layouts/ModalWithOneButton';
 
 const PasswordReset = () => {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const navigate = useNavigate();
-  const returnToLogin = () => navigate('/sign_in');
-
-  const handleChange = (e) => {
-    setEmail(e.target.value);
-
-    if (error) {
-      setError('');
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!email) {
-      setError('Email is required.');
-      return;
-    }
-    setIsLoading(true);
-    try {
-      const response = await sendResetLinkRequest({ email });
-      if (response.status === 200) {
-        setMessage(
-          'A password reset link has been sent to your email. Check your email, please.'
-        );
-        setError('');
-        setIsModalOpen(true);
-        setIsLoading(false);
-      }
-    } catch (error) {
-      setError(
-        error.message || 'An error occurred while sending the reset link.'
-      );
-      setIsLoading(false);
-    }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    returnToLogin();
-  };
+  const {
+    email,
+    error,
+    message,
+    isLoading,
+    handleSubmit,
+    handleChange,
+    isModalOpen,
+    closeModal,
+    returnToLogin,
+  } = usePasswordRecovery('reset');
 
   return (
     <div className="flex flex-grow items-center justify-center">
