@@ -3,6 +3,7 @@ import { Button } from '@headlessui/react';
 import LabelAndInput from '../../components/Form/LabelAndInput';
 import usePasswordRecovery from '../../hooks/usePasswordRecovery';
 import Modal from '../../layouts/ModalWithOneButton';
+import Preloader from '../../layouts/Preloader';
 
 const PasswordReset = () => {
   const {
@@ -20,6 +21,7 @@ const PasswordReset = () => {
   return (
     <div className="flex flex-grow items-center justify-center">
       <div className="flex w-full min-w-[320px] max-w-[420px] flex-col items-center rounded-[5px] bg-lightBlue p-10">
+        {isLoading && <Preloader />}
         <h2 className="mb-16 mt-4 font-headings text-2xl font-bold">
           Reset Password
         </h2>
