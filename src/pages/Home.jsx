@@ -1,38 +1,55 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 
+import { getAllBooks } from '../api/DBRequests';
 import books from '../assets/images/books-home.png';
-import cover from '../assets/images/cover.png';
+// import cover from '../assets/images/cover.png';
 import arrowRight from '../assets/images/icons/arrow-right.svg';
 import booksIcon from '../assets/images/icons/books.png';
 import handIcon from '../assets/images/icons/hand.png';
 import personIcon from '../assets/images/icons/person-reading.png';
-import BooksList from '../components/Books/BooksList';
+import BookCardLink from '../components/Books/BookCardLink';
 import LabelAndInput from '../components/Form/LabelAndInput';
 
 const Home = () => {
-  const booksList = [
-    {
-      coverImageUrl: cover,
-      title: 'Karlsson on the Roof',
-      author: 'Astrid Lindren',
-      _id: '1',
-    },
-    { coverImageUrl: cover, title: 'Book 2', author: 'Author 2', _id: '2' },
-    { coverImageUrl: cover, title: 'Book 3', author: 'Author 3', _id: '3' },
-    { coverImageUrl: cover, title: 'Book 4', author: 'Author 4', _id: '4' },
-    { coverImageUrl: cover, title: 'Book 5', author: 'Author 5', _id: '5' },
-    { coverImageUrl: cover, title: 'Book 6', author: 'Author 6', _id: '6' },
-  ];
+  // const booksList = [
+  //   {
+  //     coverImageUrl: cover,
+  //     title: 'Karlsson on the Roof',
+  //     author: 'Astrid Lindren',
+  //     _id: '1',
+  //   },
+  //   { coverImageUrl: cover, title: 'Book 2', author: 'Author 2', _id: '2' },
+  //   { coverImageUrl: cover, title: 'Book 3', author: 'Author 3', _id: '3' },
+  //   { coverImageUrl: cover, title: 'Book 4', author: 'Author 4', _id: '4' },
+  //   { coverImageUrl: cover, title: 'Book 5', author: 'Author 5', _id: '5' },
+  //   { coverImageUrl: cover, title: 'Book 6', author: 'Author 6', _id: '6' },
+  // ];
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [booksList, setBooksList] = useState([]);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     author: '',
     title: '',
     isbn: '',
   });
+
+  const fetchBooks = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      await getAllBooks(setIsLoading, setBooksList);
+    } catch (error) {
+      setError('Failed to load books. Please try again later.');
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]);
 
   const navigate = useNavigate();
 
@@ -129,7 +146,18 @@ const Home = () => {
         <h1 className="mb-8 font-headings text-xl font-semibold md:self-start">
           Recently added books
         </h1>
-        <BooksList list={booksList} />
+        {error ? (
+          <p>{error}</p>
+        ) : isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <BookCardLink
+            list={booksList}
+            // canEdit={true}
+            // canDelete={true}
+            updateList={fetchBooks}
+          />
+        )}
       </div>
       <Link to="/books" className="flex gap-4 self-center md:self-start">
         <p className="inline text-xl underline md:pl-20">Shop more books</p>
