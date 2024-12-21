@@ -1,4 +1,6 @@
 import AddBook from './AddBook';
+import EditBook from './EditBook';
+import MyBooks from './MyBooks';
 import Profile from './Profile';
 import LeftMenu from '../../components/account/LeftMenu';
 import { useAccount } from '../../context/AccountProvider';
@@ -10,8 +12,10 @@ const Account = () => {
     switch (accountPage) {
       case 'addBook':
         return <AddBook />;
+      case 'editBook':
+        return <EditBook />;
       case 'myBooks':
-        return <div>myBooks</div>;
+        return <MyBooks />;
       case 'orderHistory':
         return <div>orderHistory</div>;
       case 'savedBooks':

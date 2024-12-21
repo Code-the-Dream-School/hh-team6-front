@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 
 import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 
 import books from '../assets/images/books-home.png';
 import cover from '../assets/images/cover.png';
@@ -14,12 +15,17 @@ import LabelAndInput from '../components/Form/LabelAndInput';
 
 const Home = () => {
   const booksList = [
-    { image: cover, title: 'Karlsson on the Roof', author: 'Astrid Lindren' },
-    { image: cover, title: 'Book 2', author: 'Author 2' },
-    { image: cover, title: 'Book 3', author: 'Author 3' },
-    { image: cover, title: 'Book 4', author: 'Author 4' },
-    { image: cover, title: 'Book 5', author: 'Author 5' },
-    { image: cover, title: 'Book 6', author: 'Author 6' },
+    {
+      coverImageUrl: cover,
+      title: 'Karlsson on the Roof',
+      author: 'Astrid Lindren',
+      _id: '1',
+    },
+    { coverImageUrl: cover, title: 'Book 2', author: 'Author 2', _id: '2' },
+    { coverImageUrl: cover, title: 'Book 3', author: 'Author 3', _id: '3' },
+    { coverImageUrl: cover, title: 'Book 4', author: 'Author 4', _id: '4' },
+    { coverImageUrl: cover, title: 'Book 5', author: 'Author 5', _id: '5' },
+    { coverImageUrl: cover, title: 'Book 6', author: 'Author 6', _id: '6' },
   ];
 
   const [formData, setFormData] = useState({
@@ -28,10 +34,22 @@ const Home = () => {
     isbn: '',
   });
 
+  const navigate = useNavigate();
+
   const handleChange = useCallback((event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    navigate({
+      pathname: 'books',
+      search: createSearchParams({
+        ...formData,
+      }).toString(),
+    });
+  };
 
   return (
     <>
@@ -41,7 +59,10 @@ const Home = () => {
           src={books}
           alt="books"
         />
-        <form className="flex size-full flex-col bg-lightBlue px-8 py-12 lg:w-1/3">
+        <form
+          className="flex size-full flex-col bg-lightBlue px-8 py-12 lg:w-1/3"
+          onSubmit={handleSubmit}
+        >
           <h1 className="mb-6 font-headings text-2xl font-bold">
             Search for books
           </h1>

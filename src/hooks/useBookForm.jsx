@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-import { addBook } from '../api/DBRequests';
+import { addBook, updateBook, getBook } from '../api/DBRequests';
 import { useAccount } from '../context/AccountProvider';
 import { useAuth } from '../context/AuthProvider';
 
-const useAddBookForm = () => {
+const useBookForm = (id) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [form, setForm] = useState({
     title: '',
     author: '',
     publisher: '',
     publishedYear: '',
-    language: '',
+    language: 'English',
     pages: '',
     ageCategory: '',
     genre: [],
@@ -22,6 +24,22 @@ const useAddBookForm = () => {
     price: '',
     coverImageUrl: '',
   });
+
+  const [imageSrc, setImageSrc] = useState(null);
+
+  const loadBook = useCallback(async () => {
+    if (id) {
+      setIsLoading(true);
+      const book = await getBook(id, setIsLoading);
+      setImageSrc(book.coverImageUrl);
+      setForm(book);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    loadBook();
+  }, [loadBook]);
+
   const [error, setError] = useState({});
 
   const { token } = useAuth();
@@ -31,7 +49,6 @@ const useAddBookForm = () => {
   const isbn13Pattern = /^(97[89])(\d{1,5})(\d{1,7})(\d{1,7})(\d{1})$/;
 
   const [file, setFile] = useState(null);
-  const [imageSrc, setImageSrc] = useState(null);
 
   const handleFileUpload = (event) => {
     const selectedFile = event.target.files[0];
@@ -99,9 +116,16 @@ const useAddBookForm = () => {
     }
 
     try {
-      const result = await addBook(headers, formData, token);
-      if (result.status === 201) {
-        setAccountPage('myBooks');
+      if (id) {
+        const result = await updateBook(headers, formData, token, id);
+        if (result.status === 200) {
+          setAccountPage('myBooks');
+        }
+      } else {
+        const result = await addBook(headers, formData, token);
+        if (result.status === 201) {
+          setAccountPage('myBooks');
+        }
       }
     } catch (error) {
       setError((prevError) => ({
@@ -199,6 +223,7 @@ const useAddBookForm = () => {
     form,
     error,
     imageSrc,
+    isLoading,
     setFile,
     setImageSrc,
     handleChange,
@@ -208,4 +233,4 @@ const useAddBookForm = () => {
   };
 };
 
-export default useAddBookForm;
+export default useBookForm;
