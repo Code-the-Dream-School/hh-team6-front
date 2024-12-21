@@ -53,44 +53,46 @@ const Book = () => {
       </div>
       <div className="grid-area-table mb-6">
         <table className="border-spacing-1.5">
-          <tr>
-            <td className="text-body w-28 text-gray">Condition:</td>
-            <td>Like new</td>
-          </tr>
-          <tr>
-            <td className="text-body align-top text-gray">Author:</td>
-            <td className="align-top">Astrid Lindgren</td>
-          </tr>
-          <tr>
-            <td className="text-body align-top text-gray">Publisher:</td>
-            <td className="align-top">
-              OUP Oxford; 1st edition (March 4, 2021)
-            </td>
-          </tr>
-          <tr>
-            <td className="text-body align-top text-gray">Genre:</td>
-            <td className="align-top">Adventure</td>
-          </tr>
-          <tr>
-            <td className="text-body align-top text-gray">Age category:</td>
-            <td className="align-top">Children</td>
-          </tr>
-          <tr>
-            <td className="text-body align-top text-gray">Language:</td>
-            <td className="align-top">English</td>
-          </tr>
-          <tr>
-            <t className="text-body align-top text-gray">Pages:</t>
-            <td className="align-top">176</td>
-          </tr>
-          <tr>
-            <td className="text-body align-top text-gray">Cover:</td>
-            <td className="align-top">Hardcover</td>
-          </tr>
-          <tr>
-            <td className="text-body align-top text-gray">ISBN:</td>
-            <td className="align-top">978-0192776273</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td className="text-body w-28 text-gray">Condition:</td>
+              <td>Like new</td>
+            </tr>
+            <tr>
+              <td className="text-body align-top text-gray">Author:</td>
+              <td className="align-top">Astrid Lindgren</td>
+            </tr>
+            <tr>
+              <td className="text-body align-top text-gray">Publisher:</td>
+              <td className="align-top">
+                OUP Oxford; 1st edition (March 4, 2021)
+              </td>
+            </tr>
+            <tr>
+              <td className="text-body align-top text-gray">Genre:</td>
+              <td className="align-top">Adventure</td>
+            </tr>
+            <tr>
+              <td className="text-body align-top text-gray">Age category:</td>
+              <td className="align-top">Children</td>
+            </tr>
+            <tr>
+              <td className="text-body align-top text-gray">Language:</td>
+              <td className="align-top">English</td>
+            </tr>
+            <tr>
+              <td className="text-body align-top text-gray">Pages:</td>
+              <td className="align-top">176</td>
+            </tr>
+            <tr>
+              <td className="text-body align-top text-gray">Cover:</td>
+              <td className="align-top">Hardcover</td>
+            </tr>
+            <tr>
+              <td className="text-body align-top text-gray">ISBN:</td>
+              <td className="align-top">978-0192776273</td>
+            </tr>
+          </tbody>
         </table>
         <div>
           <p className="text-body mt-3 text-gray">Description:</p>

@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// import gridAreasPlugin from '@savvywombat/tailwindcss-grid-areas';
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -40,7 +41,14 @@ export default {
           ". table ."
         `,
       },
+      gridArea: {
+        header: 'header',
+        image: 'image',
+        box: 'box',
+        table: 'table',
+      },
     },
   },
+  // plugins: [gridAreasPlugin],
   plugins: [],
 };
