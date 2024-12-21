@@ -1,3 +1,7 @@
+table {
+  border-collapse: separate !important;
+}
+
 .grid-template-areas {
   display: grid;
   grid-template-areas:
@@ -5,13 +9,14 @@
     'image'
     'box'
     'table';
-  grid-template-rows: 40px 362px 184px auto;
+  grid-template-rows: 40px 362px auto auto;
   gap: 1rem;
-  margin-top: 80px;
+  margin-top: 11px;
 }
 
 .grid-area-header {
   grid-area: header;
+  text-align: center;
 }
 
 .grid-area-image {
@@ -36,5 +41,11 @@
       '. table .';
     grid-template-rows: 40px 1fr;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-top: 80px;
+  }
+
+  .grid-area-header {
+    text-align: start;
   }
 }

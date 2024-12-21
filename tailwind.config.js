@@ -28,6 +28,18 @@ export default {
         headings: ['Literata', 'serif'], // font for headings
         body: ['Magra', 'sans-serif'], // font for main body text
       },
+      gridTemplateAreas: {
+        'layout-mobile': `
+          "header"
+          "image"
+          "box"
+          "table"
+        `,
+        'layout-desktop': `
+          "image header box"
+          ". table ."
+        `,
+      },
     },
   },
   plugins: [],
