@@ -2,10 +2,14 @@ import { Button } from '@headlessui/react';
 
 import cover from '../../assets/images/cover.png';
 import { useAuth } from '../../context/AuthProvider';
+import { useLocation } from 'react-router-dom';
 
 const Book = () => {
   const { isLoggedIn, userData } = useAuth();
 
+  const location = useLocation();
+  console.log('location ===> ');
+  console.log('location ===> ', location);
   return (
     // <div className="mx-5 flex flex-col items-center">
     <div className="grid-template-areas mx-5 justify-items-center">
@@ -13,7 +17,7 @@ const Book = () => {
         Karlsson On The Roof
       </h1> */}
       <h1 className="grid-area-header w-full font-headings text-2xl font-bold">
-        Karlsson On The Roof
+        {location.state?.title}
       </h1>
       {/* <img className="grid-area-image mb-6" alt="cover" src={cover}></img> */}
       <img

@@ -11,7 +11,7 @@ import arrowRight from '../assets/images/icons/arrow-right.svg';
 import booksIcon from '../assets/images/icons/books.png';
 import handIcon from '../assets/images/icons/hand.png';
 import personIcon from '../assets/images/icons/person-reading.png';
-import BookCardLink from '../components/Books/BookCardLink';
+import BooksLinkList from '../components/Books/BooksLinkList';
 import LabelAndInput from '../components/Form/LabelAndInput';
 
 const Home = () => {
@@ -41,7 +41,8 @@ const Home = () => {
   const fetchBooks = useCallback(async () => {
     setIsLoading(true);
     try {
-      await getAllBooks(setIsLoading, setBooksList);
+      const booksResponse = await getAllBooks(setIsLoading, setBooksList);
+      console.log('booksResponse ===> ', booksResponse);
     } catch (error) {
       setError('Failed to load books. Please try again later.');
     }
@@ -67,6 +68,8 @@ const Home = () => {
       }).toString(),
     });
   };
+
+  console.log('booksList ===> ', booksList);
 
   return (
     <>
@@ -151,12 +154,7 @@ const Home = () => {
         ) : isLoading ? (
           <p>Loading...</p>
         ) : (
-          <BookCardLink
-            list={booksList}
-            // canEdit={true}
-            // canDelete={true}
-            updateList={fetchBooks}
-          />
+          <BooksLinkList list={booksList} />
         )}
       </div>
       <Link to="/books" className="flex gap-4 self-center md:self-start">

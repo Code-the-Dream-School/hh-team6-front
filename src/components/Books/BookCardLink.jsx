@@ -14,7 +14,7 @@ const BookCardLink = ({
   updateList,
 }) => {
   return (
-    <Link to={`/books/${id}`}>
+    <Link to={`/books/${id}`} state={{ title: 'Karlsson On The Roof' }}>
       <BookCard
         key={id}
         id={id}
