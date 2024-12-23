@@ -6,7 +6,6 @@ import { useNavigate, createSearchParams } from 'react-router-dom';
 
 import { getAllBooks } from '../api/DBRequests';
 import books from '../assets/images/books-home.png';
-// import cover from '../assets/images/cover.png';
 import arrowRight from '../assets/images/icons/arrow-right.svg';
 import booksIcon from '../assets/images/icons/books.png';
 import handIcon from '../assets/images/icons/hand.png';

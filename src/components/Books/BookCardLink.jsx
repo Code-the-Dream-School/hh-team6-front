@@ -5,19 +5,47 @@ import BookCard from './BookCard';
 
 const BookCardLink = ({
   id,
-  img,
   title,
   author,
+  publisher,
+  publishedYear,
+  pages,
+  isbn10,
+  isbn13,
+  description,
+  genre,
+  ageCategory,
+  condition,
+  coverType,
+  language,
   price,
+  isAvailable,
+  img,
   canEdit,
   canDelete,
   updateList,
 }) => {
+  const bookData = {
+    title: title,
+    author: author,
+    publisher: publisher,
+    publishedYear: publishedYear,
+    pages: pages,
+    isbn10: isbn10,
+    isbn13: isbn13,
+    description: description,
+    genre: genre,
+    ageCategory: ageCategory,
+    condition: condition,
+    coverType: coverType,
+    language: language,
+    price: price,
+    isAvailable: isAvailable,
+    img: img,
+  };
+
   return (
-    <Link
-      to={`/books/${id}`}
-      state={{ img: img, title: title, author: author, price: price }}
-    >
+    <Link to={`/books/${id}`} state={bookData}>
       <BookCard
         key={id}
         id={id}

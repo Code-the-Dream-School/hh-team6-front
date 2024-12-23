@@ -13,6 +13,7 @@ const Book = () => {
   const { isLoggedIn, userData } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [bookData, setBookData] = useState({});
+  console.log('Book data:', bookData);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,6 +22,7 @@ const Book = () => {
           setIsLoading(true);
           const bookData = await getBook(id, setIsLoading);
           setBookData(bookData);
+          console.log('Book data inside try:', bookData);
         } catch (error) {
           if (error.status === 404) {
             navigate('/404');
@@ -84,54 +86,45 @@ const Book = () => {
           <tbody>
             <tr>
               <td className="text-body w-28 text-gray">Condition:</td>
-              <td>Like new</td>
+              <td>{bookData.condition}</td>
             </tr>
             <tr>
               <td className="text-body align-top text-gray">Author:</td>
-              <td className="align-top">Astrid Lindgren</td>
+              <td className="align-top">{bookData.author}</td>
             </tr>
             <tr>
               <td className="text-body align-top text-gray">Publisher:</td>
-              <td className="align-top">
-                OUP Oxford; 1st edition (March 4, 2021)
-              </td>
+              <td className="align-top">{bookData.publisher}</td>
             </tr>
             <tr>
               <td className="text-body align-top text-gray">Genre:</td>
-              <td className="align-top">Adventure</td>
+              <td className="align-top">{bookData.genre}</td>
             </tr>
             <tr>
               <td className="text-body align-top text-gray">Age category:</td>
-              <td className="align-top">Children</td>
+              <td className="align-top">{bookData.ageCategory}</td>
             </tr>
             <tr>
               <td className="text-body align-top text-gray">Language:</td>
-              <td className="align-top">English</td>
+              <td className="align-top">{bookData.language}</td>
             </tr>
             <tr>
               <td className="text-body align-top text-gray">Pages:</td>
-              <td className="align-top">176</td>
+              <td className="align-top">{bookData.pages}</td>
             </tr>
             <tr>
               <td className="text-body align-top text-gray">Cover:</td>
-              <td className="align-top">Hardcover</td>
+              <td className="align-top">{bookData.coverType}</td>
             </tr>
             <tr>
               <td className="text-body align-top text-gray">ISBN:</td>
-              <td className="align-top">978-0192776273</td>
+              <td className="align-top">{bookData.isbn10}</td>
             </tr>
           </tbody>
         </table>
         <div>
           <p className="text-body mt-3 text-gray">Description:</p>
-          <p>
-            Imagine Smidge&apos;s delight when, one day, a little man with a
-            propeller on his back appears hovering at the window! It&apos;s
-            Karlsson and he lives in a house on the roof. Soon Smidge and
-            Karlsson are sharing all sorts of adventures, from tackling thieves
-            and playing tricks to looping the loop and running across the
-            rooftops. Fun and chaos burst from these charming, classic stories.
-          </p>
+          <p>{bookData.description}</p>
         </div>
       </div>
     </div>
