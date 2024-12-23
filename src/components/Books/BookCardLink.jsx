@@ -3,72 +3,22 @@ import { Link } from 'react-router-dom';
 
 import BookCard from './BookCard';
 
-const BookCardLink = ({
-  id,
-  title,
-  author,
-  publisher,
-  publishedYear,
-  pages,
-  isbn10,
-  isbn13,
-  description,
-  genre,
-  ageCategory,
-  condition,
-  coverType,
-  language,
-  price,
-  isAvailable,
-  img,
-  canEdit,
-  canDelete,
-  updateList,
-}) => {
-  const bookData = {
-    title: title,
-    author: author,
-    publisher: publisher,
-    publishedYear: publishedYear,
-    pages: pages,
-    isbn10: isbn10,
-    isbn13: isbn13,
-    description: description,
-    genre: genre,
-    ageCategory: ageCategory,
-    condition: condition,
-    coverType: coverType,
-    language: language,
-    price: price,
-    isAvailable: isAvailable,
-    img: img,
-  };
-
+const BookCardLink = ({ book }) => {
   return (
-    <Link to={`/books/${id}`} state={bookData}>
+    <Link to={`/books/${book._id}`} state={book}>
       <BookCard
-        key={id}
-        id={id}
-        img={img}
-        title={title}
-        author={author}
-        canEdit={canEdit}
-        canDelete={canDelete}
-        updateList={updateList}
-        price={price}
+        key={book._id}
+        id={book._id}
+        title={book.title}
+        author={book.author}
+        img={book.coverImageUrl}
+        price={book.price}
       />
     </Link>
   );
 };
 
 BookCardLink.propTypes = {
-  id: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  price: PropTypes.number,
-  canEdit: PropTypes.bool,
-  canDelete: PropTypes.bool,
-  updateList: PropTypes.func,
+  book: PropTypes.object.isRequired,
 };
 export default BookCardLink;
