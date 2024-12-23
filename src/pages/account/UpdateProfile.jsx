@@ -15,7 +15,6 @@ const UpdateProfile = () => {
     firstName: '',
     lastName: '',
     location: '',
-    email: '',
   });
 
   const [error, setError] = useState('');
@@ -26,7 +25,6 @@ const UpdateProfile = () => {
         firstName: userData.firstName || '',
         lastName: userData.lastName || '',
         location: userData.location || '',
-        email: userData.email || '',
       });
     }
   }, [userData]);
@@ -106,11 +104,7 @@ const UpdateProfile = () => {
           value={formData.email}
           onChange={handleChange}
           disabled={true}
-          style={{
-            backgroundColor: '#e0e0e0',
-            color: '#333',
-            border: '1px solid #ccc',
-          }}
+          className="bg-gray text-gray border border-gray"
         >
           Email
         </LabelAndInput>
