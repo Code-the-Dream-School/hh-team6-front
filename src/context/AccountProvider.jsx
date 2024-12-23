@@ -14,11 +14,17 @@ export const AccountProvider = ({ children }) => {
     sessionStorage.getItem('accountPage') || DEFAULT_PAGE;
 
   const [accountPage, setAccountPage] = useState(initialAccountPage);
-  const [currentBookId, setCurrentBookId] = useState('');
+  const [currentBookId, setCurrentBookId] = useState(
+    sessionStorage.getItem('currentBookId') || ''
+  );
 
   useEffect(() => {
     sessionStorage.setItem('accountPage', accountPage);
   }, [accountPage]);
+
+  useEffect(() => {
+    sessionStorage.setItem('currentBookId', currentBookId);
+  }, [currentBookId]);
 
   return (
     <AccountContext.Provider

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { useAccount } from '../../context/AccountProvider';
 
-const EditButton = (id) => {
+const EditButton = ({ id }) => {
   const { setAccountPage, setCurrentBookId } = useAccount();
 
   const handleEdit = () => {
-    setAccountPage('myBook');
+    setAccountPage('editBook');
     setCurrentBookId(id);
   };
 
@@ -15,7 +15,7 @@ const EditButton = (id) => {
     <Button
       as="button"
       onClick={handleEdit}
-      className="w-1/2 w-full rounded bg-yellow p-1 text-center font-semibold text-white hover:bg-yellowHover"
+      className="w-1/2 rounded bg-yellow p-1 text-center font-semibold text-white hover:bg-yellowHover"
     >
       Edit
     </Button>
