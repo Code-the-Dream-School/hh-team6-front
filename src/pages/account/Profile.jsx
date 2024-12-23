@@ -27,7 +27,7 @@ const Profile = () => {
       </div>
       <div className="mb-6 flex items-center">
         <img src={envelopeIcon} alt="Envelope Icon" className="h-6 w-6" />
-        <p className="ml-[35px] text-2xl">{userData.userEmail}</p>
+        <p className="ml-[35px] text-2xl">{userData.email}</p>
       </div>
       <div className="mb-6 flex items-center">
         <img src={locationIcon} alt="Location Icon" className="h-6 w-6" />
