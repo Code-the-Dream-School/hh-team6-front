@@ -9,7 +9,6 @@ const BooksList = ({
   showPrice = false,
   updateList,
 }) => {
-  console.log('list ===> ', list);
   return (
     <div className="container mx-auto">
       <div className="grid justify-items-center gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 md:gap-8 lg:grid-cols-5">
@@ -19,6 +18,7 @@ const BooksList = ({
             id={item._id}
             img={item.coverImageUrl}
             title={item.title}
+            price={item.price}
             author={item.author}
             canEdit={canEdit}
             canDelete={canDelete}

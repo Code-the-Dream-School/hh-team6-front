@@ -1,44 +1,68 @@
-import { Button } from '@headlessui/react';
+import { useState, useEffect } from 'react';
 
-import cover from '../../assets/images/cover.png';
+import { Button } from '@headlessui/react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
+import { getBook } from '../../api/DBRequests';
 import { useAuth } from '../../context/AuthProvider';
-import { useLocation } from 'react-router-dom';
 
 const Book = () => {
-  const { isLoggedIn, userData } = useAuth();
-
   const location = useLocation();
-  console.log('location ===> ');
-  console.log('location ===> ', location);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const { isLoggedIn, userData } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [bookData, setBookData] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!location.state) {
+        try {
+          setIsLoading(true);
+          const bookData = await getBook(id, setIsLoading);
+          setBookData(bookData);
+        } catch (error) {
+          if (error.status === 404) {
+            navigate('/404');
+          } else {
+            console.error('Error fetching book data:', error.message);
+          }
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    }
+    fetchData();
+  }, [id, location.state, navigate]);
+
   return (
-    // <div className="mx-5 flex flex-col items-center">
     <div className="grid-template-areas mx-5 justify-items-center">
-      {/* <h1 className="grid-area-header mb-6 font-headings text-2xl font-bold">
-        Karlsson On The Roof
-      </h1> */}
-      <h1 className="grid-area-header w-full font-headings text-2xl font-bold">
-        {location.state?.title}
-      </h1>
-      {/* <img className="grid-area-image mb-6" alt="cover" src={cover}></img> */}
-      <img
-        className="grid-area-image h-auto w-60"
-        alt="cover"
-        src={cover}
-      ></img>
-      {/* <div className="grid-area-box mx-7 mb-6 flex flex-col items-center rounded-md border border-gray px-8 py-5">
-        <h1>$9.99</h1>
-        <Button
-          as="button"
-          type="submit"
-          className="mt-7 w-full rounded-md bg-red p-2 font-semibold tracking-wide text-white transition-transform duration-150 hover:bg-darkGreenHover active:scale-95"
-        >
-          Add to cart
-        </Button>
-        <p>Selling by Username</p>
-        <p>Write to owner</p>
-      </div> */}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <h1 className="grid-area-header w-full font-headings text-2xl font-bold">
+          {location.state?.title ? location.state.title : bookData.title}
+        </h1>
+      )}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <img
+          className="grid-area-image h-auto w-60"
+          alt="cover"
+          src={
+            location.state?.img ? location.state.img : bookData.coverImageUrl
+          }
+        ></img>
+      )}
       <div className="grid-area-box my-2 flex flex-col items-center rounded-md border border-gray px-8 py-5">
-        <h1 className="font-headings text-2xl">$9.99</h1>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <h1 className="font-headings text-2xl">
+            ${location.state?.price ? location.state.price : bookData.price}
+          </h1>
+        )}
         {isLoggedIn ? (
           <>
             <Button

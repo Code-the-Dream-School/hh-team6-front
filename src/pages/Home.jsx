@@ -15,20 +15,6 @@ import BooksLinkList from '../components/Books/BooksLinkList';
 import LabelAndInput from '../components/Form/LabelAndInput';
 
 const Home = () => {
-  // const booksList = [
-  //   {
-  //     coverImageUrl: cover,
-  //     title: 'Karlsson on the Roof',
-  //     author: 'Astrid Lindren',
-  //     _id: '1',
-  //   },
-  //   { coverImageUrl: cover, title: 'Book 2', author: 'Author 2', _id: '2' },
-  //   { coverImageUrl: cover, title: 'Book 3', author: 'Author 3', _id: '3' },
-  //   { coverImageUrl: cover, title: 'Book 4', author: 'Author 4', _id: '4' },
-  //   { coverImageUrl: cover, title: 'Book 5', author: 'Author 5', _id: '5' },
-  //   { coverImageUrl: cover, title: 'Book 6', author: 'Author 6', _id: '6' },
-  // ];
-
   const [isLoading, setIsLoading] = useState(true);
   const [booksList, setBooksList] = useState([]);
   const [error, setError] = useState('');
@@ -41,8 +27,7 @@ const Home = () => {
   const fetchBooks = useCallback(async () => {
     setIsLoading(true);
     try {
-      const booksResponse = await getAllBooks(setIsLoading, setBooksList);
-      console.log('booksResponse ===> ', booksResponse);
+      await getAllBooks(setIsLoading, setBooksList);
     } catch (error) {
       setError('Failed to load books. Please try again later.');
     }
@@ -68,8 +53,6 @@ const Home = () => {
       }).toString(),
     });
   };
-
-  console.log('booksList ===> ', booksList);
 
   return (
     <>

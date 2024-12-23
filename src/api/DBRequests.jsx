@@ -129,7 +129,9 @@ export const getBook = async (id, setIsLoading) => {
       error?.response?.data?.error ||
       UNEXPECTED_ERROR_MESSAGE;
 
-    throw new Error(errorMessage);
+    const customError = new Error(errorMessage);
+    customError.status = error?.response?.status; // Attach status to the custom error
+    throw customError;
   }
 };
 
