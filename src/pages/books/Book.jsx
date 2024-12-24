@@ -82,7 +82,7 @@ const Book = () => {
         )}
       </div>
       <div className="grid-area-table mb-6">
-        <table className="border-spacing-1.5">
+        <table className="border-separate border-spacing-1.5">
           <tbody>
             {[
               ['Condition', condition],

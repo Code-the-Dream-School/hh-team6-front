@@ -1,21 +1,13 @@
-table {
-  border-collapse: separate !important;
-}
-
 .grid-template-areas {
   grid-template-areas:
     'header'
     'image'
     'box'
     'table';
-  /* grid-template-rows: repeat(4, auto); */
-  /* gap: 1rem; */
-  /* margin-top: 11px; */
 }
 
 .grid-area-header {
   grid-area: header;
-  /* text-align: center; */
 }
 
 .grid-area-image {
@@ -24,8 +16,6 @@ table {
 
 .grid-area-box {
   grid-area: box;
-  /* height: max-content; */
-  /* width: 284px; */
 }
 
 .grid-area-table {
@@ -37,13 +27,5 @@ table {
     grid-template-areas:
       'image header box'
       'image table box';
-    /* grid-template-rows: min-content 1fr; */
-    /* grid-template-columns: repeat(3, 1fr); */
-    /* row-gap: 0; */
-    /* margin-top: 80px; */
   }
-
-  /* .grid-area-header {
-    text-align: start;
-  } */
 }
