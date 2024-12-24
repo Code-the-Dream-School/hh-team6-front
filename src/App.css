@@ -9,7 +9,7 @@ table {
     'image'
     'box'
     'table';
-  grid-template-rows: 40px 362px auto auto;
+  grid-template-rows: 4 (auto);
   gap: 1rem;
   margin-top: 11px;
 }
@@ -38,10 +38,10 @@ table {
     display: grid;
     grid-template-areas:
       'image header box'
-      '. table .';
-    grid-template-rows: 40px 1fr;
+      'image table box';
+    grid-template-rows: min-content 1fr;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
+    row-gap: 0;
     margin-top: 80px;
   }
 

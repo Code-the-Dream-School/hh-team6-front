@@ -58,13 +58,11 @@ const Book = () => {
       <h1 className="grid-area-header w-full font-headings text-2xl font-bold">
         {title}
       </h1>
-
       <img
         className="grid-area-image h-auto w-60"
         alt="cover"
         src={coverImageUrl}
       />
-
       <div className="grid-area-box my-2 flex flex-col items-center rounded-md border border-gray px-8 py-5">
         <h1 className="font-headings text-2xl">${price}</h1>
         {isLoggedIn && (
@@ -81,7 +79,6 @@ const Book = () => {
           </>
         )}
       </div>
-
       <div className="grid-area-table mb-6">
         <table className="border-spacing-1.5">
           <tbody>
