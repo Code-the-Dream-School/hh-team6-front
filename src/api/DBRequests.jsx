@@ -126,7 +126,7 @@ export const getBook = async (id, setIsLoading) => {
     setIsLoading(false);
 
     return book;
-    } catch (error) {
+  } catch (error) {
     const errorMessage =
       error?.response?.data?.msg ||
       error?.response?.data?.error ||

@@ -104,8 +104,8 @@ const UpdateProfile = () => {
           value={formData.email}
           onChange={handleChange}
           disabled={true}
-          className="bg-gray/30 border-darkBrown border rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-darkGreen cursor-not-allowed"
-          >
+          className="border-darkBrown w-full cursor-not-allowed rounded-md border bg-gray/30 p-3 focus:outline-none focus:ring-2 focus:ring-darkGreen"
+        >
           Email
         </LabelAndInput>
 

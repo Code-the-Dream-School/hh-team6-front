@@ -54,7 +54,7 @@ const Book = () => {
   }
 
   return (
-    <div className="grid-template-areas mx-5 mt-3 grid justify-items-center gap-4 [grid-template-areas:'header''image''box''table'] md:mt-20 md:grid-cols-[1fr_1fr_1fr] md:grid-rows-[min-content_1fr] md:gap-y-0 md:[grid-template-areas:'image_header_box''image_table_box']">
+    <div className="mx-5 mt-3 grid justify-items-center gap-4 [grid-template-areas:'header''image''box''table'] md:mt-20 md:grid-cols-[1fr_1fr_1fr] md:grid-rows-[min-content_1fr] md:gap-y-0 md:[grid-template-areas:'image_header_box''image_table_box']">
       <h1
         className="grid-area-header w-full font-headings text-2xl font-bold"
         style={{ gridArea: 'header' }}
@@ -101,6 +101,7 @@ const Book = () => {
               ['Pages', pages],
               ['Cover', coverType],
               ['ISBN', isbn10],
+              ['Description', description],
             ].map(([label, value]) => (
               <tr key={label}>
                 <td className="text-body w-28 text-gray">{label}:</td>
