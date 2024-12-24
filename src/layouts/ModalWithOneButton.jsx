@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, Description } from '@headlessui/react';
+import { Dialog, DialogTitle, Description, Button } from '@headlessui/react';
 import PropTypes from 'prop-types';
 
 const Modal = ({ isOpen, onClose, title, description, buttonText }) => {
@@ -18,12 +18,14 @@ const Modal = ({ isOpen, onClose, title, description, buttonText }) => {
         </DialogTitle>
         <Description className="mt-4 text-center">{description}</Description>
         <div className="mt-6">
-          <button
-            onClick={onClose}
+          <Button
+            as="button"
+            type="button"
             className="w-full rounded-md bg-darkGreen p-3 text-white hover:bg-darkGreenHover"
+            onClick={onClose}
           >
             {buttonText}
-          </button>
+          </Button>
         </div>
       </div>
     </Dialog>

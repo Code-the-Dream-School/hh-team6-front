@@ -48,57 +48,64 @@ const usePasswordRecovery = (mode) => {
     setError('');
   };
 
+  const handleResetPassword = async () => {
+    if (!email) {
+      setError('Email is required.');
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const response = await sendResetLinkRequest({ email });
+      if (response.status === 200) {
+        setMessage('A password reset link has been sent to your email.');
+        setIsModalOpen(true);
+        setIsLoading(false);
+      }
+    } catch (err) {
+      setError(
+        err.message || 'An error occurred while sending the reset link.'
+      );
+      setIsLoading(false);
+    }
+  };
+
+  const handleEditPassword = async () => {
+    if (!newPassword || !newPasswordConfirm) {
+      setError('Both fields are required.');
+      return;
+    }
+    if (newPassword !== newPasswordConfirm) {
+      setError('Passwords do not match.');
+      return;
+    }
+    if (!token) {
+      setError('Token is missing.');
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const response = await updatePassword({ newPassword, token });
+      if (response.status === 200) {
+        setMessage('Your password has been successfully changed.');
+        setNewPassword('');
+        setNewPasswordConfirm('');
+        setIsModalOpen(true);
+        setIsLoading(false);
+      }
+    } catch (err) {
+      setError(
+        err.message || 'An error occurred while updating the password.'
+      );
+      setIsLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (mode === 'reset') {
-      if (!email) {
-        setError('Email is required.');
-        return;
-      }
-      try {
-        setIsLoading(true);
-        const response = await sendResetLinkRequest({ email });
-        if (response.status === 200) {
-          setMessage('A password reset link has been sent to your email.');
-          setIsModalOpen(true);
-          setIsLoading(false);
-        }
-      } catch (err) {
-        setError(
-          err.message || 'An error occurred while sending the reset link.'
-        );
-        setIsLoading(false);
-      }
+      await handleResetPassword();
     } else if (mode === 'edit') {
-      if (!newPassword || !newPasswordConfirm) {
-        setError('Both fields are required.');
-        return;
-      }
-      if (newPassword !== newPasswordConfirm) {
-        setError('Passwords do not match.');
-        return;
-      }
-      if (!token) {
-        setError('Token is missing.');
-        return;
-      }
-      try {
-        setIsLoading(true);
-        const response = await updatePassword({ newPassword, token });
-        if (response.status === 200) {
-          setMessage('Your password has been successfully changed.');
-          setNewPassword('');
-          setNewPasswordConfirm('');
-          setIsModalOpen(true);
-          setIsLoading(false);
-        }
-      } catch (err) {
-        setError(
-          err.message || 'An error occurred while updating the password.'
-        );
-        setIsLoading(false);
-      }
+      await handleEditPassword();
     }
   };
 
