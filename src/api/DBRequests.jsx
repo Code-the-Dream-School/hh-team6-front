@@ -45,6 +45,9 @@ export const addBook = (headers, bookData, token) => {
   return handleApiRequest('/api/v1/books', headers, bookData, token);
 };
 
+export const updateProfile = (headers, userData, token) =>
+  handleApiRequest('/api/v1/update', headers, userData, token, 'PATCH');
+
 export const updateBook = (headers, bookData, token, id) => {
   return handleApiRequest(
     `/api/v1/books/${id}`,
@@ -123,7 +126,7 @@ export const getBook = async (id, setIsLoading) => {
     setIsLoading(false);
 
     return book;
-  } catch (error) {
+    } catch (error) {
     const errorMessage =
       error?.response?.data?.msg ||
       error?.response?.data?.error ||
