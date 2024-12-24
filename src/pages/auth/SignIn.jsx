@@ -24,7 +24,7 @@ const SignIn = () => {
             id="email"
             name="email"
             type="email"
-            value={form.email}
+            value={(form.email = 'test@test.com')}
             error={error.email}
             onChange={handleChange}
           >
@@ -35,7 +35,7 @@ const SignIn = () => {
             id="password"
             name="password"
             type="password"
-            value={form.password}
+            value={(form.password = 'testtest')}
             error={error.password}
             onChange={handleChange}
           >

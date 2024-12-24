@@ -54,17 +54,19 @@ const Book = () => {
   }
 
   return (
-    <div className="grid-template-areas mx-5 justify-items-center">
+    <div className="grid-template-areas mx-5 mt-3 grid justify-items-center gap-4 md:mt-20 md:grid-cols-[1fr_1fr_1fr] md:grid-rows-[min-content_1fr] md:gap-y-0">
       <h1 className="grid-area-header w-full font-headings text-2xl font-bold">
         {title}
       </h1>
       <img
         className="grid-area-image h-auto w-60"
-        alt="cover"
+        alt={`${title}`}
         src={coverImageUrl}
       />
-      <div className="grid-area-box my-2 flex flex-col items-center rounded-md border border-gray px-8 py-5">
-        <h1 className="font-headings text-2xl">${price}</h1>
+      <div className="grid-area-box my-2 flex h-max w-full max-w-[18rem] flex-col items-center rounded-md border border-gray px-8 py-5">
+        <h1 className="col-span-full text-center font-headings text-2xl font-bold md:text-left">
+          ${price}
+        </h1>
         {isLoggedIn && (
           <>
             <Button
