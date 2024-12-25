@@ -128,3 +128,23 @@ export const deleteBook = async (id, token) => {
     throw new Error(errorMessage);
   }
 };
+
+const handlePasswordRequest = async (url, data) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}${url}`, data);
+    return response;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
+export const sendResetLinkRequest = (email) =>
+  handlePasswordRequest(`/api/v1/forgot-password`, email);
+
+export const updatePassword = ({ newPassword, token }) =>
+  handlePasswordRequest(`/api/v1/password-reset`, { newPassword, token });
