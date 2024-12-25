@@ -101,10 +101,9 @@ const Book = () => {
               ['Pages', pages],
               ['Cover', coverType],
               ['ISBN', isbn10],
-              ['Description', description],
             ].map(([label, value]) => (
               <tr key={label}>
-                <td className="text-body w-28 text-gray">{label}:</td>
+                <td className="text-body w-28 align-top text-gray">{label}:</td>
                 <td className="align-top">{value}</td>
               </tr>
             ))}
