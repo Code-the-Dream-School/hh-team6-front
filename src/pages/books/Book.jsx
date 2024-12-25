@@ -56,19 +56,19 @@ const Book = () => {
   return (
     <div className="mx-5 mt-3 grid justify-items-center gap-4 [grid-template-areas:'header''image''box''table'] md:mt-20 md:grid-cols-[1fr_1fr_1fr] md:grid-rows-[min-content_1fr] md:gap-y-0 md:[grid-template-areas:'image_header_box''image_table_box']">
       <h1
-        className="grid-area-header w-full font-headings text-2xl font-bold"
+        className="w-full font-headings text-2xl font-bold"
         style={{ gridArea: 'header' }}
       >
         {title}
       </h1>
       <img
-        className="grid-area-image h-auto w-60"
+        className="h-auto w-60"
         style={{ gridArea: 'image' }}
         alt={`${title}`}
         src={coverImageUrl}
       />
       <div
-        className="grid-area-box my-2 flex h-max w-full max-w-[18rem] flex-col items-center rounded-md border border-gray px-8 py-5"
+        className="my-2 flex h-max w-full max-w-[18rem] flex-col items-center rounded-md border border-gray px-8 py-5"
         style={{ gridArea: 'box' }}
       >
         <h1 className="col-span-full text-center font-headings text-2xl font-bold md:text-left">
@@ -88,7 +88,7 @@ const Book = () => {
           </>
         )}
       </div>
-      <div className="grid-area-table mb-6" style={{ gridArea: 'table' }}>
+      <div className="mb-6" style={{ gridArea: 'table' }}>
         <table className="border-separate border-spacing-1.5">
           <tbody>
             {[
