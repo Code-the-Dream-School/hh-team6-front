@@ -20,13 +20,9 @@ BooksList.propTypes = {
       image: PropTypes.string,
       title: PropTypes.string,
       author: PropTypes.string,
-      genre: PropTypes.arrayOf(PropTypes.string), // Updated to accept an array
+      genre: PropTypes.arrayOf(PropTypes.string),
     })
-  ),
-  showPrice: PropTypes.bool,
-  canEdit: PropTypes.bool,
-  canDelete: PropTypes.bool,
-  updateList: PropTypes.func,
+  ).isRequired,
 };
 
 export default BooksList;
