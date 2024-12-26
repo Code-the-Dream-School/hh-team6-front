@@ -4,7 +4,7 @@ import { Button } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 
-import { getAllBooks } from '../api/DBRequests';
+import { getBooks } from '../api/DBRequests';
 import books from '../assets/images/books-home.png';
 import arrowRight from '../assets/images/icons/arrow-right.svg';
 import booksIcon from '../assets/images/icons/books.png';
@@ -26,7 +26,7 @@ const Home = () => {
   const fetchBooks = useCallback(async () => {
     setIsLoading(true);
     try {
-      await getAllBooks(setIsLoading, setBooksList);
+      await getBooks(setIsLoading, setBooksList, '', {}, 10);
     } catch (error) {
       setError('Failed to load books. Please try again later.');
     }

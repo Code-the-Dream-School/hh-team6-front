@@ -58,32 +58,14 @@ export const updateBook = (headers, bookData, token, id) => {
   );
 };
 
-export const getAllBooks = async (setIsLoading, setBooksList) => {
-  const url = '/api/v1/books';
-
-  try {
-    setIsLoading(true);
-    const { data, status } = await axios.get(`${API_BASE_URL}${url}`, {
-      params: {
-        limit: BOOK_LIMIT,
-      },
-    });
-
-    setBooksList(data.books);
-    setIsLoading(false);
-
-    return { data, status };
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
-
-    throw new Error(errorMessage);
-  }
-};
-
-export const getBooks = async (setIsLoading, setBooksList, sortBy, filters) => {
+// Provide default values for `sortBy` and `filters` as not all components use them
+export const getBooks = async (
+  setIsLoading,
+  setBooksList,
+  sortBy = '',
+  filters = {},
+  limit = BOOK_LIMIT
+) => {
   const url = '/api/v1/books';
 
   const stringFilters = Object.fromEntries(
@@ -96,8 +78,8 @@ export const getBooks = async (setIsLoading, setBooksList, sortBy, filters) => {
     setIsLoading(true);
     const { data, status } = await axios.get(`${API_BASE_URL}${url}`, {
       params: {
-        limit: BOOK_LIMIT,
-        sort: sortBy,
+        limit: limit,
+        sort: sortBy || undefined,
         ...stringFilters,
       },
     });
