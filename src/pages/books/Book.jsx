@@ -8,6 +8,8 @@ import { useAuth } from '../../context/AuthProvider';
 
 const Book = () => {
   const location = useLocation();
+  console.log('location ===> ', location);
+
   const navigate = useNavigate();
   const { id } = useParams();
   const { isLoggedIn, userData } = useAuth();
@@ -40,12 +42,14 @@ const Book = () => {
     condition,
     author,
     publisher,
+    publishedYear,
     genre,
     ageCategory,
     language,
     pages,
     coverType,
     isbn10,
+    isbn13,
     description,
   } = bookData;
 
@@ -95,12 +99,13 @@ const Book = () => {
               ['Condition', condition],
               ['Author', author],
               ['Publisher', publisher],
+              ['Published year', publishedYear],
               ['Genre', genre],
               ['Age category', ageCategory],
               ['Language', language],
               ['Pages', pages],
               ['Cover', coverType],
-              ['ISBN', isbn10],
+              ['ISBN', isbn10 ? isbn10 : isbn13],
             ].map(([label, value]) => (
               <tr key={label}>
                 <td className="text-body w-28 align-top text-gray">{label}:</td>

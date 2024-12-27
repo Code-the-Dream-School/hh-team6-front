@@ -10,7 +10,7 @@ import arrowRight from '../assets/images/icons/arrow-right.svg';
 import booksIcon from '../assets/images/icons/books.png';
 import handIcon from '../assets/images/icons/hand.png';
 import personIcon from '../assets/images/icons/person-reading.png';
-import BooksLinkList from '../components/Books/BooksLinkList';
+import BooksList from '../components/Books/BooksList';
 import LabelAndInput from '../components/Form/LabelAndInput';
 
 const Home = () => {
@@ -136,7 +136,7 @@ const Home = () => {
         ) : isLoading ? (
           <p>Loading...</p>
         ) : (
-          <BooksLinkList list={booksList} />
+          <BooksList list={booksList} isLinkList={true} />
         )}
       </div>
       <Link to="/books" className="flex gap-4 self-center md:self-start">

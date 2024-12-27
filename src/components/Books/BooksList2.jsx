@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import BookCard from './BookCard';
 
 const BooksList = ({
@@ -7,7 +8,6 @@ const BooksList = ({
   canDelete = false,
   showPrice = false,
   updateList,
-  isLinkList = false,
 }) => {
   return (
     <div className="container mx-auto">
@@ -15,15 +15,13 @@ const BooksList = ({
         {list.map((item) => (
           <BookCard
             key={item._id}
-            // id={item._id}
-            // img={item.coverImageUrl}
-            // title={item.title}
-            // author={item.author}
-            book={item}
+            id={item._id}
+            img={item.coverImageUrl}
+            title={item.title}
+            author={item.author}
             canEdit={canEdit}
             canDelete={canDelete}
             updateList={updateList}
-            isLink={isLinkList}
             {...(showPrice ? { price: item.price } : {})}
           />
         ))}
