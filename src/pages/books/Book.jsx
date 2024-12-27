@@ -8,8 +8,6 @@ import { useAuth } from '../../context/AuthProvider';
 
 const Book = () => {
   const location = useLocation();
-  console.log('location ===> ', location);
-
   const navigate = useNavigate();
   const { id } = useParams();
   const { isLoggedIn, userData } = useAuth();
