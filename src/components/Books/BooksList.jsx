@@ -7,6 +7,7 @@ const BooksList = ({
   canEdit = false,
   canDelete = false,
   showPrice = false,
+  isSavedBooks = false,
   updateList,
 }) => {
   return (
@@ -19,8 +20,11 @@ const BooksList = ({
             img={item.coverImageUrl}
             title={item.title}
             author={item.author}
+            isbn={item.isbn}
             canEdit={canEdit}
             canDelete={canDelete}
+            isSavedBooks={isSavedBooks}
+            isAvailable={!item.isUnavailable}
             updateList={updateList}
             {...(showPrice ? { price: item.price } : {})}
           />
@@ -40,6 +44,7 @@ BooksList.propTypes = {
   ),
   showPrice: PropTypes.bool,
   canEdit: PropTypes.bool,
+  isSavedBooks: PropTypes.bool,
   canDelete: PropTypes.bool,
   updateList: PropTypes.func,
 };

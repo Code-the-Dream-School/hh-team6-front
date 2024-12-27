@@ -91,6 +91,61 @@ export const getBooks = async (setIsLoading, setBooksList, sortBy, filters) => {
   }
 };
 
+export const getSavedBooks = async (
+  setIsLoading,
+  setBooksList,
+  sortBy,
+  token
+) => {
+  const url = '/api/v1/saved-books';
+
+  try {
+    setIsLoading(true);
+    const { data, status } = await axios.get(`${API_BASE_URL}${url}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        limit: BOOK_LIMIT,
+        sort: sortBy,
+      },
+    });
+
+    const filteredBooks = data.savedBooks.books.filter(
+      (book) => book.listings.length > 0
+    );
+    const savedBooks = filteredBooks.map((book) => {
+      const availableListings = book.listings.filter(
+        (listing) => listing.isAvailable
+      );
+
+      return {
+        _id: book.savedBookId,
+        coverImageUrl: (availableListings.length > 0
+          ? availableListings[0]
+          : book.listings[0]
+        ).coverImageUrl,
+        title: book.title,
+        author: book.author,
+        isbn: book.isbn10 || book.isbn13,
+        ...(availableListings.length === 0 && { isUnavailable: true }),
+      };
+    });
+
+    setBooksList(savedBooks);
+    setIsLoading(false);
+
+    return { data, status };
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
 export const getBook = async (id, setIsLoading) => {
   const url = `/api/v1/books/${id}`;
 
@@ -101,7 +156,7 @@ export const getBook = async (id, setIsLoading) => {
     setIsLoading(false);
 
     return book;
-    } catch (error) {
+  } catch (error) {
     const errorMessage =
       error?.response?.data?.msg ||
       error?.response?.data?.error ||
@@ -148,3 +203,22 @@ export const sendResetLinkRequest = (email) =>
 
 export const updatePassword = ({ newPassword, token }) =>
   handlePasswordRequest(`/api/v1/password-reset`, { newPassword, token });
+
+export const deleteSavedBook = async (id, token) => {
+  const url = `/api/v1/saved-books/`;
+  try {
+    const response = await axios.delete(`${API_BASE_URL}${url}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      data: { savedBookId: id },
+    });
+
+    return response;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
