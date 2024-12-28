@@ -7,7 +7,7 @@ import EditButton from './EditButton';
 const BookCard = ({ book, canEdit, canDelete, updateList, isLink = false }) => {
   const { _id: id, title, coverImageUrl, price, author } = book;
   const cardContent = (
-    <div className="grid w-52 max-w-52 grid-rows-[192px_auto] flex-col items-center rounded bg-lightBlue p-4 lg:w-40 xl:w-52">
+    <div className="grid w-52 max-w-52 grid-rows-[12rem_auto] flex-col items-center rounded bg-lightBlue p-4 lg:w-40 xl:w-52">
       <img
         className="mx-auto h-48 w-32 object-cover"
         src={coverImageUrl}
