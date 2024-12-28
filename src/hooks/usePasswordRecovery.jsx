@@ -93,9 +93,7 @@ const usePasswordRecovery = (mode) => {
         setIsLoading(false);
       }
     } catch (err) {
-      setError(
-        err.message || 'An error occurred while updating the password.'
-      );
+      setError(err.message || 'An error occurred while updating the password.');
       setIsLoading(false);
     }
   };
