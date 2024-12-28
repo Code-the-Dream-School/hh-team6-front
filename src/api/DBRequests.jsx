@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const UNEXPECTED_ERROR_MESSAGE = 'An unexpected error occurred';
-const BOOK_LIMIT = 50;
+const BOOKS_LIMIT = 50;
 
 const handleApiRequest = async (
   url,
@@ -64,7 +64,7 @@ export const getBooks = async (
   setBooksList,
   sortBy = '',
   filters = {},
-  limit = BOOK_LIMIT
+  limit = BOOKS_LIMIT
 ) => {
   const url = '/api/v1/books';
 
