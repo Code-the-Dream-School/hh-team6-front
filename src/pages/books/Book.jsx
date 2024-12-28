@@ -97,7 +97,6 @@ const Book = () => {
               ['Condition', condition],
               ['Author', author],
               ['Publisher', publisher + ` (${publishedYear})`],
-              // ['Published year', publishedYear],
               ['Genre', genre],
               ['Age category', ageCategory],
               ['Language', language],
