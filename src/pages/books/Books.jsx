@@ -92,7 +92,7 @@ const Books = () => {
         ) : isLoading ? (
           <p>Loading</p>
         ) : (
-          <BooksList list={booksList} showPrice={true} />
+          <BooksList list={booksList} showPrice={true} isLinkList={true} />
         )}
       </div>
     </div>

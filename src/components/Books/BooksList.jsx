@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import BookCard from './BookCard';
 
 const BooksList = ({
@@ -53,6 +54,7 @@ BooksList.propTypes = {
   canEdit: PropTypes.bool,
   canDelete: PropTypes.bool,
   updateList: PropTypes.func,
+  isLinkList: PropTypes.bool,
 };
 
 export default BooksList;
