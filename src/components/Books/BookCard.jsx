@@ -2,12 +2,30 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import DeleteButton from './DeleteButton';
+import DeleteSavedBookButton from './DeleteSavedBookButton';
 import EditButton from './EditButton';
 
-const BookCard = ({ book, canEdit, canDelete, updateList, isLink = false }) => {
+const BookCard = ({
+  book,
+  canEdit,
+  canDelete,
+  updateList,
+  isSavedBooks,
+  isAvailable,
+  isLink = false,
+}) => {
   const { _id: id, title, coverImageUrl, price, author } = book;
   const cardContent = (
-    <div className="grid w-52 max-w-52 grid-rows-[12rem_auto] flex-col items-center rounded bg-lightBlue p-4 lg:w-40 xl:w-52">
+    <div className="relative grid w-52 max-w-52 grid-rows-[12rem_auto] items-center rounded bg-lightBlue p-4 lg:w-40 xl:w-52">
+      {isSavedBooks && (
+        <div className="absolute right-1 top-1 h-[33px] rounded bg-white bg-opacity-80 p-1 shadow hover:bg-grayHover">
+          <DeleteSavedBookButton
+            id={id}
+            title={title}
+            updateList={updateList}
+          />
+        </div>
+      )}
       <img
         className="mx-auto h-48 w-32 object-cover"
         src={coverImageUrl}
@@ -31,6 +49,23 @@ const BookCard = ({ book, canEdit, canDelete, updateList, isLink = false }) => {
             {canEdit && <EditButton id={id} />}
             {canDelete && (
               <DeleteButton id={id} title={title} updateList={updateList} />
+            )}
+          </div>
+        )}
+        {isSavedBooks && (
+          <div className="items-center">
+            {!isAvailable ? (
+              <p className="mt-2 text-red">Sold</p>
+            ) : (
+              <Link
+                to={{
+                  pathname: '/books',
+                  search: `?isbn=${isbn}`,
+                }}
+                className="h-[35px] rounded border border-blueGray px-2 py-1 text-center text-blueGray"
+              >
+                Listings
+              </Link>
             )}
           </div>
         )}
@@ -69,6 +104,8 @@ BookCard.propTypes = {
   canEdit: PropTypes.bool,
   canDelete: PropTypes.bool,
   updateList: PropTypes.func,
+  isSavedBooks: PropTypes.bool,
+  isAvailable: PropTypes.bool,
   isLink: PropTypes.bool,
 };
 

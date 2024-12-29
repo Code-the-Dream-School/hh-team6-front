@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { Button } from '@headlessui/react';
 import PropTypes from 'prop-types';
 
-import { deleteBook } from '../../api/DBRequests';
+import { deleteSavedBook } from '../../api/DBRequests';
+import deleteImage from '../../assets/images/delete.svg';
 import { useAuth } from '../../context/AuthProvider';
 import Modal from '../../layouts/ModalDeleteBook';
 
-const DeleteButton = ({ id, title, updateList }) => {
+const DeleteSavedBookButton = ({ id, title, updateList }) => {
   const { token } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -16,7 +17,7 @@ const DeleteButton = ({ id, title, updateList }) => {
   };
 
   const handleDelete = async () => {
-    await deleteBook(id, token);
+    await deleteSavedBook(id, token);
     setIsOpen(false);
     updateList();
   };
@@ -27,29 +28,25 @@ const DeleteButton = ({ id, title, updateList }) => {
 
   return (
     <>
-      <Button
-        as="button"
-        onClick={handleButton}
-        className="w-1/2 rounded-md bg-red p-1 font-semibold tracking-wide text-white transition-transform duration-200 hover:bg-redHover active:scale-95"
-      >
-        Delete
+      <Button as="button" onClick={handleButton}>
+        <img alt="Delte saved book" src={deleteImage} />
       </Button>
 
       <Modal
         isOpen={isOpen}
         onDelete={handleDelete}
         onClose={handleCancel}
-        title="Delete book"
-        description={`This will permanently delete ${title}. Are you sure you want to delete this book?`}
+        title="Delete Saved book"
+        description={`Are you sure you want to delete "${title}" from your saved books?`}
       />
     </>
   );
 };
 
-DeleteButton.propTypes = {
+DeleteSavedBookButton.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   updateList: PropTypes.func.isRequired,
 };
 
-export default DeleteButton;
+export default DeleteSavedBookButton;

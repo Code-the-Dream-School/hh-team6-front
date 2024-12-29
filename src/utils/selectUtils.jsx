@@ -99,3 +99,12 @@ export const sortingOptions = [
   { label: 'Author (A-Z)', value: 'author' },
   { label: 'Author (Z-A)', value: '-author' },
 ];
+
+export const sortingSavedBooks = [
+  { label: 'Date (oldest first)', value: 'addedAt' },
+  { label: 'Date (newest first)', value: '-addedAt' },
+  { label: 'Title (A-Z)', value: 'title' },
+  { label: 'Title (Z-A)', value: '-title' },
+  { label: 'Author (A-Z)', value: 'author' },
+  { label: 'Author (Z-A)', value: '-author' },
+];
