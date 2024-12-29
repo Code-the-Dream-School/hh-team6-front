@@ -6,20 +6,17 @@ import DeleteSavedBookButton from './DeleteSavedBookButton';
 import EditButton from './EditButton';
 
 const BookCard = ({
-  id,
-  img,
-  title,
-  author,
-  price,
-  isbn,
+  book,
   canEdit,
   canDelete,
   updateList,
   isSavedBooks,
   isAvailable,
+  isLink = false,
 }) => {
-  return (
-    <div className="relative flex w-52 max-w-52 flex-col items-center rounded bg-lightBlue p-4 lg:w-40 xl:w-52">
+  const { _id: id, title, coverImageUrl, price, author } = book;
+  const cardContent = (
+    <div className="relative grid w-52 max-w-52 grid-rows-[12rem_auto] items-center rounded bg-lightBlue p-4 lg:w-40 xl:w-52">
       {isSavedBooks && (
         <div className="absolute right-1 top-1 h-[33px] rounded bg-white bg-opacity-80 p-1 shadow hover:bg-grayHover">
           <DeleteSavedBookButton
@@ -29,11 +26,22 @@ const BookCard = ({
           />
         </div>
       )}
-      <img className="h-auto w-32" src={img} alt={`Cover of ${title}`} />
-      <div className="flex h-full w-full flex-col pt-4 text-center">
+      <img
+        className="mx-auto h-48 w-32 object-cover"
+        src={coverImageUrl}
+        alt={`Cover of ${title}`}
+      />
+      <div className="mt-4 flex h-full w-full flex-col text-center">
         <div className="flex-1">
-          <h2 className="mb-2 text-lg font-bold">{title}</h2>
-          <p className="text-gray-700 mb-2 text-sm">by {author}</p>
+          <h2 className="mb-2 line-clamp-1 text-lg font-bold" title={title}>
+            {title}
+          </h2>
+          <p
+            className="text-gray-700 mb-2 line-clamp-1 text-sm"
+            title={`by ${author}`}
+          >
+            by {author}
+          </p>
           {price && <p className="font-bold">${price.toFixed(2)}</p>}
         </div>
         {(canEdit || canDelete) && (
@@ -64,19 +72,41 @@ const BookCard = ({
       </div>
     </div>
   );
+
+  return isLink ? (
+    <Link to={`/books/${id}`} state={book}>
+      {cardContent}
+    </Link>
+  ) : (
+    cardContent
+  );
 };
 
 BookCard.propTypes = {
-  id: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  price: PropTypes.number,
-  isbn: PropTypes.string,
+  book: PropTypes.shape({
+    _id: PropTypes.string,
+    title: PropTypes.string,
+    author: PropTypes.string,
+    publisher: PropTypes.string,
+    publishedYear: PropTypes.number,
+    pages: PropTypes.number,
+    isbn10: PropTypes.string,
+    isbn13: PropTypes.string,
+    description: PropTypes.string,
+    genre: PropTypes.array,
+    ageCategory: PropTypes.string,
+    condition: PropTypes.string,
+    coverType: PropTypes.string,
+    language: PropTypes.string,
+    price: PropTypes.number,
+    coverImageUrl: PropTypes.string,
+  }),
   canEdit: PropTypes.bool,
   canDelete: PropTypes.bool,
   updateList: PropTypes.func,
   isSavedBooks: PropTypes.bool,
   isAvailable: PropTypes.bool,
+  isLink: PropTypes.bool,
 };
+
 export default BookCard;

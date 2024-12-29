@@ -9,6 +9,7 @@ const BooksList = ({
   showPrice = false,
   isSavedBooks = false,
   updateList,
+  isLinkList = false,
 }) => {
   return (
     <div className="container mx-auto">
@@ -16,16 +17,13 @@ const BooksList = ({
         {list.map((item) => (
           <BookCard
             key={item._id}
-            id={item._id}
-            img={item.coverImageUrl}
-            title={item.title}
-            author={item.author}
-            isbn={item.isbn}
+            book={item}
             canEdit={canEdit}
             canDelete={canDelete}
             isSavedBooks={isSavedBooks}
             isAvailable={!item.isUnavailable}
             updateList={updateList}
+            isLink={isLinkList}
             {...(showPrice ? { price: item.price } : {})}
           />
         ))}
@@ -37,9 +35,22 @@ const BooksList = ({
 BooksList.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      image: PropTypes.string,
+      _id: PropTypes.string,
       title: PropTypes.string,
       author: PropTypes.string,
+      publisher: PropTypes.string,
+      publishedYear: PropTypes.number,
+      pages: PropTypes.number,
+      isbn10: PropTypes.string,
+      isbn13: PropTypes.string,
+      description: PropTypes.string,
+      genre: PropTypes.array,
+      ageCategory: PropTypes.string,
+      condition: PropTypes.string,
+      coverType: PropTypes.string,
+      language: PropTypes.string,
+      price: PropTypes.number,
+      coverImageUrl: PropTypes.string,
     })
   ),
   showPrice: PropTypes.bool,
@@ -47,6 +58,7 @@ BooksList.propTypes = {
   isSavedBooks: PropTypes.bool,
   canDelete: PropTypes.bool,
   updateList: PropTypes.func,
+  isLinkList: PropTypes.bool,
 };
 
 export default BooksList;

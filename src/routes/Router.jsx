@@ -52,6 +52,7 @@ const Router = () => {
       <Route path="/sign_up" element={<SignUp />} />
 
       {/* 404 Not Found */}
+      <Route path="/404" element={<NotFound />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

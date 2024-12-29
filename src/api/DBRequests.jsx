@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const UNEXPECTED_ERROR_MESSAGE = 'An unexpected error occurred';
-const BOOK_LIMIT = 50;
+const BOOKS_LIMIT = 50;
 
 const handleApiRequest = async (
   url,
@@ -58,7 +58,14 @@ export const updateBook = (headers, bookData, token, id) => {
   );
 };
 
-export const getBooks = async (setIsLoading, setBooksList, sortBy, filters) => {
+// Provide default values for `sortBy` and `filters` as not all components use them
+export const getBooks = async (
+  setIsLoading,
+  setBooksList,
+  sortBy = '',
+  filters = {},
+  limit = BOOKS_LIMIT
+) => {
   const url = '/api/v1/books';
 
   const stringFilters = Object.fromEntries(
@@ -71,8 +78,8 @@ export const getBooks = async (setIsLoading, setBooksList, sortBy, filters) => {
     setIsLoading(true);
     const { data, status } = await axios.get(`${API_BASE_URL}${url}`, {
       params: {
-        limit: BOOK_LIMIT,
-        sort: sortBy,
+        limit: limit,
+        sort: sortBy || undefined,
         ...stringFilters,
       },
     });
@@ -162,7 +169,9 @@ export const getBook = async (id, setIsLoading) => {
       error?.response?.data?.error ||
       UNEXPECTED_ERROR_MESSAGE;
 
-    throw new Error(errorMessage);
+    const customError = new Error(errorMessage);
+    customError.status = error?.response?.status;
+    throw customError;
   }
 };
 
