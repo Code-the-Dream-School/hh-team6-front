@@ -4,19 +4,48 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const UNEXPECTED_ERROR_MESSAGE = 'An unexpected error occurred';
 const BOOK_LIMIT = 50;
 
-const handleApiRequest = async (url, headers, payload, token = '') => {
+// const handleApiRequest = async (url, headers, payload, token = '') => {
+//   try {
+//     if (token) {
+//       headers.Authorization = `Bearer ${token}`;
+//     }
+
+//     const { data, status } = await axios.post(
+//       `${API_BASE_URL}${url}`,
+//       payload,
+//       {
+//         headers,
+//       }
+//     );
+
+//     return { data, status };
+//   } catch (error) {
+//     const errorMessage =
+//       error?.response?.data?.msg ||
+//       error?.response?.data?.error ||
+//       UNEXPECTED_ERROR_MESSAGE;
+
+//     throw new Error(errorMessage);
+//   }
+// };
+const handleApiRequest = async (
+  url,
+  headers,
+  payload,
+  token = '',
+  method = 'POST'
+) => {
   try {
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const { data, status } = await axios.post(
-      `${API_BASE_URL}${url}`,
-      payload,
-      {
-        headers,
-      }
-    );
+    const { data, status } = await axios({
+      method, // Dynamically set the HTTP method
+      url: `${API_BASE_URL}${url}`,
+      data: method !== 'GET' && method !== 'DELETE' ? payload : undefined, // Include payload only for non-GET and non-DELETE methods
+      headers,
+    });
 
     return { data, status };
   } catch (error) {
@@ -70,4 +99,44 @@ export const getBooks = async (setIsLoading, setBooksList, sortBy, filters) => {
 
     throw new Error(errorMessage);
   }
+};
+
+export const addToCart = (headers, cartData, token) => {
+  return handleApiRequest('/api/v1/cart', headers, cartData, token);
+};
+
+export const getCart = async (setIsLoading, setCartItems, setTotal, token) => {
+  const url = '/api/v1/cart';
+
+  try {
+    setIsLoading(true);
+    const { data, status } = await axios.get(`${API_BASE_URL}${url}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Extract the `cart` object
+    const { cart } = data;
+
+    // Update state with `cartItems` and `total`
+    setCartItems(cart.orderItems || []);
+    setTotal(cart.total || 0);
+    setIsLoading(false);
+
+    return { data, status };
+  } catch (error) {
+    setIsLoading(false);
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
+export const deleteFromCart = (headers, cartItemId, token) => {
+  const url = `/api/v1/cart/${cartItemId}`;
+  return handleApiRequest(url, headers, {}, token, 'DELETE'); // Ensure DELETE method
 };
