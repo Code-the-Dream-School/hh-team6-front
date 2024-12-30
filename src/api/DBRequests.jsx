@@ -43,7 +43,7 @@ const handleApiRequest = async (
     const { data, status } = await axios({
       method, // Dynamically set the HTTP method
       url: `${API_BASE_URL}${url}`,
-      data: method !== 'GET' && method !== 'DELETE' ? payload : undefined, // Include payload only for non-GET and non-DELETE methods
+      data: method !== 'GET' && method !== 'DELETE' ? payload : undefined,
       headers,
     });
 
@@ -105,26 +105,26 @@ export const addToCart = (headers, cartData, token) => {
   return handleApiRequest('/api/v1/cart', headers, cartData, token);
 };
 
-export const getCart = async (setIsLoading, setCartItems, setTotal, token) => {
+export const getCart = async (setIsLoading, setCartItems, setTotals, token) => {
   const url = '/api/v1/cart';
 
   try {
     setIsLoading(true);
-    const { data, status } = await axios.get(`${API_BASE_URL}${url}`, {
+    const { data } = await axios.get(`${API_BASE_URL}${url}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    // Extract the `cart` object
     const { cart } = data;
-
-    // Update state with `cartItems` and `total`
     setCartItems(cart.orderItems || []);
-    setTotal(cart.total || 0);
-    setIsLoading(false);
+    setTotals({
+      tax: cart.tax || 0,
+      shippingFee: cart.shippingFee || 0,
+      total: cart.total || 0,
+    });
 
-    return { data, status };
+    setIsLoading(false);
   } catch (error) {
     setIsLoading(false);
     const errorMessage =
@@ -138,5 +138,5 @@ export const getCart = async (setIsLoading, setCartItems, setTotal, token) => {
 
 export const deleteFromCart = (headers, cartItemId, token) => {
   const url = `/api/v1/cart/${cartItemId}`;
-  return handleApiRequest(url, headers, {}, token, 'DELETE'); // Ensure DELETE method
+  return handleApiRequest(url, headers, {}, token, 'DELETE');
 };

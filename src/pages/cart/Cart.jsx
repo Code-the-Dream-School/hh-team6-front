@@ -8,35 +8,44 @@ import { useAuth } from '../../context/AuthProvider';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [totals, setTotals] = useState({ tax: 0, shippingFee: 0, total: 0 });
   const [isLoading, setIsLoading] = useState(false);
   const { token, isLoggedIn } = useAuth();
 
   useEffect(() => {
     const fetchCart = async () => {
+      setIsLoading(true);
       try {
-        const response = await getCart(
-          setIsLoading,
-          setCartItems,
-          setTotal,
-          token
-        );
-        const { cart } = response.data;
-
-        setCartItems(cart.orderItems || []);
-        setTotal(cart.total || 0);
+        await getCart(setIsLoading, setCartItems, setTotals, token);
       } catch (error) {
         console.error('Error fetching cart:', error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchCart();
+    if (token) {
+      fetchCart();
+    }
   }, [token]);
 
   const handleDelete = async (itemId) => {
     try {
       await deleteFromCart({}, itemId, token);
-      setCartItems((prev) => prev.filter((item) => item._id !== itemId));
+      setCartItems((prev) => {
+        const updatedCartItems = prev.filter((item) => item._id !== itemId);
+
+        // Recalculate totals
+        const itemsTotal = updatedCartItems.reduce(
+          (sum, item) => sum + (item.price || 0),
+          0
+        );
+        const tax = parseFloat((itemsTotal * 0.08).toFixed(2));
+        const shippingFee = 5.0;
+        const total = parseFloat((itemsTotal + tax + shippingFee).toFixed(2));
+        setTotals({ tax, shippingFee, total });
+        return updatedCartItems;
+      });
     } catch (error) {
       console.error('Error deleting item:', error.message);
     }
@@ -137,17 +146,33 @@ const Cart = () => {
                 })}
               </section>
 
-              <div className="w-full self-start rounded-lg border bg-white p-8 md:w-1/4">
-                <div className="flex items-center justify-between pb-2">
-                  <p className="text-lg font-semibold">Total</p>
-                  <p className="text-2xl font-bold">${total.toFixed(2)}</p>
+              {cartItems.length > 0 && (
+                <div className="w-full self-start rounded-lg border bg-white p-8 md:w-1/4">
+                  <div className="flex items-center justify-between pb-2">
+                    <p className="text-lg font-semibold">Tax</p>
+                    <p className="text-lg font-bold">
+                      ${totals.tax.toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between pb-2">
+                    <p className="text-lg font-semibold">Shipping Fee</p>
+                    <p className="text-lg font-bold">
+                      ${totals.shippingFee.toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between pb-2">
+                    <p className="text-lg font-semibold">Total</p>
+                    <p className="text-2xl font-bold">
+                      ${totals.total.toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="flex justify-center">
+                    <button className="mt-2 w-full items-center rounded-md bg-red px-6 py-1 text-white transition-transform duration-200 hover:bg-redHover active:scale-95">
+                      Checkout
+                    </button>
+                  </div>
                 </div>
-                <div className="flex justify-center">
-                  <button className="mt-2 w-full items-center rounded-md bg-red px-6 py-1 text-white transition-transform duration-200 hover:bg-redHover active:scale-95">
-                    Checkout
-                  </button>
-                </div>
-              </div>
+              )}
             </div>
 
             <section className="mt-8">
