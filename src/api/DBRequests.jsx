@@ -4,36 +4,6 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const UNEXPECTED_ERROR_MESSAGE = 'An unexpected error occurred';
 const BOOKS_LIMIT = 50;
 
-// const handleApiRequest = async (
-//   url,
-//   headers,
-//   payload,
-//   token = '',
-//   method = ''
-// ) => {
-//   try {
-//     if (token) {
-//       headers.Authorization = `Bearer ${token}`;
-//     }
-
-//     const { data, status } = await axios.post(
-//       `${API_BASE_URL}${url}`,
-//       payload,
-//       {
-//         headers,
-//       }
-//     );
-
-//     return { data, status };
-//   } catch (error) {
-//     const errorMessage =
-//       error?.response?.data?.msg ||
-//       error?.response?.data?.error ||
-//       UNEXPECTED_ERROR_MESSAGE;
-
-//     throw new Error(errorMessage);
-//   }
-// };
 const handleApiRequest = async (
   url,
   headers,
