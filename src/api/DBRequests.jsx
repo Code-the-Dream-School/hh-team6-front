@@ -112,7 +112,7 @@ export const getSavedBooks = async (
         Authorization: `Bearer ${token}`,
       },
       params: {
-        limit: BOOK_LIMIT,
+        limit: BOOKS_LIMIT,
         sort: sortBy,
       },
     });

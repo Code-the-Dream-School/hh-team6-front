@@ -10,7 +10,7 @@ const Book = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { isLoggedIn, token } = useAuth();
+  const { isLoggedIn, token, userData } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [bookData, setBookData] = useState(location.state || {});
   const [isAddingToCart, setIsAddingToCart] = useState(false);
@@ -99,19 +99,23 @@ const Book = () => {
           ${price.toFixed(2)}
         </h1>
         {isLoggedIn && (
-          <Button
-            as="button"
-            type="button"
-            onClick={handleAddToCart}
-            disabled={isAddingToCart}
-            className={`mb-2 mt-4 w-full rounded-md px-6 py-2 font-body text-xl font-semibold tracking-wide text-white transition-transform duration-150 active:scale-95 ${
-              isAddingToCart
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-red hover:bg-redHover'
-            }`}
-          >
-            {isAddingToCart ? 'Adding...' : 'Add to cart'}
-          </Button>
+          <>
+            <Button
+              as="button"
+              type="button"
+              onClick={handleAddToCart}
+              disabled={isAddingToCart}
+              className={`mb-2 mt-4 w-full rounded-md px-6 py-2 font-body text-xl font-semibold tracking-wide text-white transition-transform duration-150 active:scale-95 ${
+                isAddingToCart
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-red hover:bg-redHover'
+              }`}
+            >
+              {isAddingToCart ? 'Adding...' : 'Add to cart'}
+            </Button>
+            <p>Selling by {`${userData?.firstName} ${userData?.lastName}`}</p>
+            <p className="underline">Write to owner</p>
+          </>
         )}
       </div>
       <div className="mb-6" style={{ gridArea: 'table' }}>
