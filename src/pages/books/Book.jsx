@@ -98,12 +98,12 @@ const Book = () => {
               Add to cart
             </Button>
             <p>Selling by {`${userData?.firstName} ${userData?.lastName}`}</p>
-            <button
+            <Button
               onClick={handleWriteToOwner}
               className="text-blue-500 underline hover:text-blue-700"
             >
               Write to owner
-            </button>
+            </Button>
           </>
         )}
       </div>

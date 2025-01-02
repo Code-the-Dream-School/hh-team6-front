@@ -66,7 +66,7 @@ const Messages = () => {
   }, [messages]);
 
   return (
-    <div className="flex h-full flex-row gap-4">
+    <div className="flex h-full flex-col gap-4 sm:flex-row">
       {error ? (
         <p>{error}</p>
       ) : isChatLoading ? (
