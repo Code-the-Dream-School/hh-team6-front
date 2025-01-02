@@ -6,6 +6,7 @@ import SavedBooks from './SavedBooks';
 import UpdateProfile from './UpdateProfile';
 import LeftMenu from '../../components/account/LeftMenu';
 import { useAccount } from '../../context/AccountProvider';
+import OrderHistory from './OrderHistory';
 
 const Account = () => {
   const { accountPage } = useAccount();
@@ -19,7 +20,7 @@ const Account = () => {
       case 'myBooks':
         return <MyBooks />;
       case 'orderHistory':
-        return <div>orderHistory</div>;
+        return <OrderHistory />;
       case 'savedBooks':
         return <SavedBooks />;
       case 'messages':
