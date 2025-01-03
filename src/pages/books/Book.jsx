@@ -13,7 +13,6 @@ const Book = () => {
   const { isLoggedIn, token, userData } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [bookData, setBookData] = useState(location.state || {});
-  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,22 +35,23 @@ const Book = () => {
 
   const handleAddToCart = async () => {
     if (!isLoggedIn) {
-      navigate('/sign_in'); // Redirect to login if the user is not logged in
+      navigate('/sign_in');
       return;
     }
-
-    setIsAddingToCart(true);
     try {
       await addToCart(
         { 'Content-Type': 'application/json' },
         { bookId: id, price: bookData.price },
         token
       );
-      navigate('/cart'); // Redirect to the cart page after adding to cart
+      navigate('/cart');
     } catch (error) {
-      console.error('Error adding to cart:', error.message);
-    } finally {
-      setIsAddingToCart(false);
+      const errorMessage = error.response?.data || error.message;
+      console.error(
+        'Error adding to cart:',
+        error.response?.data || error.message
+      );
+      alert(`Error adding to cart: ${errorMessage}`);
     }
   };
 
@@ -102,16 +102,10 @@ const Book = () => {
           <>
             <Button
               as="button"
-              type="button"
               onClick={handleAddToCart}
-              disabled={isAddingToCart}
-              className={`mb-2 mt-4 w-full rounded-md px-6 py-2 font-body text-xl font-semibold tracking-wide text-white transition-transform duration-150 active:scale-95 ${
-                isAddingToCart
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-red hover:bg-redHover'
-              }`}
+              className="mt-4 rounded-md bg-red px-6 py-2 text-white hover:bg-redHover"
             >
-              {isAddingToCart ? 'Adding...' : 'Add to cart'}
+              Add to cart
             </Button>
             <p>Selling by {`${userData?.firstName} ${userData?.lastName}`}</p>
             <p className="underline">Write to owner</p>

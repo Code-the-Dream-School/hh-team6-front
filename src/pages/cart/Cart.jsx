@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 import { Link } from 'react-router-dom';
 import StateCode from 'us-state-codes';
 
+import CartItem from './CartItem';
+import CartSummary from './CartSummary';
 import { getCart, deleteFromCart } from '../../api/DBRequests';
 import { useAuth } from '../../context/AuthProvider';
 
@@ -35,7 +37,6 @@ const Cart = () => {
       setCartItems((prev) => {
         const updatedCartItems = prev.filter((item) => item._id !== itemId);
 
-        // Recalculate totals
         const itemsTotal = updatedCartItems.reduce(
           (sum, item) => sum + (item.price || 0),
           0
@@ -51,18 +52,18 @@ const Cart = () => {
     }
   };
 
+  const itemsBySeller = useMemo(() => {
+    return cartItems.reduce((acc, item) => {
+      const sellerKey = `${item.sellerName || 'Unknown'}, ${item.sellerLocation || 'Unknown Location'}`;
+      if (!acc[sellerKey]) acc[sellerKey] = [];
+      acc[sellerKey].push(item);
+      return acc;
+    }, {});
+  }, [cartItems]);
+
   if (isLoading) {
-    return <p className="text-center">Loading...</p>;
+    return <p>Loading...</p>;
   }
-
-  // Group items by seller
-  const itemsBySeller = cartItems.reduce((acc, item) => {
-    const sellerKey = `${item.sellerName || 'Unknown'}, ${item.sellerLocation || 'Unknown Location'}`;
-    if (!acc[sellerKey]) acc[sellerKey] = [];
-    acc[sellerKey].push(item);
-    return acc;
-  }, {});
-
   return (
     <>
       {isLoggedIn ? (
@@ -85,7 +86,7 @@ const Cart = () => {
                       key={index}
                       className="bg-gray-50 mb-8 rounded-lg border"
                     >
-                      <h2 className="text-gray-800 rounded-t-lg border-b border-gray bg-lightBlue p-4 text-lg">
+                      <h2 className="rounded-t-lg border-b border-gray bg-lightBlue p-4 text-lg">
                         <span className="text-blueGray">{sellerName}</span>,{' '}
                         {city}
                         {state
@@ -93,101 +94,29 @@ const Cart = () => {
                           : ''}
                       </h2>
                       {itemsBySeller[seller].map((item) => (
-                        <div
+                        <CartItem
                           key={item._id}
-                          className="flex flex-col justify-between rounded-lg bg-white p-4 md:flex-row"
-                        >
-                          <div className="flex">
-                            <img
-                              src={item.coverImageUrl}
-                              alt={item.title}
-                              className="h-28 w-20 rounded-md object-cover shadow-sm"
-                            />
-                            <div className="ml-4 flex flex-col justify-between">
-                              <div>
-                                <h3 className="text-gray-900 text-lg font-bold hover:underline">
-                                  {item.title}
-                                </h3>
-                                <p className="text-gray-500 text-sm">
-                                  {item.author}
-                                </p>
-                                <div>
-                                  <p className="text-gray-800 mt-2 text-lg font-bold md:hidden">
-                                    $
-                                    {item.price ? item.price.toFixed(2) : 'N/A'}
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="mt-2 flex gap-2 text-blueGray">
-                                <button className="hover:underline">
-                                  Save for later
-                                </button>
-                                <button
-                                  onClick={() => handleDelete(item._id)}
-                                  className="hover:underline"
-                                >
-                                  Delete
-                                </button>
-                                <button className="hover:underline">
-                                  Contact seller
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                          <div>
-                            <p className="text-gray-800 hidden text-lg font-bold md:block">
-                              ${item.price ? item.price.toFixed(2) : 'N/A'}
-                            </p>
-                          </div>
-                        </div>
+                          item={item}
+                          handleDelete={handleDelete}
+                        />
                       ))}
                     </div>
                   );
                 })}
               </section>
 
-              {cartItems.length > 0 && (
-                <div className="w-full self-start rounded-lg border bg-white p-8 md:w-1/4">
-                  <div className="flex items-center justify-between pb-2">
-                    <p className="text-lg font-semibold">Tax</p>
-                    <p className="text-lg font-bold">
-                      ${totals.tax.toFixed(2)}
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-between pb-2">
-                    <p className="text-lg font-semibold">Shipping Fee</p>
-                    <p className="text-lg font-bold">
-                      ${totals.shippingFee.toFixed(2)}
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-between pb-2">
-                    <p className="text-lg font-semibold">Total</p>
-                    <p className="text-2xl font-bold">
-                      ${totals.total.toFixed(2)}
-                    </p>
-                  </div>
-                  <div className="flex justify-center">
-                    <button className="mt-2 w-full items-center rounded-md bg-red px-6 py-1 text-white transition-transform duration-200 hover:bg-redHover active:scale-95">
-                      Checkout
-                    </button>
-                  </div>
-                </div>
-              )}
+              {cartItems.length > 0 && <CartSummary totals={totals} />}
             </div>
 
             <section className="mt-8">
-              <h2 className="text-gray-900 text-lg font-semibold">
-                Saved for later
-              </h2>
-              <p className="text-gray-600 mt-2">
+              <h2 className="text-lg font-semibold">Saved for later</h2>
+              <p className="mt-2">
                 You don&apos;t have any items saved for later.
               </p>
             </section>
 
             {cartItems.length === 0 && (
-              <p className="text-gray-600 mt-8 text-center">
-                Your cart is empty
-              </p>
+              <p className="mt-8 text-center">Your cart is empty</p>
             )}
           </main>
         </div>
