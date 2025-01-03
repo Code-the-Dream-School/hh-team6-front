@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Button } from '@headlessui/react';
 import PropTypes from 'prop-types';
 
 const CartItem = ({ item, handleDelete }) => {
@@ -24,14 +25,14 @@ const CartItem = ({ item, handleDelete }) => {
             </div>
           </div>
           <div className="mt-2 flex gap-2 text-blueGray">
-            <button className="hover:underline">Save for later</button>
-            <button
+            <Button className="hover:underline">Save for later</Button>
+            <Button
               onClick={() => handleDelete(item._id)}
               className="hover:underline"
             >
               Delete
-            </button>
-            <button className="hover:underline">Contact seller</button>
+            </Button>
+            <Button className="hover:underline">Contact seller</Button>
           </div>
         </div>
       </div>
@@ -43,6 +44,7 @@ const CartItem = ({ item, handleDelete }) => {
     </div>
   );
 };
+
 CartItem.propTypes = {
   item: PropTypes.shape({
     coverImageUrl: PropTypes.string,

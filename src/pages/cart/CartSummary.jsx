@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Button } from '@headlessui/react';
 import PropTypes from 'prop-types';
 
 const CartSummary = ({ totals }) => {
@@ -18,13 +19,14 @@ const CartSummary = ({ totals }) => {
         <p className="text-2xl font-bold">${totals.total.toFixed(2)}</p>
       </div>
       <div className="flex justify-center">
-        <button className="mt-2 w-full rounded-md bg-red px-6 py-1 text-white hover:bg-redHover">
+        <Button className="mt-2 w-full rounded-md bg-red px-6 py-1 text-white hover:bg-redHover">
           Checkout
-        </button>
+        </Button>
       </div>
     </div>
   );
 };
+
 CartSummary.propTypes = {
   totals: PropTypes.shape({
     tax: PropTypes.number.isRequired,
