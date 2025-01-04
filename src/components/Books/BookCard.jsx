@@ -61,7 +61,7 @@ const BookCard = ({
               <Link
                 to={{
                   pathname: '/books',
-                  search: `?isbn=${isbn}`,
+                  search: `?isbn=${book.isbn}`,
                 }}
                 className="h-[35px] rounded border border-blueGray px-2 py-1 text-center text-blueGray"
               >
@@ -93,6 +93,7 @@ BookCard.propTypes = {
     pages: PropTypes.number,
     isbn10: PropTypes.string,
     isbn13: PropTypes.string,
+    isbn: PropTypes.string,
     description: PropTypes.string,
     genre: PropTypes.array,
     ageCategory: PropTypes.string,

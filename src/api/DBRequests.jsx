@@ -231,3 +231,90 @@ export const deleteSavedBook = async (id, token) => {
     throw new Error(errorMessage);
   }
 };
+
+export const getChats = async (setIsLoading, setChats, token) => {
+  const url = '/api/v1/chats';
+  try {
+    setIsLoading(true);
+    const { data } = await axios.get(`${API_BASE_URL}${url}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setChats(data);
+    setIsLoading(false);
+
+    return data;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
+export const addChat = async (setIsLoading, userId, token) => {
+  const url = '/api/v1/chats';
+  try {
+    setIsLoading(true);
+    const {
+      data: { chat },
+    } = await axios.post(
+      `${API_BASE_URL}${url}`,
+      { userId: userId },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    setIsLoading(false);
+    return chat;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
+export const getChatMessages = async (
+  setIsLoading,
+  setMessages,
+  token,
+  chat_id
+) => {
+  const url = `/api/v1/chats/${chat_id}/messages`;
+  try {
+    setIsLoading(true);
+    const { data } = await axios.get(`${API_BASE_URL}${url}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setMessages(data.messages);
+    setIsLoading(false);
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
+export const sendMessage = async (setIsLoading, chat_id, message, token) => {
+  const url = `/api/v1/chats/${chat_id}/messages`;
+  try {
+    await axios.post(
+      `${API_BASE_URL}${url}`,
+      { message: message },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    setIsLoading(false);
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
