@@ -14,9 +14,9 @@ const MyBooks = () => {
   const [error, setError] = useState('');
 
   const fetchBooks = useCallback(async () => {
-    setIsLoading(true);
     try {
-      await getSavedBooks(setIsLoading, setBooksList, sortBy, token);
+      const fetchedBooks = await getSavedBooks(setIsLoading, sortBy, token);
+      setBooksList(fetchedBooks);
     } catch (error) {
       setError('Failed to load books. Please try again later.');
     }
@@ -49,11 +49,13 @@ const MyBooks = () => {
       ) : isLoading ? (
         <p>Loading...</p>
       ) : (
-        <BooksList
-          list={booksList}
-          isSavedBooks={true}
-          updateList={fetchBooks}
-        />
+        <>
+          <BooksList
+            list={booksList}
+            isSavedBooks={true}
+            updateList={fetchBooks}
+          />
+        </>
       )}
     </>
   );
