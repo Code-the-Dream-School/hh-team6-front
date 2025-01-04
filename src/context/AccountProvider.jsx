@@ -17,6 +17,9 @@ export const AccountProvider = ({ children }) => {
   const [currentBookId, setCurrentBookId] = useState(
     sessionStorage.getItem('currentBookId') || ''
   );
+  const [currentChatId, setCurrentChatId] = useState(
+    sessionStorage.getItem('currentChatId') || ''
+  );
 
   useEffect(() => {
     sessionStorage.setItem('accountPage', accountPage);
@@ -26,6 +29,16 @@ export const AccountProvider = ({ children }) => {
     sessionStorage.setItem('currentBookId', currentBookId);
   }, [currentBookId]);
 
+  useEffect(() => {
+    sessionStorage.setItem('currentChatId', currentChatId);
+  }, [currentChatId]);
+
+  const clearAccount = () => {
+    setAccountPage('');
+    setCurrentBookId('');
+    setCurrentChatId('');
+  };
+
   return (
     <AccountContext.Provider
       value={{
@@ -33,6 +46,9 @@ export const AccountProvider = ({ children }) => {
         setAccountPage,
         currentBookId,
         setCurrentBookId,
+        currentChatId,
+        setCurrentChatId,
+        clearAccount,
       }}
     >
       {children}

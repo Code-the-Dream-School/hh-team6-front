@@ -1,5 +1,6 @@
 import AddBook from './AddBook';
 import EditBook from './EditBook';
+import Messages from './Messages';
 import MyBooks from './MyBooks';
 import Profile from './Profile';
 import SavedBooks from './SavedBooks';
@@ -23,7 +24,7 @@ const Account = () => {
       case 'savedBooks':
         return <SavedBooks />;
       case 'messages':
-        return <div>messages</div>;
+        return <Messages />;
       case 'profile':
         return <Profile />;
       case 'EditProfile':

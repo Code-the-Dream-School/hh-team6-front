@@ -8,8 +8,8 @@ import Router from './routes/Router';
 function App() {
   return (
     <div className="flex min-h-screen min-w-[320px] flex-col">
-      <AuthProvider>
-        <AccountProvider>
+      <AccountProvider>
+        <AuthProvider>
           <BrowserRouter
             future={{
               v7_startTransition: true,
@@ -20,8 +20,8 @@ function App() {
               <Router />
             </MainLayout>
           </BrowserRouter>
-        </AccountProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </AccountProvider>
     </div>
   );
 }
