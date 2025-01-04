@@ -14,8 +14,7 @@ const BookCard = ({
   isAvailable,
   isLink = false,
 }) => {
-  const { _id: id, title, coverImageUrl, price, author, isbn10, isbn13 } = book;
-  const isbn = isbn10 || isbn13;
+  const { _id: id, title, coverImageUrl, price, author } = book;
   const cardContent = (
     <div className="relative grid w-52 max-w-52 grid-rows-[12rem_auto] items-center rounded bg-lightBlue p-4 lg:w-40 xl:w-52">
       {isSavedBooks && (

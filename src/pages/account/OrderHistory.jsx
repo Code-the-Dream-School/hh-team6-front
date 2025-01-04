@@ -1,66 +1,85 @@
 import React, { useState } from 'react';
 
+import { Button } from '@headlessui/react';
+import { Link } from 'react-router-dom';
+
 const OrderHistory = () => {
   const [activeTab, setActiveTab] = useState('purchases');
 
   const orders = [
-    { id: '', date: '', total: '' },
-    { id: '', date: '', total: '' },
+    { id: '1', date: '2025-01-03', total: '67.89' },
+    { id: '2', date: '2025-01-02', total: '45.32' },
+    { id: '3', date: '2025-01-01', total: '110.45' },
+    { id: '4', date: '2024-12-31', total: '78.12' },
+    { id: '5', date: '2024-12-30', total: '32.98' },
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-lightBlue font-body text-black">
-      {/* Main Content */}
-      <main className="flex flex-grow flex-col px-6 py-8">
-        {/* Tabs */}
-        <div className="mb-6 flex justify-start">
-          <button
-            onClick={() => setActiveTab('purchases')}
-            className={`${
-              activeTab === 'purchases'
-                ? 'bg-darkGreen text-white'
-                : 'bg-gray-200 text-darkGreen'
-            } w-[202px] h-[36px] px-[20px] py-[10px] rounded-md border-2 border-darkGreen transition-transform duration-150 hover:bg-darkGreen hover:text-white active:scale-95`}
-          >
-            My Purchases
-          </button>
-          <button
-            onClick={() => setActiveTab('sales')}
-            className={`${
-              activeTab === 'sales'
-                ? 'bg-darkGreen text-white'
-                : 'bg-gray-200 text-darkGreen'
-            } w-[202px] h-[36px] px-[20px] py-[10px] rounded-md border-2 border-darkGreen transition-transform duration-150 hover:bg-darkGreen hover:text-white active:scale-95`}
-          >
-            My Sales
-          </button>
-        </div>
+    <div className="flex flex-grow flex-col px-6 py-8">
+      <div className="mb-6 flex justify-start">
+        <Button
+          onClick={() => setActiveTab('purchases')}
+          className={`${
+            activeTab === 'purchases'
+              ? 'bg-darkGreen text-white'
+              : 'bg-gray-200 text-darkGreen'
+          } w-1/2 rounded-l-md border-2 border-darkGreen py-[6px] transition-transform duration-150 hover:bg-darkGreen hover:text-white md:w-[202px]`}
+        >
+          My Purchases
+        </Button>
+        <Button
+          onClick={() => setActiveTab('sales')}
+          className={`${
+            activeTab === 'sales'
+              ? 'bg-darkGreen text-white'
+              : 'bg-gray-200 text-darkGreen'
+          } w-1/2 rounded-r-md border-2 border-darkGreen py-[6px] transition-transform duration-150 hover:bg-darkGreen hover:text-white md:w-[202px]`}
+        >
+          My Sales
+        </Button>
+      </div>
 
-        {/* Order Table */}
-        <div className="w-full max-w-6xl">
-          <table className="w-full border-collapse shadow-lg rounded-lg">
-            <thead className="bg-gray-700 text-black">
-              <tr>
-                <th className="border-b border-gray-300 px-6 py-4 text-left text-sm font-medium">Order #</th>
-                <th className="border-b border-gray-300 px-6 py-4 text-left text-sm font-medium">Date placed</th>
-                <th className="border-b border-gray-300 px-6 py-4 text-left text-sm font-medium">Total Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order.id} className="bg-white hover:bg-gray-100">
-                  <td className="border-b border-gray-200 px-6 py-4 text-sm">{order.id}</td>
-                  <td className="border-b border-gray-200 px-6 py-4 text-sm">{order.date}</td>
-                  <td className="border-b border-gray-200 px-6 py-4 text-sm">{order.total}</td>
-                  <button className="rounded-md bg-darkGreen px-3 py-1 text-white hover:bg-darkGreenHover transition-transform duration-150">
+      <div className="w-full max-w-4xl rounded-md border border-gray">
+        <table className="w-full border-collapse rounded-md bg-white text-center shadow-md">
+          <thead className="bg-gray-700 text-black">
+            <tr>
+              <th className="border-b border-gray py-4 text-xs font-medium md:px-6 md:text-base">
+                Order #
+              </th>
+              <th className="border-b border-gray py-4 text-xs font-medium md:px-6 md:text-base">
+                Date placed
+              </th>
+              <th className="border-b border-gray py-4 text-xs font-medium md:px-6 md:text-base">
+                Total Amount
+              </th>
+              <th className="border-b border-gray py-4 text-xs font-medium md:px-6 md:text-base"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.id} className="hover:bg-gray-100">
+                <td className="py-4 text-xs md:px-6 md:text-base">
+                  {order.id}
+                </td>
+                <td className="py-4 text-xs md:px-6 md:text-base">
+                  {order.date}
+                </td>
+                <td className="py-4 text-xs md:px-6 md:text-base">
+                  {order.total}
+                </td>
+                <td className="py-4 text-xs md:px-6 md:text-base">
+                  <Link
+                    to="/"
+                    className="rounded-md bg-darkGreen px-2 py-1 text-xs text-white transition-transform duration-150 hover:bg-darkGreenHover md:px-6 md:text-base"
+                  >
                     View Order
-                    </button>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </main>
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

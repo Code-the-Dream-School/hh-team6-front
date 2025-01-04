@@ -2,12 +2,12 @@ import AddBook from './AddBook';
 import EditBook from './EditBook';
 import Messages from './Messages';
 import MyBooks from './MyBooks';
+import OrderHistory from './OrderHistory';
 import Profile from './Profile';
 import SavedBooks from './SavedBooks';
 import UpdateProfile from './UpdateProfile';
 import LeftMenu from '../../components/account/LeftMenu';
 import { useAccount } from '../../context/AccountProvider';
-import OrderHistory from './OrderHistory';
 
 const Account = () => {
   const { accountPage } = useAccount();
