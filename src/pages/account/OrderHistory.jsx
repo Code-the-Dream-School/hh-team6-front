@@ -4,8 +4,8 @@ const OrderHistory = () => {
   const [activeTab, setActiveTab] = useState('purchases');
 
   const orders = [
-    { id: '12345', date: '2024-12-30', total: '$45.99' },
-    { id: '67890', date: '2024-12-20', total: '$99.99' },
+    { id: '', date: '', total: '' },
+    { id: '', date: '', total: '' },
   ];
 
   return (
@@ -52,6 +52,9 @@ const OrderHistory = () => {
                   <td className="border-b border-gray-200 px-6 py-4 text-sm">{order.id}</td>
                   <td className="border-b border-gray-200 px-6 py-4 text-sm">{order.date}</td>
                   <td className="border-b border-gray-200 px-6 py-4 text-sm">{order.total}</td>
+                  <button className="rounded-md bg-darkGreen px-3 py-1 text-white hover:bg-darkGreenHover transition-transform duration-150">
+                    View Order
+                    </button>
                 </tr>
               ))}
             </tbody>
