@@ -1,6 +1,8 @@
 import AddBook from './AddBook';
 import EditBook from './EditBook';
+import Messages from './Messages';
 import MyBooks from './MyBooks';
+import OrderHistory from './OrderHistory';
 import Profile from './Profile';
 import SavedBooks from './SavedBooks';
 import UpdateProfile from './UpdateProfile';
@@ -19,11 +21,11 @@ const Account = () => {
       case 'myBooks':
         return <MyBooks />;
       case 'orderHistory':
-        return <div>orderHistory</div>;
+        return <OrderHistory />;
       case 'savedBooks':
         return <SavedBooks />;
       case 'messages':
-        return <div>messages</div>;
+        return <Messages />;
       case 'profile':
         return <Profile />;
       case 'EditProfile':

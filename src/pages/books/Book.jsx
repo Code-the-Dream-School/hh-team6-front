@@ -4,13 +4,15 @@ import { Button } from '@headlessui/react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { getBook, addToCart } from '../../api/DBRequests';
+import { addChat } from '../../api/DBRequests';
+import { useAccount } from '../../context/AccountProvider';
 import { useAuth } from '../../context/AuthProvider';
 
 const Book = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { isLoggedIn, token, userData } = useAuth();
+  const { isLoggedIn, userData } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [bookData, setBookData] = useState(location.state || {});
 
@@ -71,7 +73,17 @@ const Book = () => {
     isbn10,
     isbn13,
     description,
+    createdBy,
   } = bookData;
+
+  const { setAccountPage, setCurrentChatId } = useAccount();
+
+  const handleWriteToOwner = async () => {
+    const chat = await addChat(setIsLoading, createdBy, token);
+    setAccountPage('messages');
+    setCurrentChatId(chat._id);
+    navigate('/account');
+  };
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -108,7 +120,12 @@ const Book = () => {
               Add to cart
             </Button>
             <p>Selling by {`${userData?.firstName} ${userData?.lastName}`}</p>
-            <p className="underline">Write to owner</p>
+            <Button
+              onClick={handleWriteToOwner}
+              className="text-blue-500 underline hover:text-blue-700"
+            >
+              Write to owner
+            </Button>
           </>
         )}
       </div>
