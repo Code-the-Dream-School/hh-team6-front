@@ -8,21 +8,21 @@ const handleApiRequest = async (
   url,
   headers,
   payload,
-  token = '',
+  token,
   method = 'POST'
 ) => {
   try {
-    if (token) {
-      headers.Authorization = `Bearer ${token}`;
-    }
-
-    const { data, status } = await axios({
+    const config = {
       method,
       url: `${API_BASE_URL}${url}`,
       data: ['POST', 'PATCH', 'PUT'].includes(method) ? payload : undefined,
-      headers,
-    });
+      headers: {
+        ...headers,
+        Authorization: token ? `Bearer ${token}` : undefined,
+      },
+    };
 
+    const { data, status } = await axios(config);
     return { data, status };
   } catch (error) {
     const errorMessage =
@@ -221,6 +221,133 @@ export const deleteSavedBook = async (id, token) => {
     });
 
     return response;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
+export const addToCart = (headers, cartData, token) => {
+  return handleApiRequest('/api/v1/cart', headers, cartData, token);
+};
+
+export const getCart = async (setIsLoading, setCartItems, setTotals, token) => {
+  const url = '/api/v1/cart';
+
+  try {
+    setIsLoading(true);
+    const { data } = await axios.get(`${API_BASE_URL}${url}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const { cart } = data;
+    setCartItems(cart.orderItems || []);
+    setTotals({
+      tax: cart.tax || 0,
+      shippingFee: cart.shippingFee || 0,
+      total: cart.total || 0,
+    });
+
+    setIsLoading(false);
+  } catch (error) {
+    setIsLoading(false);
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
+export const deleteFromCart = (headers, cartItemId, token) => {
+  const url = `/api/v1/cart/${cartItemId}`;
+  return handleApiRequest(url, headers, {}, token, 'DELETE');
+};
+
+export const getChats = async (setIsLoading, setChats, token) => {
+  const url = '/api/v1/chats';
+  try {
+    setIsLoading(true);
+    const { data } = await axios.get(`${API_BASE_URL}${url}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setChats(data);
+    setIsLoading(false);
+
+    return data;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
+export const addChat = async (setIsLoading, userId, token) => {
+  const url = '/api/v1/chats';
+  try {
+    setIsLoading(true);
+    const {
+      data: { chat },
+    } = await axios.post(
+      `${API_BASE_URL}${url}`,
+      { userId: userId },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    setIsLoading(false);
+    return chat;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
+export const getChatMessages = async (
+  setIsLoading,
+  setMessages,
+  token,
+  chat_id
+) => {
+  const url = `/api/v1/chats/${chat_id}/messages`;
+  try {
+    setIsLoading(true);
+    const { data } = await axios.get(`${API_BASE_URL}${url}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setMessages(data.messages);
+    setIsLoading(false);
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+
+export const sendMessage = async (setIsLoading, chat_id, message, token) => {
+  const url = `/api/v1/chats/${chat_id}/messages`;
+  try {
+    await axios.post(
+      `${API_BASE_URL}${url}`,
+      { message: message },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    setIsLoading(false);
   } catch (error) {
     const errorMessage =
       error?.response?.data?.msg ||

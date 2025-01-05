@@ -12,7 +12,7 @@ const Book = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { isLoggedIn, userData } = useAuth();
+  const { isLoggedIn, userData, token } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [bookData, setBookData] = useState(location.state || {});
 
