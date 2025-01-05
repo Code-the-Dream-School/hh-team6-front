@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { Button } from '@headlessui/react';
-
+import io from 'socket.io-client';
 import { getChats, getChatMessages } from '../../api/DBRequests';
 import SendMessage from '../../components/account/SendMessage';
 import { useAccount } from '../../context/AccountProvider';
@@ -18,6 +18,30 @@ const Messages = () => {
   const [error, setError] = useState('');
   const [errorMessages, setErrorMessages] = useState('');
   const lastMessageRef = useRef(null);
+  const socketRef = useRef();
+  
+  useEffect(() => {
+    socketRef.current = io('http://localhost:8000');
+
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (currentChatId) {
+      socketRef.current.emit('joinChat', currentChatId);
+
+      socketRef.current.on('newMessage', (message) => {
+        console.log('mes',message)
+        setMessages((prev) => [...prev, message]);
+      });
+
+      return () => {
+        socketRef.current.off('newMessage');
+      };
+    }
+  }, [currentChatId]);
 
   const fetchMessages = useCallback(
     async (id) => {
