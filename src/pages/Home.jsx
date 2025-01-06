@@ -26,7 +26,7 @@ const Home = () => {
   const fetchBooks = useCallback(async () => {
     setIsLoading(true);
     try {
-      await getBooks(setIsLoading, setBooksList, '', {}, 10);
+      setBooksList(await getBooks(setIsLoading, '', {}, 10));
     } catch (error) {
       setError('Failed to load books. Please try again later.');
     }

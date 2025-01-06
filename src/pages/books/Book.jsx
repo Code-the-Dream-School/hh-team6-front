@@ -40,9 +40,10 @@ const Book = () => {
       navigate('/sign_in');
       return;
     }
+    const headers = { 'Content-Type': 'application/json' };
     try {
       await addToCart(
-        { 'Content-Type': 'application/json' },
+        { headers },
         { bookId: id, price: bookData.price },
         token
       );
