@@ -17,7 +17,7 @@ const SendMessage = ({ chatId, setIsMessageLoading, token, fetchMessages }) => {
     e.preventDefault();
     setIsMessageLoading(true);
     await sendMessage(setIsMessageLoading, chatId, message, token);
-    // fetchMessages(chatId);
+
     setMessage('');
   };
 

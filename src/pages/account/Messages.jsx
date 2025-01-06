@@ -21,7 +21,7 @@ const Messages = () => {
   const socketRef = useRef();
   
   useEffect(() => {
-    socketRef.current = io('http://localhost:8000');
+    socketRef.current = io(import.meta.env.VITE_API_BASE_URL);
 
     return () => {
       socketRef.current.disconnect();
@@ -33,7 +33,6 @@ const Messages = () => {
       socketRef.current.emit('joinChat', currentChatId);
 
       socketRef.current.on('newMessage', (message) => {
-        console.log('mes',message)
         setMessages((prev) => [...prev, message]);
       });
 
