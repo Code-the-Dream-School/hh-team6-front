@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@headlessui/react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { getBook } from '../../api/DBRequests';
+import { getBook, addToCart } from '../../api/DBRequests';
 import { addChat } from '../../api/DBRequests';
 import { useAccount } from '../../context/AccountProvider';
 import { useAuth } from '../../context/AuthProvider';
@@ -34,6 +34,29 @@ const Book = () => {
     };
     fetchData();
   }, [id, location.state, navigate]);
+
+  const handleAddToCart = async () => {
+    if (!isLoggedIn) {
+      navigate('/sign_in');
+      return;
+    }
+    const headers = { 'Content-Type': 'application/json' };
+    try {
+      await addToCart(
+        { headers },
+        { bookId: id, price: bookData.price },
+        token
+      );
+      navigate('/cart');
+    } catch (error) {
+      const errorMessage = error.response?.data || error.message;
+      console.error(
+        'Error adding to cart:',
+        error.response?.data || error.message
+      );
+      alert(`Error adding to cart: ${errorMessage}`);
+    }
+  };
 
   const {
     title,
@@ -68,7 +91,7 @@ const Book = () => {
   }
 
   return (
-    <div className="mx-5 mt-3 grid justify-items-center gap-4 text-center [grid-template-areas:'header''image''box''table'] md:mt-20 md:grid-cols-[1fr_1fr_1fr] md:grid-rows-[min-content_1fr] md:gap-y-0 md:text-start md:[grid-template-areas:'image_header_box''image_table_box']">
+    <div className="mx-5 mt-3 grid min-h-screen justify-items-center gap-4 text-center [grid-template-areas:'header''image''box''table'] md:mt-20 md:grid-cols-[1fr_1fr_1fr] md:grid-rows-[min-content_1fr] md:gap-y-0 md:text-start md:[grid-template-areas:'image_header_box''image_table_box']">
       <h1
         className="w-full font-headings text-2xl font-bold"
         style={{ gridArea: 'header' }}
@@ -92,8 +115,8 @@ const Book = () => {
           <>
             <Button
               as="button"
-              type="button"
-              className="mb-2 mt-4 w-full rounded-md bg-red px-6 py-2 font-body text-xl font-semibold tracking-wide text-white transition-transform duration-150 hover:bg-redHover active:scale-95"
+              onClick={handleAddToCart}
+              className="mt-4 rounded-md bg-red px-6 py-2 text-white hover:bg-redHover"
             >
               Add to cart
             </Button>

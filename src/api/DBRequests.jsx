@@ -244,3 +244,42 @@ export const sendMessage = async (setIsLoading, chat_id, message, token) => {
   );
   setIsLoading(false);
 };
+
+export const addToCart = (headers, cartData, token) => {
+  return handleApiRequest('/api/v1/cart', headers, cartData, token);
+};
+
+export const getCart = async (setIsLoading, setCartItems, setTotals, token) => {
+  const url = '/api/v1/cart';
+
+  try {
+    setIsLoading(true);
+    const { data } = await axios.get(`${API_BASE_URL}${url}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const { cart } = data;
+    setCartItems(cart.orderItems || []);
+    setTotals({
+      tax: cart.tax || 0,
+      shippingFee: cart.shippingFee || 0,
+      total: cart.total || 0,
+    });
+
+    setIsLoading(false);
+  } catch (error) {
+    setIsLoading(false);
+    const errorMessage =
+      error?.response?.data?.msg ||
+      error?.response?.data?.error ||
+      UNEXPECTED_ERROR_MESSAGE;
+
+    throw new Error(errorMessage);
+  }
+};
+export const deleteFromCart = (headers, cartItemId, token) => {
+  const url = `/api/v1/cart/${cartItemId}`;
+  return handleApiRequest(url, headers, {}, token, 'DELETE');
+};
