@@ -53,14 +53,11 @@ export const updatePassword = async ({ newPassword, token }) =>
 
 //books
 export const getBooks = async (
-  setIsLoading,
   sortBy = '',
   filters = {},
   limit = BOOKS_LIMIT,
   skip = 0
 ) => {
-  setIsLoading(true);
-
   const stringFilters = Object.fromEntries(
     Object.entries(filters).map(([key, values]) =>
       Array.isArray(values) ? [key, values.join(',')] : [key, values]
@@ -78,8 +75,6 @@ export const getBooks = async (
     data: { books },
   } = await handleApiRequest('/api/v1/books', { params }, null, null, 'get');
 
-  setIsLoading(false);
-
   return books;
 };
 
@@ -92,15 +87,10 @@ export const addBook = (headers, bookData, token) => {
   );
 };
 
-export const getBook = async (id, setIsLoading) => {
-  setIsLoading(true);
-
+export const getBook = async (id) => {
   const {
     data: { book },
   } = await handleApiRequest(`/api/v1/books/${id}`, null, null, null, 'get');
-
-  setIsLoading(false);
-
   return book;
 };
 
@@ -125,9 +115,7 @@ export const updateBook = (headers, bookData, token, id) => {
 };
 
 //saved books
-export const getSavedBooks = async (setIsLoading, sortBy, token) => {
-  setIsLoading(true);
-
+export const getSavedBooks = async (sortBy, token) => {
   const params = {
     sort: sortBy,
   };
@@ -165,8 +153,6 @@ export const getSavedBooks = async (setIsLoading, sortBy, token) => {
     };
   });
 
-  setIsLoading(false);
-
   return savedBooks;
 };
 
@@ -186,8 +172,7 @@ export const updateProfile = (headers, userData, token) =>
   handleApiRequest('/api/v1/update', { headers }, userData, token, 'patch');
 
 //messages
-export const getChats = async (setIsLoading, setChats, token) => {
-  setIsLoading(true);
+export const getChats = async (setChats, token) => {
   const { data } = await handleApiRequest(
     '/api/v1/chats',
     { headers: {} },
@@ -196,12 +181,10 @@ export const getChats = async (setIsLoading, setChats, token) => {
     'get'
   );
   setChats(data);
-  setIsLoading(false);
   return data;
 };
 
-export const addChat = async (setIsLoading, userId, token) => {
-  setIsLoading(true);
+export const addChat = async (userId, token) => {
   const {
     data: { chat },
   } = await handleApiRequest(
@@ -211,18 +194,10 @@ export const addChat = async (setIsLoading, userId, token) => {
     token,
     'post'
   );
-
-  setIsLoading(false);
   return chat;
 };
 
-export const getChatMessages = async (
-  setIsLoading,
-  setMessages,
-  token,
-  chat_id
-) => {
-  setIsLoading(true);
+export const getChatMessages = async (setMessages, token, chat_id) => {
   const { data } = await handleApiRequest(
     `/api/v1/chats/${chat_id}/messages`,
     { headers: {} },
@@ -231,10 +206,9 @@ export const getChatMessages = async (
     'get'
   );
   setMessages(data.messages);
-  setIsLoading(false);
 };
 
-export const sendMessage = async (setIsLoading, chat_id, message, token) => {
+export const sendMessage = async (chat_id, message, token) => {
   await handleApiRequest(
     `/api/v1/chats/${chat_id}/messages`,
     { headers: {} },
@@ -242,7 +216,6 @@ export const sendMessage = async (setIsLoading, chat_id, message, token) => {
     token,
     'post'
   );
-  setIsLoading(false);
 };
 
 export const addToCart = (headers, cartData, token) => {

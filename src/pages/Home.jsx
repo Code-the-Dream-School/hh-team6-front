@@ -26,10 +26,11 @@ const Home = () => {
   const fetchBooks = useCallback(async () => {
     setIsLoading(true);
     try {
-      setBooksList(await getBooks(setIsLoading, '', {}, 10));
+      setBooksList(await getBooks('', {}, 10));
     } catch (error) {
       setError('Failed to load books. Please try again later.');
     }
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {

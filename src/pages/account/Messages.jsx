@@ -6,14 +6,14 @@ import { getChats, getChatMessages } from '../../api/DBRequests';
 import SendMessage from '../../components/account/SendMessage';
 import { useAccount } from '../../context/AccountProvider';
 import { useAuth } from '../../context/AuthProvider';
+import Preloader from '../../layouts/Preloader';
 
 const Messages = () => {
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useState([]);
   const { currentChatId, setCurrentChatId } = useAccount();
   const [currentName, setCurrentName] = useState(null);
-  const [isChatLoading, setIsChatLoading] = useState(true);
-  const [isMessageLoading, setIsMessageLoading] = useState(!!currentChatId);
+  const [isLoading, setIsLoading] = useState(true);
   const { token, userId } = useAuth();
   const [error, setError] = useState('');
   const [errorMessages, setErrorMessages] = useState('');
@@ -22,7 +22,7 @@ const Messages = () => {
   const fetchMessages = useCallback(
     async (id) => {
       try {
-        await getChatMessages(setIsMessageLoading, setMessages, token, id);
+        await getChatMessages(setMessages, token, id);
       } catch (error) {
         setErrorMessages('Failed to load messages. Please try again later.');
       }
@@ -31,9 +31,9 @@ const Messages = () => {
   );
 
   const fetchChats = useCallback(async () => {
-    setIsChatLoading(true);
+    setIsLoading(true);
     try {
-      const data = await getChats(setIsChatLoading, setChats, token);
+      const data = await getChats(setChats, token);
       if (currentChatId) {
         setCurrentName(data.find((chat) => chat.id === currentChatId).peerName);
         fetchMessages(currentChatId);
@@ -41,6 +41,7 @@ const Messages = () => {
     } catch (error) {
       setError('Failed to load chats. Please try again later.');
     }
+    setIsLoading(false);
   }, [token, currentChatId, fetchMessages]);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const Messages = () => {
   }, [fetchChats]);
 
   const handleChatClick = (id, name) => {
-    setIsMessageLoading(true);
+    setIsLoading(true);
     setCurrentChatId(id);
     setCurrentName(name);
 
@@ -69,8 +70,8 @@ const Messages = () => {
     <div className="flex h-full flex-col gap-4 sm:flex-row">
       {error ? (
         <p>{error}</p>
-      ) : isChatLoading ? (
-        <p>Loading...</p>
+      ) : isLoading ? (
+        <Preloader />
       ) : (
         <>
           {/* chats */}
@@ -102,8 +103,6 @@ const Messages = () => {
           <div className="flex-1 rounded-md border border-gray py-3">
             {errorMessages ? (
               <p>{errorMessages}</p>
-            ) : isMessageLoading ? (
-              <p>Loading...</p>
             ) : (
               <div className="flex h-full flex-col">
                 {currentChatId && (
@@ -138,7 +137,6 @@ const Messages = () => {
                     <div className="mx-3">
                       <SendMessage
                         chatId={currentChatId}
-                        setIsMessageLoading={setIsMessageLoading}
                         token={token}
                         fetchMessages={fetchMessages}
                       />

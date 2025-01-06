@@ -9,12 +9,13 @@ import LeftMenu from '../../components/Books/LeftMenu';
 import LoadMoreButton from '../../components/Books/LoadMoreButton';
 import Filters from '../../components/Filters';
 import LabelAndSelect from '../../components/Form/LabelAndSelect';
+import Preloader from '../../layouts/Preloader';
 import { sortingOptions } from '../../utils/selectUtils';
 
 const BOOKS_LIMIT = 50;
 
 const Books = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [booksList, setBooksList] = useState([]);
   const [sortBy, setSortBy] = useState('-createdAt');
   const [filterCount, setFilterCount] = useState(0);
@@ -31,9 +32,10 @@ const Books = () => {
 
   const fetchBooks = useCallback(
     async (skip = 0) => {
+      setIsLoading(true);
+
       try {
         const fetchedBooks = await getBooks(
-          setIsLoading,
           sortBy,
           {
             ...filters,
@@ -52,6 +54,7 @@ const Books = () => {
       } catch (error) {
         setError('Failed to load books. Please try again later.');
       }
+      setIsLoading(false);
     },
     [filters, searchParams, sortBy]
   );
@@ -118,7 +121,7 @@ const Books = () => {
           {error ? (
             <p>{error}</p>
           ) : isLoading ? (
-            <p>Loading</p>
+            <Preloader />
           ) : (
             <>
               <BooksList list={booksList} showPrice={true} isLinkList={true} />
