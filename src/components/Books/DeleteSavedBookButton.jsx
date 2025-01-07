@@ -17,8 +17,8 @@ const DeleteSavedBookButton = ({ id, title, updateList }) => {
   };
 
   const handleDelete = async () => {
-    await deleteSavedBook(id, token);
     setIsOpen(false);
+    await deleteSavedBook(id, token);
     updateList();
   };
 
