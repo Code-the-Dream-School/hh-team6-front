@@ -218,6 +218,7 @@ export const sendMessage = async (chat_id, message, token) => {
   );
 };
 
+//cart
 export const addToCart = (headers, cartData, token) => {
   return handleApiRequest('/api/v1/cart', headers, cartData, token);
 };
@@ -255,4 +256,19 @@ export const getCart = async (setIsLoading, setCartItems, setTotals, token) => {
 export const deleteFromCart = (headers, cartItemId, token) => {
   const url = `/api/v1/cart/${cartItemId}`;
   return handleApiRequest(url, headers, {}, token, 'DELETE');
+};
+
+//orders
+export const getOrders = async (token) => {
+  const headers = {};
+
+  const { data: {buyOrders, sellOrders} } = await handleApiRequest(
+    '/api/v1/orders',
+    { headers },
+    null,
+    token,
+    'get'
+  );
+
+  return {buyOrders, sellOrders};
 };
