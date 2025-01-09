@@ -42,8 +42,11 @@ const Router = () => {
       <Route path="/books/:id" element={<Book />} />
 
       {/* Cart Routes */}
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/check_out" element={<CheckOut />} />
+      <Route path="/cart" element={<ProtectedRoute element={<Cart />} />} />
+      <Route
+        path="/check_out"
+        element={<ProtectedRoute element={<CheckOut />} />}
+      />
 
       {/* Auth Routes */}
       <Route path="/password/reset" element={<PasswordReset />} />
