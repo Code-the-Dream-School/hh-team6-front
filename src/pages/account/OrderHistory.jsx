@@ -1,9 +1,17 @@
 import React, { useState, Fragment, useCallback, useEffect } from 'react';
 
-import { Button, Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-import clsx from 'clsx'
-import OrdersTable from '../../components/account/orderHistory/ordersTable';
+import {
+  Button,
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+} from '@headlessui/react';
+import clsx from 'clsx';
+
 import { getOrders } from '../../api/DBRequests';
+import OrdersTable from '../../components/account/orderHistory/OrdersTable';
 import { useAuth } from '../../context/AuthProvider';
 import Preloader from '../../layouts/Preloader';
 
@@ -11,6 +19,7 @@ const OrderHistory = () => {
   const [orders, setOrders] = useState({ buyOrders: [], sellOrders: [] });
   const [isLoading, setIsLoading] = useState(false);
   const { token } = useAuth();
+  const [error, setError] = useState('');
 
   const fetchOrders = useCallback(async () => {
     setIsLoading(true);
@@ -21,7 +30,7 @@ const OrderHistory = () => {
       setError('Failed to load orders. Please try again later.');
     }
     setIsLoading(false);
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     fetchOrders();
@@ -29,41 +38,51 @@ const OrderHistory = () => {
 
   return (
     <>
-      <TabGroup className="p-3">
-        <TabList className="mb-4">
-          <Tab as={Fragment}>
-            {({ hover, selected }) => (
-              <Button
-                className={clsx(
-                  'text-darkGreen focus:outline-none w-1/2 rounded-l-md border border-darkGreen py-1 transition-transform duration-150 sm:w-[150px]',
-                  hover && 'bg-darkGreen text-white',
-                  selected && 'bg-darkGreen text-white'
+      {error ? (
+        <p>{error}</p>
+      ) : (
+        <>
+          <TabGroup className="p-3">
+            <TabList className="mb-4">
+              <Tab as={Fragment}>
+                {({ hover, selected }) => (
+                  <Button
+                    className={clsx(
+                      'w-1/2 rounded-l-md border border-darkGreen py-1 text-darkGreen transition-transform duration-150 focus:outline-none sm:w-[150px]',
+                      hover && 'bg-darkGreen text-white',
+                      selected && 'bg-darkGreen text-white'
+                    )}
+                  >
+                    My Purchases
+                  </Button>
                 )}
-              >
-                My Purchases
-              </Button>
-            )}
-          </Tab>
-          <Tab as={Fragment}>
-            {({ hover, selected }) => (
-              <Button
-                className={clsx(
-                  'text-darkGreen focus:outline-none w-1/2 rounded-r-md border border-darkGreen py-1 transition-transform duration-150 sm:w-[150px]',
-                  hover && 'bg-darkGreen text-white',
-                  selected && 'bg-darkGreen text-white'
+              </Tab>
+              <Tab as={Fragment}>
+                {({ hover, selected }) => (
+                  <Button
+                    className={clsx(
+                      'w-1/2 rounded-r-md border border-darkGreen py-1 text-darkGreen transition-transform duration-150 focus:outline-none sm:w-[150px]',
+                      hover && 'bg-darkGreen text-white',
+                      selected && 'bg-darkGreen text-white'
+                    )}
+                  >
+                    My Sales
+                  </Button>
                 )}
-              >
-                My Sales
-              </Button>
-            )}
-          </Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel><OrdersTable orders={orders.buyOrders} variant='purchases'/></TabPanel>
-          <TabPanel><OrdersTable orders={orders.sellOrders} variant='sales'/></TabPanel>
-        </TabPanels>
-      </TabGroup>
-      {isLoading && <Preloader />}
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <OrdersTable orders={orders.buyOrders} variant="purchases" />
+              </TabPanel>
+              <TabPanel>
+                <OrdersTable orders={orders.sellOrders} variant="sales" />
+              </TabPanel>
+            </TabPanels>
+          </TabGroup>
+          {isLoading && <Preloader />}
+        </>
+      )}
     </>
   );
 };

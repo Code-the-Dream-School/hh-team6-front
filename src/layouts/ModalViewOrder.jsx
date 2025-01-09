@@ -1,26 +1,26 @@
 import {
   Dialog,
   DialogTitle,
-  Description,
   Button,
   DialogBackdrop,
   DialogPanel,
 } from '@headlessui/react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+
+import { addChat } from '../api/DBRequests';
 import { useAccount } from '../context/AccountProvider';
 import { useAuth } from '../context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
-import { addChat } from '../api/DBRequests';
-
 import dateFormater from '../utils/dateFormater';
 
 const Modal = ({ order, variant, isOpen, onClose }) => {
   const { setAccountPage, setCurrentChatId } = useAccount();
   const { token } = useAuth();
   const navigate = useNavigate();
-  
+
   const handleWriteToContact = async () => {
-    const contactId = variant === 'purchases' ? order.seller._id : order.buyer._id;
+    const contactId =
+      variant === 'purchases' ? order.seller._id : order.buyer._id;
     const chat = await addChat(contactId, token);
     setAccountPage('messages');
     setCurrentChatId(chat._id);
@@ -38,21 +38,16 @@ const Modal = ({ order, variant, isOpen, onClose }) => {
                 Order: {order.orderNumber}
               </DialogTitle>
               <div className="flex justify-between">
-                {variant === 'purchases' ? (
-                  <p>Seller:</p>
-                ) : (
-                  <p>Buyer:</p>
-                )}
+                {variant === 'purchases' ? <p>Seller:</p> : <p>Buyer:</p>}
                 <p>
                   <Button
                     onClick={handleWriteToContact}
                     className="text-blue-500 underline hover:text-blue-700"
                   >
-                    {variant === 'purchases' ? 
-                      order.seller.firstName + ' ' + order.seller.lastName : 
-                      order.buyer.firstName + ' ' + order.buyer.lastName
-                    }
-                  </Button> 
+                    {variant === 'purchases'
+                      ? order.seller.firstName + ' ' + order.seller.lastName
+                      : order.buyer.firstName + ' ' + order.buyer.lastName}
+                  </Button>
                 </p>
               </div>
 
@@ -60,7 +55,7 @@ const Modal = ({ order, variant, isOpen, onClose }) => {
                 <p>Order Status:</p>
                 <p>{order.status}</p>
               </div>
-              
+
               <div className="flex justify-between">
                 <p>Date Placed: </p>
                 <p>{dateFormater(order.datePlaced)}</p>
@@ -72,7 +67,7 @@ const Modal = ({ order, variant, isOpen, onClose }) => {
                 <ul>
                   {order.items.map((item) => (
                     <li key={'id' + item._id}>
-                      "{item.book.title}"  {item.book.author}
+                      {`"${item.book.title}" ${item.book.author}`}
                     </li>
                   ))}
                 </ul>
@@ -101,7 +96,9 @@ const Modal = ({ order, variant, isOpen, onClose }) => {
 
 Modal.propTypes = {
   order: PropTypes.object.isRequired,
+  variant: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Modal;

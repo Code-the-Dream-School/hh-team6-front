@@ -262,13 +262,9 @@ export const deleteFromCart = (headers, cartItemId, token) => {
 export const getOrders = async (token) => {
   const headers = {};
 
-  const { data: {buyOrders, sellOrders} } = await handleApiRequest(
-    '/api/v1/orders',
-    { headers },
-    null,
-    token,
-    'get'
-  );
+  const {
+    data: { buyOrders, sellOrders },
+  } = await handleApiRequest('/api/v1/orders', { headers }, null, token, 'get');
 
-  return {buyOrders, sellOrders};
+  return { buyOrders, sellOrders };
 };

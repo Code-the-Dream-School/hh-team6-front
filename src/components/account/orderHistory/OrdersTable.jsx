@@ -1,18 +1,20 @@
-import { Button } from "@headlessui/react";
-import { useState } from "react";
+import { useState } from 'react';
+
+import { Button } from '@headlessui/react';
 import PropTypes from 'prop-types';
-import ModalViewOrder from "../../../layouts/ModalViewOrder";
+
+import ModalViewOrder from '../../../layouts/ModalViewOrder';
 import dateFormater from '../../../utils/dateFormater';
 
 const OrdersTable = ({ orders, variant }) => {
-  const headers = ['Order #', 'Date placed', 'Total Amount', '']
+  const headers = ['Order #', 'Date placed', 'Total Amount', ''];
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   const handleViewOrder = (order) => {
     setSelectedOrder(order);
     setIsOpen(true);
-  }
+  };
 
   const closeModal = () => {
     setIsOpen(false);
@@ -22,14 +24,11 @@ const OrdersTable = ({ orders, variant }) => {
   return (
     <>
       <div className="max-w-4xl rounded-md border border-gray">
-        <table className="w-full text-center border-spacing-y-50">
+        <table className="border-spacing-y-50 w-full text-center">
           <thead>
             <tr>
               {headers.map((header) => (
-                <th
-                  key={header}
-                  className="border-b border-gray py-4 px-2"
-                >
+                <th key={header} className="border-b border-gray px-2 py-4">
                   {header}
                 </th>
               ))}
@@ -45,9 +44,7 @@ const OrdersTable = ({ orders, variant }) => {
             ) : (
               orders.map((order) => (
                 <tr key={order.orderNumber} className="text-sm md:text-base">
-                  <td className="text-left px-2 py-4">
-                    {order.orderNumber}
-                  </td>
+                  <td className="px-2 py-4 text-left">{order.orderNumber}</td>
                   <td className="px-1 py-4">
                     {dateFormater(order.datePlaced)}
                   </td>
@@ -65,16 +62,20 @@ const OrdersTable = ({ orders, variant }) => {
                 </tr>
               ))
             )}
-            
           </tbody>
         </table>
       </div>
       {isOpen && selectedOrder && (
-        <ModalViewOrder order={selectedOrder} variant={variant} isOpen={isOpen} onClose={closeModal} />
+        <ModalViewOrder
+          order={selectedOrder}
+          variant={variant}
+          isOpen={isOpen}
+          onClose={closeModal}
+        />
       )}
     </>
   );
-}
+};
 
 OrdersTable.propTypes = {
   orders: PropTypes.array.isRequired,
