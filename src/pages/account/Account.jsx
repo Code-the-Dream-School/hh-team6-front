@@ -34,7 +34,7 @@ const Account = () => {
   };
 
   return (
-    <div className="flex h-full flex-grow">
+    <div className="flex flex-grow">
       <LeftMenu />
       <div className="flex-1 px-5">{accountContent()}</div>
     </div>
