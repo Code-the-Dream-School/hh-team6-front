@@ -28,8 +28,9 @@ const OrderHistory = () => {
       setOrders(fetchedOrders);
     } catch (error) {
       setError('Failed to load orders. Please try again later.');
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, [token]);
 
   useEffect(() => {

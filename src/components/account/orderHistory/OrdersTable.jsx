@@ -7,7 +7,7 @@ import ModalViewOrder from '../../../layouts/ModalViewOrder';
 import dateFormater from '../../../utils/dateFormater';
 
 const OrdersTable = ({ orders, variant }) => {
-  const headers = ['Order #', 'Date placed', 'Total Amount', ''];
+  const tableHeaders = ['Order #', 'Date placed', 'Total Amount', ''];
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -27,7 +27,7 @@ const OrdersTable = ({ orders, variant }) => {
         <table className="border-spacing-y-50 w-full text-center">
           <thead>
             <tr>
-              {headers.map((header) => (
+              {tableHeaders.map((header) => (
                 <th key={header} className="border-b border-gray px-2 py-4">
                   {header}
                 </th>
