@@ -86,8 +86,6 @@ const useBookForm = (id) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-
     const validationErrors = validateForm();
     const formData = new FormData();
 
@@ -119,6 +117,7 @@ const useBookForm = (id) => {
     }
 
     try {
+      setIsLoading(true);
       if (id) {
         const result = await updateBook(headers, formData, token, id);
         if (result.status === 200) {

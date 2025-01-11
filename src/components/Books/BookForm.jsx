@@ -32,9 +32,6 @@ const BookForm = ({ id = '' }) => {
 
   return (
     <>
-      {/* {isLoading ? (
-        <Preloader />
-      ) : ( */}
       <form onSubmit={handleSubmit} className="flex flex-col gap-10">
         <div className="flex flex-col gap-10 sm:flex-row">
           {/* First column */}

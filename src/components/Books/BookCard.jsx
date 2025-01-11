@@ -46,10 +46,16 @@ const BookCard = ({
           {price && <p className="font-bold">${price.toFixed(2)}</p>}
         </div>
         {(canEdit || canDelete) && (
-          <div className="mt-2 flex gap-1">
-            {canEdit && <EditButton id={id} />}
-            {canDelete && (
-              <DeleteButton id={id} title={title} updateList={updateList} />
+          <div className="mt-2 flex gap-1 items-center justify-center">
+            { book.isAvailable ? (
+              <>
+                {canEdit && <EditButton id={id} />}
+                {canDelete && (
+                  <DeleteButton id={id} title={title} updateList={updateList} />
+                )} 
+              </>
+            ) : (
+              <span className="text-red">Sold</span>
             )}
           </div>
         )}

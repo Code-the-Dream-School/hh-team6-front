@@ -1,14 +1,15 @@
 import React from 'react';
 
-import { Button } from '@headlessui/react';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { Button } from '@headlessui/react';
 
-const CartSummary = ({ totals: { tax, shippingFee, total } }) => {
-  const navigate = useNavigate();
+const CartSummary = ({ totals, handleSubmit }) => {
+  const { tax, shippingFee, total } = totals;
+  const location = useLocation();
 
   return (
-    <div className="w-full self-start rounded-lg border bg-white p-8 md:w-1/4">
+    <div className="w-[300px] rounded-lg border bg-white p-8">
       <div className="flex items-center justify-between pb-2">
         <p className="text-lg font-semibold">Tax</p>
         <p className="text-lg font-bold">${tax.toFixed(2)}</p>
@@ -22,12 +23,24 @@ const CartSummary = ({ totals: { tax, shippingFee, total } }) => {
         <p className="text-2xl font-bold">${total.toFixed(2)}</p>
       </div>
       <div className="flex justify-center">
-        <Button
-          onClick={() => navigate('/check_out')}
-          className="mt-2 w-full rounded-md bg-red px-6 py-1 text-white hover:bg-redHover"
-        >
-          Checkout
-        </Button>
+        { location.pathname === '/cart' ? (
+          <Link
+            state={ totals}
+            to='/check_out'
+            className="mt-2 w-full rounded-md bg-red px-6 py-1 text-white hover:bg-redHover text-center"
+          >
+            Checkout
+          </Link>
+        ) : (
+          <Button
+            as="button"
+            type="submit"
+            onClick={handleSubmit}
+            className="mt-2 w-full rounded-md bg-red px-6 py-1 text-white hover:bg-redHover"
+          >
+            Place Order
+          </Button>
+        )}
       </div>
     </div>
   );
