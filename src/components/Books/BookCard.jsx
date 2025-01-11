@@ -9,15 +9,16 @@ const BookCard = ({
   book,
   canEdit,
   canDelete,
+  canDeleteSaved,
+  showListings,
   updateList,
-  isSavedBooks,
   isAvailable,
   isLink = false,
 }) => {
   const { _id: id, title, coverImageUrl, price, author } = book;
   const cardContent = (
     <div className="relative grid w-52 max-w-52 grid-rows-[12rem_auto] items-center rounded bg-lightBlue p-4 lg:w-40 xl:w-52">
-      {isSavedBooks && (
+      {canDeleteSaved && (
         <div className="absolute right-1 top-1 h-[33px] rounded bg-white bg-opacity-80 p-1 shadow hover:bg-grayHover">
           <DeleteSavedBookButton
             id={id}
@@ -52,7 +53,7 @@ const BookCard = ({
             )}
           </div>
         )}
-        {isSavedBooks && (
+        {showListings && (
           <div className="items-center">
             {!isAvailable ? (
               <p className="mt-2 text-red">Sold</p>
@@ -105,7 +106,8 @@ BookCard.propTypes = {
   canEdit: PropTypes.bool,
   canDelete: PropTypes.bool,
   updateList: PropTypes.func,
-  isSavedBooks: PropTypes.bool,
+  showListings: PropTypes.bool,
+  canDeleteSaved: PropTypes.bool,
   isAvailable: PropTypes.bool,
   isLink: PropTypes.bool,
 };

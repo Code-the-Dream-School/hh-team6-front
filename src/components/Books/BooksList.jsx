@@ -7,7 +7,8 @@ const BooksList = ({
   canEdit = false,
   canDelete = false,
   showPrice = false,
-  isSavedBooks = false,
+  canDeleteSaved = false,
+  showListings = false,
   updateList,
   isLinkList = false,
 }) => {
@@ -20,7 +21,8 @@ const BooksList = ({
             book={item}
             canEdit={canEdit}
             canDelete={canDelete}
-            isSavedBooks={isSavedBooks}
+            canDeleteSaved={canDeleteSaved}
+            showListings={showListings}
             isAvailable={!item.isUnavailable}
             updateList={updateList}
             isLink={isLinkList}
@@ -59,6 +61,8 @@ BooksList.propTypes = {
   canDelete: PropTypes.bool,
   updateList: PropTypes.func,
   isLinkList: PropTypes.bool,
+  canDeleteSaved: PropTypes.bool,
+  showListings: PropTypes.bool,
 };
 
 export default BooksList;

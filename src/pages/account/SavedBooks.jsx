@@ -55,7 +55,8 @@ const MyBooks = () => {
         <>
           <BooksList
             list={booksList}
-            isSavedBooks={true}
+            canDeleteSaved={true}
+            showListings={true}
             updateList={fetchBooks}
           />
         </>
