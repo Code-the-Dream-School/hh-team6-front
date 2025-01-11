@@ -3,8 +3,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { getBooks } from '../../api/DBRequests';
 import AddBookButton from '../../components/account/AddBookButton';
 import BooksList from '../../components/Books/BooksList';
+import LoadMoreButton from '../../components/Books/LoadMoreButton';
 import LabelAndSelect from '../../components/Form/LabelAndSelect';
 import { useAuth } from '../../context/AuthProvider';
+import Preloader from '../../layouts/Preloader';
 import { sortingOptions } from '../../utils/selectUtils';
 
 const MyBooks = () => {
@@ -13,15 +15,39 @@ const MyBooks = () => {
   const [sortBy, setSortBy] = useState('-createdAt');
   const { userId } = useAuth();
   const [error, setError] = useState('');
+  const [showLoadMore, setShowLoadMore] = useState(true);
 
-  const fetchBooks = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      await getBooks(setIsLoading, setBooksList, sortBy, { userId: userId });
-    } catch (error) {
-      setError('Failed to load books. Please try again later.');
-    }
-  }, [sortBy, userId]);
+  const BOOKS_LIMIT = 50;
+
+  const fetchBooks = useCallback(
+    async (skip = 0) => {
+      setIsLoading(true);
+      try {
+        const fetchedBooks = await getBooks(
+          sortBy,
+          { userId: userId },
+          BOOKS_LIMIT,
+          skip
+        );
+
+        skip === 0
+          ? setBooksList(fetchedBooks)
+          : setBooksList((prevBooks) => [...prevBooks, ...fetchedBooks]);
+
+        fetchedBooks.length < BOOKS_LIMIT
+          ? setShowLoadMore(false)
+          : setShowLoadMore(true);
+      } catch (error) {
+        setError('Failed to load books. Please try again later.');
+      }
+      setIsLoading(false);
+    },
+    [sortBy, userId]
+  );
+
+  const handleLoadMoreBooks = () => {
+    fetchBooks(booksList.length);
+  };
 
   useEffect(() => {
     fetchBooks();
@@ -52,14 +78,17 @@ const MyBooks = () => {
       {error ? (
         <p>{error}</p>
       ) : isLoading ? (
-        <p>Loading...</p>
+        <Preloader />
       ) : (
-        <BooksList
-          list={booksList}
-          canEdit={true}
-          canDelete={true}
-          updateList={fetchBooks}
-        />
+        <>
+          <BooksList
+            list={booksList}
+            canEdit={true}
+            canDelete={true}
+            updateList={fetchBooks}
+          />
+          {showLoadMore && <LoadMoreButton onClick={handleLoadMoreBooks} />}
+        </>
       )}
     </>
   );

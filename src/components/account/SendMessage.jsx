@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 
 import { sendMessage } from '../../api/DBRequests';
 
-const SendMessage = ({ chatId, setIsMessageLoading, token, fetchMessages }) => {
+const SendMessage = ({ chatId, token, fetchMessages }) => {
   const [message, setMessage] = useState('');
   const inputRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = ({ target: { value } }) => {
     setMessage(value);
@@ -15,9 +16,10 @@ const SendMessage = ({ chatId, setIsMessageLoading, token, fetchMessages }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsMessageLoading(true);
-    await sendMessage(setIsMessageLoading, chatId, message, token);
-
+    setIsLoading(true);
+    await sendMessage(chatId, message, token);
+    fetchMessages(chatId);
+    setIsLoading(false);
     setMessage('');
   };
 
@@ -41,7 +43,7 @@ const SendMessage = ({ chatId, setIsMessageLoading, token, fetchMessages }) => {
           type="submit"
           className="block h-full rounded-md bg-darkGreen px-3 py-1 text-white transition-transform duration-150 hover:bg-darkGreenHover active:scale-95"
         >
-          Send
+          {isLoading ? '...' : 'Send'}
         </Button>
       </div>
     </form>
@@ -50,7 +52,6 @@ const SendMessage = ({ chatId, setIsMessageLoading, token, fetchMessages }) => {
 
 SendMessage.propTypes = {
   chatId: PropTypes.string.isRequired,
-  setIsMessageLoading: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
   fetchMessages: PropTypes.func.isRequired,
 };

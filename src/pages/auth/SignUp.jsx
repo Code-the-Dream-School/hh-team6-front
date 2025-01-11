@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom';
 
 import LabelAndInput from '../../components/Form/LabelAndInput';
 import useSignUpForm from '../../hooks/useSignUpForm';
+import Preloader from '../../layouts/Preloader';
 
 const SignUp = () => {
-  const { form, error, handleChange, handleSubmit } = useSignUpForm();
+  const { form, error, isLoading, handleChange, handleSubmit } =
+    useSignUpForm();
 
   return (
     <div className="flex flex-grow items-center justify-center">
       <div className="flex w-full min-w-[320px] max-w-[420px] flex-col items-center rounded-[5px] bg-lightBlue p-10">
         <h2 className="mb-5 font-headings text-2xl font-bold">Sign Up</h2>
+
+        {isLoading && <Preloader />}
 
         <form onSubmit={handleSubmit} className="flex w-full flex-col">
           <p className="mb-3">

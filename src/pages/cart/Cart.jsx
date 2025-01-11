@@ -1,5 +1,142 @@
+import React, { useEffect, useState, useMemo } from 'react';
+
+import { Link } from 'react-router-dom';
+import StateCode from 'us-state-codes';
+
+import CartItem from './CartItem';
+import CartSummary from './CartSummary';
+import { getCart, deleteFromCart } from '../../api/DBRequests';
+import { useAuth } from '../../context/AuthProvider';
+
 const Cart = () => {
-  return <></>;
+  const [cartItems, setCartItems] = useState([]);
+  const [totals, setTotals] = useState({ tax: 0, shippingFee: 0, total: 0 });
+  const [isLoading, setIsLoading] = useState(false);
+  const { token, isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      setIsLoading(true);
+      try {
+        await getCart(setIsLoading, setCartItems, setTotals, token);
+      } catch (error) {
+        console.error('Error fetching cart:', error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (token) {
+      fetchCart();
+    }
+  }, [token]);
+
+  const handleDelete = async (itemId) => {
+    try {
+      await deleteFromCart({}, itemId, token);
+      setCartItems((prev) => {
+        const updatedCartItems = prev.filter((item) => item._id !== itemId);
+
+        const itemsTotal = updatedCartItems.reduce(
+          (sum, item) => sum + (item.price || 0),
+          0
+        );
+        const tax = parseFloat((itemsTotal * 0.08).toFixed(2));
+        const shippingFee = 5.0;
+        const total = parseFloat((itemsTotal + tax + shippingFee).toFixed(2));
+        setTotals({ tax, shippingFee, total });
+        return updatedCartItems;
+      });
+    } catch (error) {
+      console.error('Error deleting item:', error.message);
+    }
+  };
+
+  const itemsBySeller = useMemo(() => {
+    return cartItems.reduce((acc, item) => {
+      const sellerKey = `${item.sellerName || 'Unknown'}, ${item.sellerLocation || 'Unknown Location'}`;
+      if (!acc[sellerKey]) acc[sellerKey] = [];
+      acc[sellerKey].push(item);
+      return acc;
+    }, {});
+  }, [cartItems]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+  return (
+    <>
+      {isLoggedIn ? (
+        <div className="flex min-h-screen flex-col">
+          <main className="container mx-auto mt-8 px-4">
+            <h1 className="mb-6 font-headings text-2xl font-bold">
+              Shopping Cart{' '}
+              <span className="font-body font-normal text-blueGray">
+                ({cartItems.length} item{cartItems.length !== 1 ? 's' : ''})
+              </span>
+            </h1>
+
+            <div className="mt-6 flex flex-col-reverse gap-4 md:flex-row">
+              <section className="flex-1 md:mr-4">
+                {Object.keys(itemsBySeller).map((seller, index) => {
+                  const [sellerName, city, state] = seller.split(', ');
+
+                  return (
+                    <div
+                      key={index}
+                      className="bg-gray-50 mb-8 rounded-lg border"
+                    >
+                      <h2 className="rounded-t-lg border-b border-gray bg-lightBlue p-4 text-lg">
+                        <span className="text-blueGray">{sellerName}</span>,{' '}
+                        {city}
+                        {state
+                          ? `, ${StateCode.getStateCodeByStateName(state) || state}`
+                          : ''}
+                      </h2>
+                      {itemsBySeller[seller].map((item) => (
+                        <CartItem
+                          key={item._id}
+                          item={item}
+                          handleDelete={handleDelete}
+                        />
+                      ))}
+                    </div>
+                  );
+                })}
+              </section>
+
+              {cartItems.length > 0 && <CartSummary totals={totals} />}
+            </div>
+
+            <section className="mt-8">
+              <h2 className="text-lg font-semibold">Saved for later</h2>
+              <p className="mt-2">
+                You don&apos;t have any items saved for later.
+              </p>
+            </section>
+
+            {cartItems.length === 0 && (
+              <p className="mt-8 text-center">Your cart is empty</p>
+            )}
+          </main>
+        </div>
+      ) : (
+        <div className="h-screen w-full">
+          <h1 className="text- mt-10 text-center font-body text-2xl">
+            Please login to view your cart
+          </h1>
+          <div className="mt-7 flex justify-center">
+            <Link
+              className="w-full max-w-xs rounded-md bg-red p-2 text-center font-semibold tracking-wide text-white transition-transform duration-200 hover:bg-redHover active:scale-95"
+              to="/sign_in"
+            >
+              Log In
+            </Link>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Cart;

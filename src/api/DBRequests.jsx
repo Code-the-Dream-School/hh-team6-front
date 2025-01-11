@@ -6,163 +6,23 @@ const BOOKS_LIMIT = 50;
 
 const handleApiRequest = async (
   url,
-  headers,
+  config = {},
   payload,
   token = '',
-  method = ''
+  method = 'post'
 ) => {
   try {
     if (token) {
-      headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`;
     }
 
-    const { data, status } =
-      method === 'PATCH'
-        ? await axios.patch(`${API_BASE_URL}${url}`, payload, {
-            headers,
-          })
-        : await axios.post(`${API_BASE_URL}${url}`, payload, {
-            headers,
-          });
-    return { data, status };
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
-
-    throw new Error(errorMessage);
-  }
-};
-
-export const login = (headers, credentials) =>
-  handleApiRequest('/api/v1/login', headers, credentials);
-
-export const register = (headers, userData) =>
-  handleApiRequest('/api/v1/register', headers, userData);
-
-export const addBook = (headers, bookData, token) => {
-  return handleApiRequest('/api/v1/books', headers, bookData, token);
-};
-
-export const updateProfile = (headers, userData, token) =>
-  handleApiRequest('/api/v1/update', headers, userData, token, 'PATCH');
-
-export const updateBook = (headers, bookData, token, id) => {
-  return handleApiRequest(
-    `/api/v1/books/${id}`,
-    headers,
-    bookData,
-    token,
-    'PATCH'
-  );
-};
-
-// Provide default values for `sortBy` and `filters` as not all components use them
-export const getBooks = async (
-  setIsLoading,
-  setBooksList,
-  sortBy = '',
-  filters = {},
-  limit = BOOKS_LIMIT
-) => {
-  const url = '/api/v1/books';
-
-  const stringFilters = Object.fromEntries(
-    Object.entries(filters).map(([key, values]) =>
-      Array.isArray(values) ? [key, values.join(',')] : [key, values]
-    )
-  );
-
-  try {
-    setIsLoading(true);
-    const { data, status } = await axios.get(`${API_BASE_URL}${url}`, {
-      params: {
-        limit: limit,
-        sort: sortBy || undefined,
-        ...stringFilters,
-      },
-    });
-
-    setBooksList(data.books);
-    setIsLoading(false);
-
-    return { data, status };
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
-
-    throw new Error(errorMessage);
-  }
-};
-
-export const getSavedBooks = async (
-  setIsLoading,
-  setBooksList,
-  sortBy,
-  token
-) => {
-  const url = '/api/v1/saved-books';
-
-  try {
-    setIsLoading(true);
-    const { data, status } = await axios.get(`${API_BASE_URL}${url}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        limit: BOOKS_LIMIT,
-        sort: sortBy,
-      },
-    });
-
-    const filteredBooks = data.savedBooks.books.filter(
-      (book) => book.listings.length > 0
+    const { data, status } = await axios[method](
+      `${API_BASE_URL}${url}`,
+      method === 'get' || method === 'delete' ? config : payload,
+      method === 'get' || method === 'delete' ? undefined : config
     );
-    const savedBooks = filteredBooks.map((book) => {
-      const availableListings = book.listings.filter(
-        (listing) => listing.isAvailable
-      );
-
-      return {
-        _id: book.savedBookId,
-        coverImageUrl: (availableListings.length > 0
-          ? availableListings[0]
-          : book.listings[0]
-        ).coverImageUrl,
-        title: book.title,
-        author: book.author,
-        isbn: book.isbn10 || book.isbn13,
-        ...(availableListings.length === 0 && { isUnavailable: true }),
-      };
-    });
-
-    setBooksList(savedBooks);
-    setIsLoading(false);
 
     return { data, status };
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
-
-    throw new Error(errorMessage);
-  }
-};
-
-export const getBook = async (id, setIsLoading) => {
-  const url = `/api/v1/books/${id}`;
-
-  try {
-    const {
-      data: { book },
-    } = await axios.get(`${API_BASE_URL}${url}`);
-    setIsLoading(false);
-
-    return book;
   } catch (error) {
     const errorMessage =
       error?.response?.data?.msg ||
@@ -175,122 +35,216 @@ export const getBook = async (id, setIsLoading) => {
   }
 };
 
+//auth
+export const login = (headers, credentials) =>
+  handleApiRequest('/api/v1/login', { headers }, credentials);
+
+export const register = (headers, userData) =>
+  handleApiRequest('/api/v1/register', { headers }, userData);
+
+export const sendResetLinkRequest = async (email) =>
+  await handleApiRequest(`/api/v1/forgot-password`, {}, email);
+
+export const updatePassword = async ({ newPassword, token }) =>
+  await handleApiRequest(`/api/v1/password-reset`, null, {
+    newPassword,
+    token,
+  });
+
+//books
+export const getBooks = async (
+  sortBy = '',
+  filters = {},
+  limit = BOOKS_LIMIT,
+  skip = 0
+) => {
+  const stringFilters = Object.fromEntries(
+    Object.entries(filters).map(([key, values]) =>
+      Array.isArray(values) ? [key, values.join(',')] : [key, values]
+    )
+  );
+
+  const params = {
+    limit: limit,
+    skip: skip,
+    sort: sortBy || undefined,
+    ...stringFilters,
+  };
+
+  const {
+    data: { books },
+  } = await handleApiRequest('/api/v1/books', { params }, null, null, 'get');
+
+  return books;
+};
+
+export const addBook = (headers, bookData, token) => {
+  return handleApiRequest(
+    '/api/v1/books',
+    { headers: headers },
+    bookData,
+    token
+  );
+};
+
+export const getBook = async (id) => {
+  const {
+    data: { book },
+  } = await handleApiRequest(`/api/v1/books/${id}`, null, null, null, 'get');
+  return book;
+};
+
 export const deleteBook = async (id, token) => {
-  const url = `/api/v1/books/${id}`;
-  try {
-    const response = await axios.delete(`${API_BASE_URL}${url}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    return response;
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
-
-    throw new Error(errorMessage);
-  }
+  await handleApiRequest(
+    `/api/v1/books/${id}`,
+    { headers: {} },
+    null,
+    token,
+    'delete'
+  );
 };
 
-const handlePasswordRequest = async (url, data) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}${url}`, data);
-    return response;
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
-
-    throw new Error(errorMessage);
-  }
+export const updateBook = (headers, bookData, token, id) => {
+  return handleApiRequest(
+    `/api/v1/books/${id}`,
+    { headers },
+    bookData,
+    token,
+    'patch'
+  );
 };
 
-export const sendResetLinkRequest = (email) =>
-  handlePasswordRequest(`/api/v1/forgot-password`, email);
+//saved books
+export const getSavedBooks = async (sortBy, token) => {
+  const params = {
+    sort: sortBy,
+  };
 
-export const updatePassword = ({ newPassword, token }) =>
-  handlePasswordRequest(`/api/v1/password-reset`, { newPassword, token });
+  const headers = {};
+
+  const {
+    data: {
+      savedBooks: { books },
+    },
+  } = await handleApiRequest(
+    '/api/v1/saved-books',
+    { headers, params },
+    null,
+    token,
+    'get'
+  );
+
+  const filteredBooks = books.filter((book) => book.listings.length > 0);
+  const savedBooks = filteredBooks.map((book) => {
+    const availableListings = book.listings.filter(
+      (listing) => listing.isAvailable
+    );
+
+    return {
+      _id: book.savedBookId,
+      coverImageUrl: (availableListings.length > 0
+        ? availableListings[0]
+        : book.listings[0]
+      ).coverImageUrl,
+      title: book.title,
+      author: book.author,
+      isbn: book.isbn10 || book.isbn13,
+      ...(availableListings.length === 0 && { isUnavailable: true }),
+    };
+  });
+
+  return savedBooks;
+};
 
 export const deleteSavedBook = async (id, token) => {
-  const url = `/api/v1/saved-books/`;
-  try {
-    const response = await axios.delete(`${API_BASE_URL}${url}`, {
-      headers: { Authorization: `Bearer ${token}` },
-      data: { savedBookId: id },
-    });
-
-    return response;
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
-
-    throw new Error(errorMessage);
-  }
+  const data = { savedBookId: id };
+  await handleApiRequest(
+    `/api/v1/saved-books/`,
+    { headers: {}, data },
+    null,
+    token,
+    'delete'
+  );
 };
 
-export const getChats = async (setIsLoading, setChats, token) => {
-  const url = '/api/v1/chats';
+//profile
+export const updateProfile = (headers, userData, token) =>
+  handleApiRequest('/api/v1/update', { headers }, userData, token, 'patch');
+
+//messages
+export const getChats = async (setChats, token) => {
+  const { data } = await handleApiRequest(
+    '/api/v1/chats',
+    { headers: {} },
+    null,
+    token,
+    'get'
+  );
+  setChats(data);
+  return data;
+};
+
+export const addChat = async (userId, token) => {
+  const {
+    data: { chat },
+  } = await handleApiRequest(
+    '/api/v1/chats',
+    { headers: {} },
+    { userId: userId },
+    token,
+    'post'
+  );
+  return chat;
+};
+
+export const getChatMessages = async (setMessages, token, chat_id) => {
+  const { data } = await handleApiRequest(
+    `/api/v1/chats/${chat_id}/messages`,
+    { headers: {} },
+    null,
+    token,
+    'get'
+  );
+  setMessages(data.messages);
+};
+
+export const sendMessage = async (chat_id, message, token) => {
+  await handleApiRequest(
+    `/api/v1/chats/${chat_id}/messages`,
+    { headers: {} },
+    { message },
+    token,
+    'post'
+  );
+};
+
+//cart
+export const addToCart = (headers, cartData, token) => {
+  return handleApiRequest('/api/v1/cart', headers, cartData, token);
+};
+
+export const getCart = async (setIsLoading, setCartItems, setTotals, token) => {
+  const url = '/api/v1/cart';
+
   try {
     setIsLoading(true);
     const { data } = await axios.get(`${API_BASE_URL}${url}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    setChats(data);
-    setIsLoading(false);
 
-    return data;
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
-
-    throw new Error(errorMessage);
-  }
-};
-
-export const addChat = async (setIsLoading, userId, token) => {
-  const url = '/api/v1/chats';
-  try {
-    setIsLoading(true);
-    const {
-      data: { chat },
-    } = await axios.post(
-      `${API_BASE_URL}${url}`,
-      { userId: userId },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    setIsLoading(false);
-    return chat;
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
-
-    throw new Error(errorMessage);
-  }
-};
-
-export const getChatMessages = async (
-  setIsLoading,
-  setMessages,
-  token,
-  chat_id
-) => {
-  const url = `/api/v1/chats/${chat_id}/messages`;
-  try {
-    setIsLoading(true);
-    const { data } = await axios.get(`${API_BASE_URL}${url}`, {
-      headers: { Authorization: `Bearer ${token}` },
+    const { cart } = data;
+    setCartItems(cart.orderItems || []);
+    setTotals({
+      tax: cart.tax || 0,
+      shippingFee: cart.shippingFee || 0,
+      total: cart.total || 0,
     });
-    setMessages(data.messages);
+
     setIsLoading(false);
   } catch (error) {
+    setIsLoading(false);
     const errorMessage =
       error?.response?.data?.msg ||
       error?.response?.data?.error ||
@@ -299,22 +253,18 @@ export const getChatMessages = async (
     throw new Error(errorMessage);
   }
 };
+export const deleteFromCart = (headers, cartItemId, token) => {
+  const url = `/api/v1/cart/${cartItemId}`;
+  return handleApiRequest(url, headers, {}, token, 'DELETE');
+};
 
-export const sendMessage = async (setIsLoading, chat_id, message, token) => {
-  const url = `/api/v1/chats/${chat_id}/messages`;
-  try {
-    await axios.post(
-      `${API_BASE_URL}${url}`,
-      { message: message },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    setIsLoading(false);
-  } catch (error) {
-    const errorMessage =
-      error?.response?.data?.msg ||
-      error?.response?.data?.error ||
-      UNEXPECTED_ERROR_MESSAGE;
+//orders
+export const getOrders = async (token) => {
+  const headers = {};
 
-    throw new Error(errorMessage);
-  }
+  const {
+    data: { buyOrders, sellOrders },
+  } = await handleApiRequest('/api/v1/orders', { headers }, null, token, 'get');
+
+  return { buyOrders, sellOrders };
 };

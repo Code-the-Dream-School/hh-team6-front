@@ -4,6 +4,7 @@ import { getSavedBooks } from '../../api/DBRequests';
 import BooksList from '../../components/Books/BooksList';
 import LabelAndSelect from '../../components/Form/LabelAndSelect';
 import { useAuth } from '../../context/AuthProvider';
+import Preloader from '../../layouts/Preloader';
 import { sortingSavedBooks } from '../../utils/selectUtils';
 
 const MyBooks = () => {
@@ -16,10 +17,12 @@ const MyBooks = () => {
   const fetchBooks = useCallback(async () => {
     setIsLoading(true);
     try {
-      await getSavedBooks(setIsLoading, setBooksList, sortBy, token);
+      const fetchedBooks = await getSavedBooks(sortBy, token);
+      setBooksList(fetchedBooks);
     } catch (error) {
       setError('Failed to load books. Please try again later.');
     }
+    setIsLoading(false);
   }, [sortBy, token]);
 
   useEffect(() => {
@@ -47,13 +50,15 @@ const MyBooks = () => {
       {error ? (
         <p>{error}</p>
       ) : isLoading ? (
-        <p>Loading...</p>
+        <Preloader />
       ) : (
-        <BooksList
-          list={booksList}
-          isSavedBooks={true}
-          updateList={fetchBooks}
-        />
+        <>
+          <BooksList
+            list={booksList}
+            isSavedBooks={true}
+            updateList={fetchBooks}
+          />
+        </>
       )}
     </>
   );

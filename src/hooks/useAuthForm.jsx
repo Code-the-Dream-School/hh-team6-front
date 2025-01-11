@@ -10,6 +10,7 @@ const useAuthForm = () => {
   const [error, setError] = useState({});
   const { setUserSession } = useAuth();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = ({ target: { name, value } }) => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
@@ -31,6 +32,8 @@ const useAuthForm = () => {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       const headers = {
         'Content-Type': 'application/json',
@@ -51,9 +54,11 @@ const useAuthForm = () => {
         form: error.message,
       }));
     }
+
+    setIsLoading(false);
   };
 
-  return { form, error, handleChange, handleSubmit };
+  return { form, error, isLoading, handleChange, handleSubmit };
 };
 
 export default useAuthForm;

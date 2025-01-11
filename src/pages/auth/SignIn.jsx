@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 
 import LabelAndInput from '../../components/Form/LabelAndInput';
 import useAuthForm from '../../hooks/useAuthForm';
+import Preloader from '../../layouts/Preloader';
 
 const SignIn = () => {
-  const { form, error, handleChange, handleSubmit } = useAuthForm();
+  const { form, error, isLoading, handleChange, handleSubmit } = useAuthForm();
 
   return (
     <div className="flex flex-grow items-center justify-center">
       <div className="flex w-full min-w-[320px] max-w-[420px] flex-col items-center rounded-[5px] bg-lightBlue p-10">
         <h2 className="mb-5 font-headings text-2xl font-bold">Log In</h2>
+
+        {isLoading && <Preloader />}
 
         <form onSubmit={handleSubmit} className="flex w-full flex-col">
           <p className="mb-3">

@@ -30,9 +30,10 @@ const useBookForm = (id) => {
   const loadBook = useCallback(async () => {
     if (id) {
       setIsLoading(true);
-      const book = await getBook(id, setIsLoading);
+      const book = await getBook(id);
       setImageSrc(book.coverImageUrl);
       setForm(book);
+      setIsLoading(false);
     }
   }, [id]);
 
@@ -85,6 +86,8 @@ const useBookForm = (id) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
+
     const validationErrors = validateForm();
     const formData = new FormData();
 
@@ -133,6 +136,7 @@ const useBookForm = (id) => {
         form: error.message,
       }));
     }
+    setIsLoading(false);
   };
 
   const validateForm = () => {
