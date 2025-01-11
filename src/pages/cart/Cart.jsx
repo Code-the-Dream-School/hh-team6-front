@@ -86,7 +86,7 @@ const Cart = () => {
           <p className="mt-8 text-center">Your cart is empty</p>
         )}
 
-        <div className="mt-6 flex flex-col-reverse gap-4 md:flex-row">
+        <div className="mt-6 flex flex-col gap-4 md:flex-row">
           <section className="flex-1 md:mr-4">
             {Object.keys(itemsBySeller).map((seller, index) => {
               const [sellerName, city, state] = seller.split(', ');
