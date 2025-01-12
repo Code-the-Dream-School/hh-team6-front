@@ -111,9 +111,8 @@ This project includes several NPM scripts to facilitate development, testing, an
 
 ### Communication System
 
-- **Messaging**: Integrated system for user-to-user communication regarding books.
+- **Messaging**: Real-time messaging using Socket.io. for immediate interaction between users regarding books.
 <!-- - **Notifications**: Alerts for messages and book-related updates. -->
-- **Stretch Goal**: Real-time messaging using Socket.io.
 
 <!-- ### Stretch Goal: Online Payment for Books
 
