@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { Button } from '@headlessui/react';
 import io from 'socket.io-client';
+
 import { getChats, getChatMessages } from '../../api/DBRequests';
 import SendMessage from '../../components/account/SendMessage';
 import { useAccount } from '../../context/AccountProvider';
@@ -19,7 +20,7 @@ const Messages = () => {
   const [errorMessages, setErrorMessages] = useState('');
   const lastMessageRef = useRef(null);
   const socketRef = useRef();
-  
+
   useEffect(() => {
     socketRef.current = io(import.meta.env.VITE_API_BASE_URL);
 

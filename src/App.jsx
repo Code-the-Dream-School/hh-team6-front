@@ -1,5 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 
+import ScrollToTopButton from './layouts/ScrollToTopButton';
 import { AccountProvider } from './context/AccountProvider';
 import { AuthProvider } from './context/AuthProvider';
 import MainLayout from './layouts/MainLayout';
@@ -18,6 +19,7 @@ function App() {
           >
             <MainLayout>
               <Router />
+              <ScrollToTopButton />
             </MainLayout>
           </BrowserRouter>
         </AuthProvider>
