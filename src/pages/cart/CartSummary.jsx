@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Link, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { Button } from '@headlessui/react';
+import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
 
 const CartSummary = ({ totals, handleSubmit }) => {
   const { tax, shippingFee, total } = totals;
@@ -23,11 +23,11 @@ const CartSummary = ({ totals, handleSubmit }) => {
         <p className="text-2xl font-bold">${total.toFixed(2)}</p>
       </div>
       <div className="flex justify-center">
-        { location.pathname === '/cart' ? (
+        {location.pathname === '/cart' ? (
           <Link
-            state={ totals}
-            to='/check_out'
-            className="mt-2 w-full rounded-md bg-red px-6 py-1 text-white hover:bg-redHover text-center"
+            state={totals}
+            to="/check_out"
+            className="mt-2 w-full rounded-md bg-red px-6 py-1 text-center text-white hover:bg-redHover"
           >
             Checkout
           </Link>
@@ -52,6 +52,7 @@ CartSummary.propTypes = {
     shippingFee: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
   }).isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default CartSummary;

@@ -1,11 +1,16 @@
 import { useState } from 'react';
 
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from '@headlessui/react';
 import PropTypes from 'prop-types';
 
 import ModalViewOrder from '../../../layouts/ModalViewOrder';
 import dateFormater from '../../../utils/dateFormater';
-
-import { Button, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 const OrdersTable = ({ orders, variant, updateOrder }) => {
   const tableHeaders = ['Order #', 'Date placed', 'Status', 'Total Amount', ''];
@@ -55,9 +60,7 @@ const OrdersTable = ({ orders, variant, updateOrder }) => {
                   <td className="px-1 py-4">
                     {dateFormater(order.datePlaced)}
                   </td>
-                  <td className="px-1 py-4">
-                    {order.status}
-                  </td>
+                  <td className="px-1 py-4">{order.status}</td>
                   <td className="px-1 py-4">
                     ${order.total ? order.total.toFixed(2) : ''}
                   </td>
@@ -65,48 +68,89 @@ const OrdersTable = ({ orders, variant, updateOrder }) => {
                     <Menu>
                       {({ close }) => (
                         <>
-                          <MenuButton className="text-gray border rounded-md px-2 py-1">
+                          <MenuButton className="rounded-md border px-2 py-1 text-gray">
                             &#9776;
                           </MenuButton>
                           <MenuItems
                             anchor="bottom end"
                             modal={false}
-                            className="rounded bg-white p-2 border border-gray mt-1"
+                            className="mt-1 rounded border border-gray bg-white p-2"
                           >
                             <MenuItem as="div" className="mb-1">
-                              <Button onClick={() => handleViewOrder(order, close)} className="hover:underline">
+                              <Button
+                                onClick={() => handleViewOrder(order, close)}
+                                className="hover:underline"
+                              >
                                 View order
                               </Button>
                             </MenuItem>
-                            { order.status === 'Pending' && (
+                            {order.status === 'Pending' && (
                               <MenuItem as="div" className="mb-1">
-                                <Button onClick={() => handleUpdateOrderStatus(order._id, 'Cancelled', close)} className="hover:underline">
+                                <Button
+                                  onClick={() =>
+                                    handleUpdateOrderStatus(
+                                      order._id,
+                                      'Cancelled',
+                                      close
+                                    )
+                                  }
+                                  className="hover:underline"
+                                >
                                   Cancel order
                                 </Button>
                               </MenuItem>
                             )}
-                            { order.status === 'Pending' && variant === 'sales' && (
-                              <MenuItem as="div" className="mb-1">
-                                <Button onClick={() => handleUpdateOrderStatus(order._id, 'Confirmed', close)} className="hover:underline">
-                                  Confirm order
-                                </Button>
-                              </MenuItem>
-                            )}
-                            { order.status === 'Confirmed' && variant === 'sales' && (
-                              <MenuItem as="div" className="mb-1">
-                                <Button onClick={() => handleUpdateOrderStatus(order._id, 'Shipped', close)} className="hover:underline">
-                                  Order shipped
-                                </Button>
-                              </MenuItem>
-                            )}
-                            { order.status === 'Shipped' && variant === 'purchases' && (
-                              <MenuItem as="div" className="mb-1">
-                                <Button onClick={() => handleUpdateOrderStatus(order._id, 'Delivered', close)} className="hover:underline">
-                                  Order delivered
-                                </Button>
-                              </MenuItem>
-                            )}
-                          
+                            {order.status === 'Pending' &&
+                              variant === 'sales' && (
+                                <MenuItem as="div" className="mb-1">
+                                  <Button
+                                    onClick={() =>
+                                      handleUpdateOrderStatus(
+                                        order._id,
+                                        'Confirmed',
+                                        close
+                                      )
+                                    }
+                                    className="hover:underline"
+                                  >
+                                    Confirm order
+                                  </Button>
+                                </MenuItem>
+                              )}
+                            {order.status === 'Confirmed' &&
+                              variant === 'sales' && (
+                                <MenuItem as="div" className="mb-1">
+                                  <Button
+                                    onClick={() =>
+                                      handleUpdateOrderStatus(
+                                        order._id,
+                                        'Shipped',
+                                        close
+                                      )
+                                    }
+                                    className="hover:underline"
+                                  >
+                                    Order shipped
+                                  </Button>
+                                </MenuItem>
+                              )}
+                            {order.status === 'Shipped' &&
+                              variant === 'purchases' && (
+                                <MenuItem as="div" className="mb-1">
+                                  <Button
+                                    onClick={() =>
+                                      handleUpdateOrderStatus(
+                                        order._id,
+                                        'Delivered',
+                                        close
+                                      )
+                                    }
+                                    className="hover:underline"
+                                  >
+                                    Order delivered
+                                  </Button>
+                                </MenuItem>
+                              )}
                           </MenuItems>
                         </>
                       )}
@@ -133,6 +177,7 @@ const OrdersTable = ({ orders, variant, updateOrder }) => {
 OrdersTable.propTypes = {
   orders: PropTypes.array.isRequired,
   variant: PropTypes.string.isRequired,
+  updateOrder: PropTypes.func.isRequired,
 };
 
 export default OrdersTable;

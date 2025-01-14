@@ -1,21 +1,22 @@
 import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider';
-import { useAccount } from '../context/AccountProvider';
+
 import { createOrder } from '../api/DBRequests';
+import { useAccount } from '../context/AccountProvider';
+import { useAuth } from '../context/AuthProvider';
 
 const useCheckoutForm = () => {
   const { token } = useAuth();
   const { setAccountPage } = useAccount();
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    country: "",
-    address: "",
-    city: "",
-    zip: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    country: '',
+    address: '',
+    city: '',
+    zip: '',
   });
 
   const [error, setError] = useState({});
@@ -42,13 +43,13 @@ const useCheckoutForm = () => {
     const validationErrors = validateForm();
     setError(validationErrors);
     if (Object.keys(validationErrors).length) return;
-      
+
     try {
       setIsLoading(true);
-      await createOrder( {shippingAddress: form}, token);  
+      await createOrder({ shippingAddress: form }, token);
       setIsLoading(false);
       setAccountPage('orderHistory');
-      navigate('/account');   
+      navigate('/account');
     } catch (error) {
       setError((prevError) => ({
         ...prevError,
@@ -57,8 +58,7 @@ const useCheckoutForm = () => {
     }
   };
 
-
   return { form, error, isLoading, handleChange, handleSubmit };
-}
+};
 
 export default useCheckoutForm;

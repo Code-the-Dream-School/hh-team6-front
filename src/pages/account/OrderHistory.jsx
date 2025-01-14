@@ -1,6 +1,5 @@
 import React, { useState, Fragment, useCallback, useEffect } from 'react';
 
-
 import {
   Button,
   Tab,
@@ -45,7 +44,7 @@ const OrderHistory = () => {
       setIsLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchOrders();
   }, [fetchOrders]);
@@ -87,10 +86,18 @@ const OrderHistory = () => {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <OrdersTable orders={orders.buyOrders} variant="purchases" updateOrder={updateOrder} />
+                <OrdersTable
+                  orders={orders.buyOrders}
+                  variant="purchases"
+                  updateOrder={updateOrder}
+                />
               </TabPanel>
               <TabPanel>
-                <OrdersTable orders={orders.sellOrders} variant="sales" updateOrder={updateOrder} />
+                <OrdersTable
+                  orders={orders.sellOrders}
+                  variant="sales"
+                  updateOrder={updateOrder}
+                />
               </TabPanel>
             </TabPanels>
           </TabGroup>

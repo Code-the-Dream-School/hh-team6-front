@@ -1,9 +1,10 @@
-import Preloader from '../../layouts/Preloader';
-import useCheckoutForm from '../../hooks/useCheckoutForm';
-import LabelAndInput from '../../components/Form/LabelAndInput';
 import { useLocation } from 'react-router-dom';
-import CartSummary from './CartSummary';
+
 import Breadcrumb from './Breadcrumb';
+import CartSummary from './CartSummary';
+import LabelAndInput from '../../components/Form/LabelAndInput';
+import useCheckoutForm from '../../hooks/useCheckoutForm';
+import Preloader from '../../layouts/Preloader';
 
 const CheckOut = () => {
   const { form, error, isLoading, handleChange, handleSubmit } =
@@ -12,22 +13,22 @@ const CheckOut = () => {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col flex-grow ">
+    <div className="flex flex-grow flex-col">
       <Breadcrumb />
-      <div className='flex flex-2 flex-col items-center justify-center'> 
-        <div className='flex flex-col items-center'>  
-          <h1 className="mb-6 font-headings text-2xl font-bold">
-            Checkout
-          </h1>
+      <div className="flex-2 flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center">
+          <h1 className="mb-6 font-headings text-2xl font-bold">Checkout</h1>
         </div>
-        <div className="flex gap-4 flex-col md:flex-row items-center md:items-start">
+        <div className="flex flex-col items-center gap-4 md:flex-row md:items-start">
           <div className="flex flex-col items-center rounded-[5px] bg-lightBlue p-10">
-            <h2 className="mb-5 font-headings text-2xl font-bold">Your Address</h2>
+            <h2 className="mb-5 font-headings text-2xl font-bold">
+              Your Address
+            </h2>
 
             {isLoading && <Preloader />}
 
             <form onSubmit={handleSubmit} className="flex w-full flex-col">
-              <div className='flex gap-4'>
+              <div className="flex gap-4">
                 <LabelAndInput
                   id="firstName"
                   name="firstName"

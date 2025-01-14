@@ -2,7 +2,6 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useCallback } from 'react';
 
 import { Button } from '@headlessui/react';
-
 import { useNavigate } from 'react-router-dom';
 import StateCode from 'us-state-codes';
 
@@ -72,7 +71,7 @@ const Cart = () => {
 
   return (
     <div className="flex flex-grow flex-col">
-      { isLoading && <Preloader /> }
+      {isLoading && <Preloader />}
       <main className="container mx-auto mt-8 px-4">
         <h1 className="mb-6 font-headings text-2xl font-bold">
           Shopping Cart{' '}
