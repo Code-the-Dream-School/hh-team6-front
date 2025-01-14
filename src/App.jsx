@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AccountProvider } from './context/AccountProvider';
 import { AuthProvider } from './context/AuthProvider';
 import MainLayout from './layouts/MainLayout';
+import ScrollToTopButton from './layouts/ScrollToTopButton';
 import Router from './routes/Router';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           >
             <MainLayout>
               <Router />
+              <ScrollToTopButton />
             </MainLayout>
           </BrowserRouter>
         </AuthProvider>
