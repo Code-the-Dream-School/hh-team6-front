@@ -9,7 +9,7 @@ const CartSummary = ({ totals, handleSubmit }) => {
   const location = useLocation();
 
   return (
-    <div className="w-[300px] rounded-lg border bg-white p-8">
+    <div className="max-h-fit w-[300px] rounded-lg border bg-white p-8">
       <div className="flex items-center justify-between pb-2">
         <p className="text-lg font-semibold">Tax</p>
         <p className="text-lg font-bold">${tax.toFixed(2)}</p>
@@ -52,7 +52,7 @@ CartSummary.propTypes = {
     shippingFee: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
   }).isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func,
 };
 
 export default CartSummary;
