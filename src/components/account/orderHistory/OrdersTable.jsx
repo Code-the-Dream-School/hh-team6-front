@@ -1,19 +1,31 @@
 import { useState } from 'react';
 
-import { Button } from '@headlessui/react';
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from '@headlessui/react';
 import PropTypes from 'prop-types';
 
 import ModalViewOrder from '../../../layouts/ModalViewOrder';
 import dateFormater from '../../../utils/dateFormater';
 
-const OrdersTable = ({ orders, variant }) => {
-  const tableHeaders = ['Order #', 'Date placed', 'Total Amount', ''];
+const OrdersTable = ({ orders, variant, updateOrder }) => {
+  const tableHeaders = ['Order #', 'Date placed', 'Status', 'Total Amount', ''];
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
-  const handleViewOrder = (order) => {
+  const handleViewOrder = (order, close) => {
     setSelectedOrder(order);
+    close();
     setIsOpen(true);
+  };
+
+  const handleUpdateOrderStatus = async (orderId, status, close) => {
+    close();
+    await updateOrder(orderId, status);
   };
 
   const closeModal = () => {
@@ -28,7 +40,7 @@ const OrdersTable = ({ orders, variant }) => {
           <thead>
             <tr>
               {tableHeaders.map((header) => (
-                <th key={header} className="border-b border-gray px-2 py-4">
+                <th key={header} className="border-b border-gray px-1 py-4">
                   {header}
                 </th>
               ))}
@@ -48,16 +60,101 @@ const OrdersTable = ({ orders, variant }) => {
                   <td className="px-1 py-4">
                     {dateFormater(order.datePlaced)}
                   </td>
+                  <td className="px-1 py-4">{order.status}</td>
                   <td className="px-1 py-4">
                     ${order.total ? order.total.toFixed(2) : ''}
                   </td>
                   <td className="px-1 py-4">
-                    <Button
-                      onClick={() => handleViewOrder(order)}
-                      className="rounded-md bg-darkGreen px-2 py-1 text-white transition-transform duration-150 hover:bg-darkGreenHover"
-                    >
-                      View Order
-                    </Button>
+                    <Menu>
+                      {({ close }) => (
+                        <>
+                          <MenuButton className="rounded-md border px-2 py-1 text-gray">
+                            &#9776;
+                          </MenuButton>
+                          <MenuItems
+                            anchor="bottom end"
+                            modal={false}
+                            className="mt-1 rounded border border-gray bg-white p-2"
+                          >
+                            <MenuItem as="div" className="mb-1">
+                              <Button
+                                onClick={() => handleViewOrder(order, close)}
+                                className="hover:underline"
+                              >
+                                View order
+                              </Button>
+                            </MenuItem>
+                            {order.status === 'Pending' && (
+                              <MenuItem as="div" className="mb-1">
+                                <Button
+                                  onClick={() =>
+                                    handleUpdateOrderStatus(
+                                      order._id,
+                                      'Cancelled',
+                                      close
+                                    )
+                                  }
+                                  className="hover:underline"
+                                >
+                                  Cancel order
+                                </Button>
+                              </MenuItem>
+                            )}
+                            {order.status === 'Pending' &&
+                              variant === 'sales' && (
+                                <MenuItem as="div" className="mb-1">
+                                  <Button
+                                    onClick={() =>
+                                      handleUpdateOrderStatus(
+                                        order._id,
+                                        'Confirmed',
+                                        close
+                                      )
+                                    }
+                                    className="hover:underline"
+                                  >
+                                    Confirm order
+                                  </Button>
+                                </MenuItem>
+                              )}
+                            {order.status === 'Confirmed' &&
+                              variant === 'sales' && (
+                                <MenuItem as="div" className="mb-1">
+                                  <Button
+                                    onClick={() =>
+                                      handleUpdateOrderStatus(
+                                        order._id,
+                                        'Shipped',
+                                        close
+                                      )
+                                    }
+                                    className="hover:underline"
+                                  >
+                                    Order shipped
+                                  </Button>
+                                </MenuItem>
+                              )}
+                            {order.status === 'Shipped' &&
+                              variant === 'purchases' && (
+                                <MenuItem as="div" className="mb-1">
+                                  <Button
+                                    onClick={() =>
+                                      handleUpdateOrderStatus(
+                                        order._id,
+                                        'Delivered',
+                                        close
+                                      )
+                                    }
+                                    className="hover:underline"
+                                  >
+                                    Order delivered
+                                  </Button>
+                                </MenuItem>
+                              )}
+                          </MenuItems>
+                        </>
+                      )}
+                    </Menu>
                   </td>
                 </tr>
               ))
@@ -80,6 +177,7 @@ const OrdersTable = ({ orders, variant }) => {
 OrdersTable.propTypes = {
   orders: PropTypes.array.isRequired,
   variant: PropTypes.string.isRequired,
+  updateOrder: PropTypes.func.isRequired,
 };
 
 export default OrdersTable;

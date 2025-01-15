@@ -46,18 +46,22 @@ const BookCard = ({
           {price && <p className="font-bold">${price.toFixed(2)}</p>}
         </div>
         {(canEdit || canDelete) && (
-          <div className="mt-2 flex gap-1">
-            {canEdit && <EditButton id={id} />}
-            {canDelete && (
-              <DeleteButton id={id} title={title} updateList={updateList} />
+          <div className="mt-2 flex items-center justify-center gap-1">
+            {book.isAvailable ? (
+              <>
+                {canEdit && <EditButton id={id} />}
+                {canDelete && (
+                  <DeleteButton id={id} title={title} updateList={updateList} />
+                )}
+              </>
+            ) : (
+              <span className="text-red">Sold</span>
             )}
           </div>
         )}
         {showListings && (
           <div className="items-center">
-            {!isAvailable ? (
-              <p className="mt-2 text-red">Sold</p>
-            ) : (
+            {isAvailable ? (
               <Link
                 to={{
                   pathname: '/books',
@@ -67,6 +71,8 @@ const BookCard = ({
               >
                 Listings
               </Link>
+            ) : (
+              <p className="mt-2 text-red">Sold</p>
             )}
           </div>
         )}
@@ -102,14 +108,15 @@ BookCard.propTypes = {
     language: PropTypes.string,
     price: PropTypes.number,
     coverImageUrl: PropTypes.string,
+    isAvailable: PropTypes.bool,
   }),
   canEdit: PropTypes.bool,
   canDelete: PropTypes.bool,
   updateList: PropTypes.func,
   showListings: PropTypes.bool,
   canDeleteSaved: PropTypes.bool,
-  isAvailable: PropTypes.bool,
   isLink: PropTypes.bool,
+  isAvailable: PropTypes.bool,
 };
 
 export default BookCard;

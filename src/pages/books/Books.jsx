@@ -28,6 +28,7 @@ const Books = () => {
     condition: [],
     coverType: [],
     genre: [],
+    isAvailable: true,
   });
 
   const fetchBooks = useCallback(

@@ -10,7 +10,7 @@ import {
 } from '@headlessui/react';
 import clsx from 'clsx';
 
-import { getOrders } from '../../api/DBRequests';
+import { getOrders, updateOrderStatus } from '../../api/DBRequests';
 import OrdersTable from '../../components/account/orderHistory/OrdersTable';
 import { useAuth } from '../../context/AuthProvider';
 import Preloader from '../../layouts/Preloader';
@@ -33,6 +33,18 @@ const OrderHistory = () => {
     }
   }, [token]);
 
+  const updateOrder = async (orderId, status) => {
+    try {
+      setIsLoading(true);
+      await updateOrderStatus(orderId, status, token);
+      await fetchOrders();
+    } catch (error) {
+      setError('Failed to update orders. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchOrders();
   }, [fetchOrders]);
@@ -43,7 +55,7 @@ const OrderHistory = () => {
         <p>{error}</p>
       ) : (
         <>
-          <TabGroup className="p-3">
+          <TabGroup>
             <TabList className="mb-4">
               <Tab as={Fragment}>
                 {({ hover, selected }) => (
@@ -74,10 +86,18 @@ const OrderHistory = () => {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <OrdersTable orders={orders.buyOrders} variant="purchases" />
+                <OrdersTable
+                  orders={orders.buyOrders}
+                  variant="purchases"
+                  updateOrder={updateOrder}
+                />
               </TabPanel>
               <TabPanel>
-                <OrdersTable orders={orders.sellOrders} variant="sales" />
+                <OrdersTable
+                  orders={orders.sellOrders}
+                  variant="sales"
+                  updateOrder={updateOrder}
+                />
               </TabPanel>
             </TabPanels>
           </TabGroup>

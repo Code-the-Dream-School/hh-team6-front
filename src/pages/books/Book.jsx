@@ -13,7 +13,7 @@ const Book = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { isLoggedIn, userData, token } = useAuth();
+  const { isLoggedIn, token } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [bookData, setBookData] = useState(location.state || {});
 
@@ -82,7 +82,7 @@ const Book = () => {
 
   const handleWriteToOwner = async () => {
     setIsLoading(true);
-    const chat = await addChat(createdBy, token);
+    const chat = await addChat(createdBy._id, token);
     setIsLoading(false);
     setAccountPage('messages');
     setCurrentChatId(chat._id);
@@ -124,7 +124,7 @@ const Book = () => {
                   Add to cart
                 </Button>
                 <p>
-                  Selling by {`${userData?.firstName} ${userData?.lastName}`}
+                  Selling by {`${bookData.createdBy.firstName} ${bookData.createdBy.lastName}`}
                 </p>
                 <Button
                   onClick={handleWriteToOwner}

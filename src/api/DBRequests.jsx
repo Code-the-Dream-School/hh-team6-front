@@ -262,3 +262,12 @@ export const getOrders = async (token) => {
 
   return { buyOrders, sellOrders };
 };
+
+export const createOrder = async (orderData, token) => {
+  return handleApiRequest('/api/v1/orders', { headers: {} }, orderData, token);
+};
+
+export const updateOrderStatus = async (orderId, status, token) => {
+  const url = `/api/v1/orders/${orderId}`;
+  return handleApiRequest(url, { headers: {} }, { status }, token, 'patch');
+};

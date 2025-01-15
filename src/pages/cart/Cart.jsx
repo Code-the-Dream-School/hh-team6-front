@@ -69,11 +69,9 @@ const Cart = () => {
     }, {});
   }, [cartItems]);
 
-  if (isLoading) {
-    return <Preloader />;
-  }
   return (
     <div className="flex flex-grow flex-col">
+      {isLoading && <Preloader />}
       <main className="container mx-auto mt-8 px-4">
         <h1 className="mb-6 font-headings text-2xl font-bold">
           Shopping Cart{' '}
