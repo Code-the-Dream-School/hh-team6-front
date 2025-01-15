@@ -27,15 +27,20 @@ const useCheckoutForm = () => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
 
   const validateForm = () => {
-    const errors = {};
-    if (!form.email) errors.email = 'Email is required';
-    if (!form.firstName) errors.firstName = 'First Name is required';
-    if (!form.lastName) errors.lastName = 'Last Name is required';
-    if (!form.country) errors.country = 'Country is required';
-    if (!form.address) errors.address = 'Address is required';
-    if (!form.city) errors.city = 'City is required';
-    if (!form.zip) errors.zip = 'Zip is required';
-    return errors;
+    const requiredFields = {
+      email: 'Email is required',
+      firstName: 'First Name is required',
+      lastName: 'Last Name is required',
+      country: 'Country is required',
+      address: 'Address is required',
+      city: 'City is required',
+      zip: 'Zip is required',
+    };
+  
+    return Object.entries(requiredFields).reduce((errors, [field, message]) => {
+      if (!form[field]) errors[field] = message;
+      return errors;
+    }, {});
   };
 
   const handleSubmit = async (e) => {
