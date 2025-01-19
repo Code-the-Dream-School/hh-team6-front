@@ -252,6 +252,19 @@ export const deleteFromCart = (cartItemId, token) => {
   return handleApiRequest(url, { headers: {} }, {}, token, 'delete');
 };
 
+export const createClientSecret = async (token) => {
+  const {
+    data: { clientSecret },
+  } = await handleApiRequest(
+    '/api/v1/cart/create-payment-intent',
+    { headers: {} },
+    null,
+    token,
+    'post'
+  );
+  return clientSecret;
+};
+
 //orders
 export const getOrders = async (token) => {
   const headers = {};
