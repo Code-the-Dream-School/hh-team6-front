@@ -124,7 +124,8 @@ const Book = () => {
                   Add to cart
                 </Button>
                 <p>
-                  Selling by {`${bookData.createdBy.firstName} ${bookData.createdBy.lastName}`}
+                  Selling by{' '}
+                  {`${bookData.createdBy.firstName} ${bookData.createdBy.lastName}`}
                 </p>
                 <Button
                   onClick={handleWriteToOwner}
